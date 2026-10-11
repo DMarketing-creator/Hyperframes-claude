@@ -2,3 +2,6 @@ smile-ad/renders/work-*/
 smile-ad/renders/.*hf-transaction*/
 smile-ad/snapshots/
 node_modules/
+**/snapshots/
+**/renders/work-*/
+**/renders/.*hf-transaction*/

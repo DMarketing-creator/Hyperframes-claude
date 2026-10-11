@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1920px; height:1080px; overflow:hidden; background:#03152F; }
+  body { font-family: Inter, sans-serif; color:#fff; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; background:#03152F; }
+  .fill { position:absolute; left:0; top:0; width:1920px; height:1080px; }
+  .sc { position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:hidden; }
+  .h1 { font-size:80px; font-weight:800; letter-spacing:-1.5px; line-height:1.06; }
+  .h2 { font-size:68px; font-weight:800; letter-spacing:-1.2px; line-height:1.06; }
+  .sub { font-size:34px; font-weight:500; line-height:1.3; color:#e6f2ff; }
+  .cy { color:#36C5FF; }
+  .mask { overflow:hidden; display:block; padding-bottom:6px; }
+  .glass { background:linear-gradient(145deg,rgba(255,255,255,.17),rgba(255,255,255,.05)); border:1.5px solid rgba(160,215,255,.4); border-radius:24px; backdrop-filter:blur(8px); box-shadow:0 24px 60px rgba(0,8,30,.5), inset 0 0 40px rgba(54,197,255,.08); }
+  .foot { font-size:17px; color:rgba(255,255,255,.62); letter-spacing:.3px; }
+  .tag { font-size:15px; font-weight:800; letter-spacing:2.4px; text-transform:uppercase; color:#36C5FF; }
+  .pill { display:inline-block; padding:6px 16px; border-radius:30px; font-size:19px; font-weight:700; white-space:nowrap; }
+  .bar { height:9px; border-radius:6px; background:rgba(255,255,255,.28); }
+  .bar.dk { background:#cfd8e3; }
+  svg { display:block; overflow:visible; }
+  .paper { position:absolute; width:210px; height:272px; background:linear-gradient(160deg,#fbfaf6,#e9e6dc); box-shadow:0 10px 22px rgba(0,0,0,.45); overflow:hidden; color:#33415c; border-radius:3px; }
+  .paper .ln { position:absolute; left:16px; height:6px; border-radius:3px; background:rgba(40,60,100,.28); }
+  .paper b { position:absolute; left:16px; top:14px; font-size:15px; font-weight:800; }
+  .win { position:absolute; background:#f4f7fb; color:#0d3b66; border-radius:20px; overflow:hidden; box-shadow:0 30px 80px rgba(0,8,30,.6), 0 0 90px rgba(20,123,255,.45); }
+  .chip { display:inline-block; padding:5px 14px; border-radius:24px; font-size:17px; font-weight:700; white-space:nowrap; }
+  .disc { position:absolute; border-radius:50%; background:radial-gradient(circle at 35% 30%,rgba(80,170,255,.55),rgba(14,68,113,.8)); border:3px solid rgba(120,200,255,.7); box-shadow:0 0 40px rgba(20,123,255,.6), inset 0 0 40px rgba(54,197,255,.3); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="mps-ai-solutions" data-start="0" data-duration="57.6" data-width="1920" data-height="1080">
+  <div id="s1" class="fill clip" data-start="0"    data-duration="9.8"  data-track-index="1"><div class="sc"></div></div>
+  <div id="s2" class="fill clip" data-start="8.7"  data-duration="9.8"  data-track-index="2"><div class="sc"></div></div>
+  <div id="s3" class="fill clip" data-start="17.3" data-duration="10.3" data-track-index="3"><div class="sc"></div></div>
+  <div id="s4" class="fill clip" data-start="26.2" data-duration="12.8" data-track-index="4"><div class="sc"></div></div>
+  <div id="s5" class="fill clip" data-start="37.9" data-duration="11.3" data-track-index="5"><div class="sc"></div></div>
+  <div id="s6" class="fill clip" data-start="47.8" data-duration="9.8"  data-track-index="6"><div class="sc"></div></div>
+  <div id="fx" class="fill clip" data-start="0" data-duration="57.6" data-track-index="7" style="pointer-events:none"></div>
+  <div id="endfade" class="fill clip" data-start="56.3" data-duration="1.3" data-track-index="8" style="background:#03152F;opacity:0"></div>
+  <div id="dot" class="fill clip" data-start="0" data-duration="57.6" data-track-index="9" style="pointer-events:none"></div>
+
+  <audio id="a-music" data-start="0" data-duration="57.6" data-track-index="10" data-volume="0.85" src="assets/music.mp3"></audio>
+  <audio id="a-sfx"   data-start="0" data-duration="57.6" data-track-index="11" data-volume="0.9"  src="assets/sfx_bed.mp3"></audio>
+  <audio id="a-vo1" data-start="1.8"  data-duration="5.85" data-track-index="12" data-volume="1" src="assets/vo/scene1.mp3"></audio>
+  <audio id="a-vo2" data-start="10.1" data-duration="6.6"  data-track-index="12" data-volume="1" src="assets/vo/scene2.mp3"></audio>
+  <audio id="a-vo3" data-start="18.9" data-duration="7.02" data-track-index="12" data-volume="1" src="assets/vo/scene3.mp3"></audio>
+  <audio id="a-vo4" data-start="28.3" data-duration="9.37" data-track-index="12" data-volume="1" src="assets/vo/scene4.mp3"></audio>
+  <audio id="a-vo5" data-start="39.7" data-duration="7.94" data-track-index="12" data-volume="1" src="assets/vo/scene5.mp3"></audio>
+  <audio id="a-vo6" data-start="50.2" data-duration="5.61" data-track-index="12" data-volume="1" src="assets/vo/scene6.mp3"></audio>
+</div>
+
+<script>
+(function(){
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  var rnd=mulberry(9917), R=function(a,b){return a+(b-a)*rnd();};
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+  function box(parent,cls,style,inner){var d=document.createElement('div');d.className=cls||'';d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+  function img(parent,src,style){var i=document.createElement('img');i.src=src;i.style.cssText='position:absolute;'+(style||'');parent.appendChild(i);return i;}
+  function set(el,o){gsap.set(el,o);return el;}
+  function samp(path){ var L=path.getTotalLength(),a=[]; for(var i=0;i<=200;i++){var q=path.getPointAtLength(L*i/200); a.push({x:q.x,y:q.y});} return a; }  // build-time sampling (seek-safe)
+  function pathPoint(a,p){ return a[Math.max(0,Math.min(200,Math.round(p*200)))]; }
+  function stream(path,count,start,dur,mk,rev){ var a=samp(path);
+    for(var i=0;i<count;i++){ (function(i){ var o={p:0}, el=mk(i);
+      tl.fromTo(o,{p:0},{p:1,duration:dur,ease:'none',onUpdate:function(){var pt=pathPoint(a,rev?1-o.p:o.p); gsap.set(el,{x:pt.x,y:pt.y,opacity:Math.sin(Math.PI*o.p)});}},start+i*(dur*0.9/count)); })(i); } }
+  function words(parent,html,style,at,step,dur){ var w=box(parent,'',style); w.innerHTML=html; w.querySelectorAll('.mask>span').forEach(function(e,i){ tl.fromTo(e,{y:'112%'},{y:'0%',duration:dur||.8,ease:'power4.out'},at+i*(step||.35)); }); return w; }
+  function dotMk(parent,col){ return function(){ return box(parent,'','left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:'+col+';box-shadow:0 0 16px '+col+',0 0 34px '+col+';opacity:0;'); }; }
+  function svgPath(parent,d,col,w,op){ var s=box(parent,'','left:0;top:0;width:1920px;height:1080px;pointer-events:none;'); s.innerHTML='<svg width="1920" height="1080" viewBox="0 0 1920 1080"><path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="round" opacity="'+(op||.7)+'"/></svg>'; return s.querySelector('path'); }
+  function draw(path,at,dur){ var L=path.getTotalLength(); set(path,{strokeDasharray:L,strokeDashoffset:L}); tl.to(path,{strokeDashoffset:0,duration:dur||.9,ease:'power2.out'},at); }
+  function photo(parent,k,x,y,s,col){ var M={A:'pA',B:'pB',C:'pC',D:'pD',H:'hr'}; var d=box(parent,'','left:'+x+'px;top:'+y+'px;width:'+s+'px;height:'+s+'px;border-radius:50%;overflow:hidden;border:3px solid '+(col||'#36C5FF')+';background:#9fd0ff;'); img(d,'assets/'+M[k]+'.jpg','left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;'); return d; }
+  function aiCore(parent,cx,cy,r,id){ // luminous AI processing core (rings + neural nodes + "AI")
+    var d=box(parent,'','left:'+(cx-r*1.8)+'px;top:'+(cy-r*1.8)+'px;width:'+(r*3.6)+'px;height:'+(r*3.6)+'px;'); var c=r*1.8, nodes='';
+    for(var i=0;i<10;i++){ var a=i/10*Math.PI*2, rr=r*(.55+((i*37)%5)/14); nodes+='<circle cx="'+(c+Math.cos(a)*rr)+'" cy="'+(c+Math.sin(a)*rr)+'" r="4" fill="#bff0ff"/><line x1="'+c+'" y1="'+c+'" x2="'+(c+Math.cos(a)*rr)+'" y2="'+(c+Math.sin(a)*rr)+'" stroke="#7fdcff" stroke-opacity=".45" stroke-width="1.5"/>'; }
+    d.innerHTML='<svg width="'+(r*3.6)+'" height="'+(r*3.6)+'" viewBox="0 0 '+(r*3.6)+' '+(r*3.6)+'"><defs><radialGradient id="cg'+id+'" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9fe9ff" stop-opacity=".95"/><stop offset=".45" stop-color="#147BFF" stop-opacity=".6"/><stop offset="1" stop-color="#03152F" stop-opacity="0"/></radialGradient><filter id="cf'+id+'" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="'+(r*.1)+'"/></filter></defs>'
+      +'<circle cx="'+c+'" cy="'+c+'" r="'+(r*1.7)+'" fill="url(#cg'+id+')" opacity=".55"/>'
+      +'<circle cx="'+c+'" cy="'+c+'" r="'+r+'" fill="#06264d" stroke="#7fdcff" stroke-width="3"/>'
+      +'<circle cx="'+c+'" cy="'+c+'" r="'+r+'" fill="none" stroke="#36C5FF" stroke-width="9" filter="url(#cf'+id+')" opacity=".8"/>'
+      +'<g class="spin" style="transform-origin:'+c+'px '+c+'px"><circle cx="'+c+'" cy="'+c+'" r="'+(r*1.28)+'" fill="none" stroke="#36C5FF" stroke-width="3" stroke-dasharray="26 18" opacity=".8"/>'+nodes+'</g>'
+      +'<text x="'+c+'" y="'+(c+r*.28)+'" text-anchor="middle" font-family="Inter" font-weight="800" font-size="'+(r*.8)+'" fill="#fff" style="text-shadow:0 0 20px #36C5FF">AI</text></svg>';
+    tl.to(d.querySelector('.spin'),{rotation:360,duration:40,ease:'none'},0); return d; }
+  function scenery(p,o){ o=o||{}; box(p,'', 'inset:0;background:radial-gradient(1400px 900px at '+(o.cx||'55%')+' '+(o.cy||'40%')+',#0E4471 0%,#06264d 45%,#03152F 100%);');
+    box(p,'','left:-80px;top:-80px;width:2080px;height:1240px;opacity:.15;background-image:linear-gradient(rgba(54,197,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(54,197,255,.5) 1px,transparent 1px);background-size:90px 90px;');
+    for(var i=0;i<2;i++) box(p,'','width:800px;height:800px;border-radius:50%;left:'+[-200,1200][i]+'px;top:'+[300,-250][i]+'px;background:radial-gradient(circle,rgba(20,123,255,.35),transparent 65%);');
+    for(var k=0;k<34;k++){ var s=R(3,8); box(p,'','left:'+R(0,1900)+'px;top:'+R(0,1060)+'px;width:'+s+'px;height:'+s+'px;border-radius:50%;background:'+(k%3?'#36C5FF':'#fff')+';opacity:'+R(.2,.55)+';'); } }
+  function skyline(p,x,y,w,h,mbs){ var H0=1920*h/w,B=H0*.72,out='<svg width="'+w+'" height="'+h+'" viewBox="0 0 1920 '+H0+'" preserveAspectRatio="none"><defs><linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16396b"/><stop offset="1" stop-color="#071a38"/></linearGradient><linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2b5a" stop-opacity=".95"/><stop offset="1" stop-color="#03152F"/></linearGradient><linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#2b7fe0"/></linearGradient></defs>',wins='',rr=mulberry(77),xc=-20;
+    while(xc<1940){ var bw=60+rr()*90,bh=H0*(.16+rr()*.34),near=rr()>.55; out+='<rect x="'+xc+'" y="'+(B-bh)+'" width="'+bw+'" height="'+bh+'" fill="'+(near?'url(#bd)':'#0c2850')+'" opacity="'+(near?1:.75)+'"/>'; for(var wy=B-bh+14;wy<B-8;wy+=17)for(var wx=xc+8;wx<xc+bw-10;wx+=15)if(rr()>.62)wins+='<rect x="'+wx+'" y="'+wy+'" width="6" height="8" fill="'+(rr()>.5?'#ffe7a6':'#8fdcff')+'" opacity="'+(.35+rr()*.55)+'"/>'; xc+=bw+rr()*14; }
+    var mx=mbs*1920,th=H0*.62; [[-150,18],[0,0],[150,-18]].forEach(function(t){var cx=mx+t[0],ln=t[1]; out+='<polygon points="'+(cx-52)+','+B+' '+(cx+52)+','+B+' '+(cx+34+ln)+','+(B-th)+' '+(cx-34+ln)+','+(B-th)+'" fill="url(#gl)" opacity=".92"/>'; for(var ly=B-th+20;ly<B-6;ly+=16)out+='<line x1="'+(cx-40)+'" y1="'+ly+'" x2="'+(cx+40)+'" y2="'+ly+'" stroke="#0a2c5c" stroke-opacity=".35" stroke-width="2"/>';});
+    out+='<path d="M'+(mx-250)+','+(B-th-2)+' L'+(mx+250)+','+(B-th-2)+' L'+(mx+292)+','+(B-th-26)+' L'+(mx+226)+','+(B-th+16)+' L'+(mx-236)+','+(B-th+16)+' Z" fill="#cfe9ff" opacity=".95"/><rect x="'+(mx-236)+'" y="'+(B-th+16)+'" width="462" height="9" fill="#2b7fe0" opacity=".9"/>';
+    var ax=mx-520; for(var pt=0;pt<5;pt++){var a=(-70+pt*35)*Math.PI/180; out+='<path d="M'+ax+','+B+' Q'+(ax+Math.sin(a)*70)+','+(B-110-Math.cos(a)*50)+' '+(ax+Math.sin(a)*130)+','+(B-70*Math.cos(a))+' L'+(ax+Math.sin(a)*40)+','+B+' Z" fill="#b6dcff" opacity=".85"/>';}
+    out+='<rect x="0" y="'+B+'" width="1920" height="'+(H0-B)+'" fill="url(#wt)"/>'; for(var wl=0;wl<26;wl++){var wyy=B+8+wl*(H0-B-10)/26,wx2=R(0,1920),ww=R(80,420);out+='<rect x="'+wx2+'" y="'+wyy+'" width="'+ww+'" height="3" rx="2" fill="'+(wl%2?'#36C5FF':'#7cc4ff')+'" opacity="'+(.35-wl*.01)+'"/>';}
+    return box(p,'','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;',out+wins+'</svg>'); }
+  function reveal(sc,from,to,at,dur,ease){ tl.fromTo(sc,{clipPath:from},{clipPath:to,duration:dur||1.1,ease:ease||'power2.inOut'},at); }
+  var S1=$('#s1 .sc'),S2=$('#s2 .sc'),S3=$('#s3 .sc'),S4=$('#s4 .sc'),S5=$('#s5 .sc'),S6=$('#s6 .sc'), FX=$('#fx');
+  var logoW=function(p,t){ var l=img(p,'assets/mps-white.png','left:70px;top:48px;width:170px;height:auto;opacity:0;'); tl.fromTo(l,{opacity:0,y:-12},{opacity:.95,y:0,duration:.8},t); return l; };
+
+  /* ================= SCENE 1 — AI That Works Alongside Your Team (0–9.2) ================= */
+  var RC=[1180,520];
+  box(S1,'','inset:0;background:#03152F;');
+  var plate1=box(S1,'','left:0;top:0;width:1920px;height:1080px;overflow:hidden;');
+  img(plate1,'assets/s1-hr.jpg','left:-120px;top:-70px;width:2160px;height:1216px;filter:blur(4px) brightness(.55) saturate(1.15);');
+  box(plate1,'','inset:0;background:linear-gradient(90deg,rgba(3,21,47,.94),rgba(3,21,47,.62) 52%,rgba(3,21,47,.28));');
+  box(plate1,'','left:-80px;top:-80px;width:2080px;height:1240px;opacity:.13;background-image:linear-gradient(rgba(54,197,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(54,197,255,.5) 1px,transparent 1px);background-size:90px 90px;');
+  reveal(plate1,'circle(0px at 1180px 520px)','circle(1500px at 1180px 520px)',.7,2.4,'power2.out');
+  var cam1=box(S1,'','left:0;top:0;width:1920px;height:1080px;'); set(cam1,{transformOrigin:RC[0]+'px '+RC[1]+'px'});
+  var ringW=box(cam1,'','left:'+(RC[0]-400)+'px;top:'+(RC[1]-400)+'px;width:800px;height:800px;');
+  ringW.innerHTML='<svg width="800" height="800" viewBox="0 0 800 800"><defs><linearGradient id="r1g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#147BFF"/><stop offset="1" stop-color="#36C5FF"/></linearGradient><filter id="r1f" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="12"/></filter></defs><circle cx="400" cy="400" r="300" fill="rgba(20,123,255,.07)"/><circle cx="400" cy="400" r="300" fill="none" stroke="url(#r1g)" stroke-width="26" filter="url(#r1f)" opacity=".9"/><circle cx="400" cy="400" r="300" fill="none" stroke="url(#r1g)" stroke-width="10"/><circle class="rt" cx="400" cy="400" r="338" fill="none" stroke="#36C5FF" stroke-width="3" stroke-dasharray="34 24" opacity=".7"/></svg>';
+  set(ringW,{scale:.01,opacity:0,x:960-RC[0],y:540-RC[1]});
+  tl.to(ringW,{opacity:1,duration:.3},.4);
+  tl.to(ringW,{scale:1,x:0,y:0,duration:2.0,ease:'power3.out'},.4);
+  tl.to(ringW.querySelector('.rt'),{rotation:90,transformOrigin:'400px 400px',duration:9,ease:'none'},.4);
+  // AI assistant figure (luminous, semi-human bust built from lines/nodes)
+  var fig=box(cam1,'','left:'+(RC[0]-190)+'px;top:'+(RC[1]-215)+'px;width:380px;height:430px;');
+  var nodeS=''; for(var n=0;n<26;n++){ var nx=R(110,270),ny=R(30,200); nodeS+='<circle cx="'+nx+'" cy="'+ny+'" r="'+R(2,4)+'" fill="#bff0ff"/>'; }
+  fig.innerHTML='<svg width="380" height="430" viewBox="0 0 380 430"><defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fe9ff" stop-opacity=".95"/><stop offset="1" stop-color="#147BFF" stop-opacity=".25"/></linearGradient><filter id="ff" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter></defs>'
+    +'<g class="fh"><path d="M190 36 C262 36 292 92 284 150 C278 196 238 230 190 230 C142 230 102 196 96 150 C88 92 118 36 190 36 Z" fill="url(#fg)" opacity=".42"/><path class="fo" d="M190 36 C262 36 292 92 284 150 C278 196 238 230 190 230 C142 230 102 196 96 150 C88 92 118 36 190 36 Z" fill="none" stroke="#7fdcff" stroke-width="3"/>'
+    +'<path d="M20 430 C20 330 100 262 190 262 C280 262 360 330 360 430 Z" fill="url(#fg)" opacity=".38"/><path class="fo" d="M20 430 C20 330 100 262 190 262 C280 262 360 330 360 430" fill="none" stroke="#7fdcff" stroke-width="3"/></g>'
+    +'<g opacity=".9">'+nodeS+'</g><path d="M130 120 L190 90 L250 120 L220 170 L160 170 Z M190 90 L190 40 M130 120 L100 150 M250 120 L282 150 M160 170 L190 230 L220 170" fill="none" stroke="#bff0ff" stroke-opacity=".7" stroke-width="1.6"/>'
+    +'<path d="M20 430 C20 330 100 262 190 262 C280 262 360 330 360 430" fill="none" stroke="#36C5FF" stroke-width="9" filter="url(#ff)" opacity=".55"/></svg>';
+  set(fig,{opacity:0,scale:.82}); fig.querySelectorAll('.fo').forEach(function(q){var L=q.getTotalLength(); set(q,{strokeDasharray:L,strokeDashoffset:L}); tl.to(q,{strokeDashoffset:0,duration:1.4,ease:'power2.inOut'},2.2);});
+  tl.to(fig,{opacity:1,scale:1,duration:1.4,ease:'power3.out'},2.2);
+  tl.to(fig,{y:-10,duration:1.8,yoyo:true,repeat:3,ease:'sine.inOut'},3.8);
+  // holographic dashboards around the core
+  function holo(x,y,w,h,inner,at,fromx){ var c=box(cam1,'glass','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;border-radius:18px;padding:16px;',inner); set(c,{opacity:0}); tl.fromTo(c,{opacity:0,x:fromx,scale:.7},{opacity:1,x:0,scale:1,duration:1.0,ease:'power3.out'},at); tl.to(c,{y:-12,duration:1.7,yoyo:true,repeat:3,ease:'sine.inOut'},at+1); return c; }
+  var bars=[40,64,52,90,70,110,96].map(function(h,i){return '<div style="position:absolute;bottom:14px;left:'+(18+i*38)+'px;width:24px;height:'+h+'px;border-radius:5px 5px 1px 1px;background:linear-gradient(#36C5FF,#147BFF)"></div>'}).join('');
+  var hA=holo(1530,190,300,190,'<div class="tag" style="font-size:12px">Workflow overview</div>'+bars,2.9,-300);
+  var hB=holo(1560,450,300,230,'<div class="tag" style="font-size:12px">Team collaboration</div><div style="position:absolute;left:16px;top:42px;width:268px;height:170px;border-radius:12px;overflow:hidden"><img src="assets/team.jpg" style="width:100%;height:100%;object-fit:cover"></div>',3.2,-340);
+  var hC=holo(1500,720,330,170,'<div class="tag" style="font-size:12px">Daily tasks</div>'+['Review reports','Follow up approvals','Update records'].map(function(t,i){return '<div style="position:absolute;left:16px;top:'+(44+i*40)+'px;font-size:19px;font-weight:600"><span style="color:#36C5FF">✓</span>&nbsp; '+t+'</div>'}).join(''),3.5,-300);
+  var hD=holo(780,150,250,140,'<div class="tag" style="font-size:12px">Insights</div><svg width="218" height="80" viewBox="0 0 218 80" style="position:absolute;left:16px;top:44px"><polyline points="0,64 40,50 80,58 120,28 160,36 218,8" fill="none" stroke="#36C5FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',3.8,200);
+  // connections AI → business (triggered on "alongside your team")
+  var anchors=[[1530,285],[1560,565],[1500,805],[1030,230]];
+  var cons=anchors.map(function(a,i){ var p=svgPath(cam1,'M '+RC[0]+' '+RC[1]+' C '+((RC[0]+a[0])/2)+' '+(RC[1]-60+i*40)+', '+((RC[0]+a[0])/2)+' '+a[1]+', '+a[0]+' '+a[1],'#36C5FF',3,.8); draw(p,3.44+i*.18,.9); stream(p,7,3.7+i*.2,2.2,dotMk(cam1,'#9fe9ff')); return p; });
+  // headline + brand
+  logoW(S1,3.0);
+  var hl1=words(S1,'<div class="mask"><span class="h1" style="display:block">AI That Works</span></div><div class="mask"><span class="h1 cy" style="display:block">Alongside</span></div><div class="mask"><span class="h1" style="display:block">Your Team</span></div>','left:100px;top:240px;width:760px;',2.6,.55,.9);
+  var sup1=box(S1,'sub','left:104px;top:580px;width:620px;font-size:36px;','Practical AI Solutions Built for Business'); set(sup1,{opacity:0}); tl.fromTo(sup1,{opacity:0,y:22},{opacity:1,y:0,duration:.8,ease:'power3.out'},4.7);
+  tl.fromTo(cam1,{scale:.94},{scale:1.07,duration:8.6,ease:'sine.inOut'},.6);
+  box(S1,'foot','right:70px;top:1020px;','Illustrative visuals');
+  // exit: data released from the interface carries the camera into scene 2
+  var edge=box(FX,'','left:0;top:0;width:10px;height:1080px;background:linear-gradient(180deg,transparent,#9fe9ff,transparent);box-shadow:0 0 40px 12px rgba(54,197,255,.8);opacity:0;');
+  tl.set(edge,{opacity:1,x:0},8.7); tl.to(edge,{x:1930,duration:1.1,ease:'power2.inOut'},8.7);
+  tl.set(edge,{opacity:0},9.9);
+  for(var fp=0;fp<22;fp++){ var dp=box(FX,'','left:0;top:'+R(120,980)+'px;width:'+R(60,160)+'px;height:3px;border-radius:2px;background:linear-gradient(90deg,transparent,#9fe9ff);opacity:0;'); tl.fromTo(dp,{x:R(-100,200),opacity:0},{x:1900+R(0,200),opacity:1,duration:R(.7,1.0),ease:'power2.in'},8.6+R(0,.4)); tl.to(dp,{opacity:0,duration:.2},9.5); }
+  tl.to([ringW,fig,hA,hB,hC,hD],{x:'+=240',opacity:0,duration:.9,ease:'power2.in'},8.4);
+  tl.to([hl1,sup1],{opacity:0,duration:.5},8.5);
+
+  /* ================= SCENE 2 — Smarter Workflows (9.2–18.0) ================= */
+  scenery(S2,{cx:'60%',cy:'50%'});
+  tl.fromTo(S2,{clipPath:'inset(0px 1920px 0px 0px)'},{clipPath:'inset(0px 0px 0px 0px)',duration:1.0,ease:'power2.inOut'},8.7);
+  var cam2=box(S2,'','left:0;top:0;width:1920px;height:1080px;'); set(cam2,{transformOrigin:'820px 600px'});
+  var CC=[820,600];
+  var hl2=words(S2,'<div class="mask"><span class="h2" style="display:block">Your Team Deserves</span></div><div class="mask"><span class="h2" style="display:block"><span class="cy">Smarter</span> Workflows</span></div>','left:100px;top:170px;width:1100px;z-index:4;',9.6,.4,.9);
+  var sup2=box(S2,'sub','left:104px;top:372px;font-size:34px;z-index:4;','Less Repetitive Work. More Possibilities.'); set(sup2,{opacity:0}); tl.fromTo(sup2,{opacity:0,y:20},{opacity:1,y:0,duration:.7,ease:'power3.out'},10.2);
+  logoW(S2,9.8);
+  // disconnected tasks (left / mid) at different depths
+  var chaos=[];
+  for(var d=0;d<8;d++){ var pp=box(cam2,'paper','left:'+(70+R(0,470))+'px;top:'+(430+R(0,420))+'px;'); pp.innerHTML='<b>INVOICE</b>'+[0,1,2,3,4,5,6,7].map(function(i){return '<div class="ln" style="top:'+(46+i*22)+'px;width:'+(i%3==2?100:176)+'px"></div>'}).join(''); set(pp,{rotation:R(-28,28),scale:R(.62,.86)}); if(d%3==0) pp.style.filter='blur(2px)'; chaos.push(pp); }
+  for(var sx=0;sx<2;sx++){ var sh=box(cam2,'','left:'+(110+sx*260)+'px;top:'+(620+sx*190)+'px;width:310px;height:190px;border-radius:8px;background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.45);overflow:hidden;'); for(var r_=0;r_<6;r_++)for(var c_=0;c_<4;c_++) box(sh,'','left:'+(c_*78)+'px;top:'+(r_*32)+'px;width:77px;height:31px;border:1px solid #cfd8e3;background:'+(r_==0?'#127a43':(c_==0?'#eef3f9':'#fff'))+';'); set(sh,{rotation:sx?6:-5}); chaos.push(sh); }
+  ['New email · Invoice query','Reminder: follow up','Approval needed','Report due today'].forEach(function(t,i){ var e=box(cam2,'glass','left:'+(90+(i%2)*270)+'px;top:'+(450+i*86)+'px;padding:12px 20px;font-size:21px;font-weight:700;border-radius:14px;background:rgba(6,34,59,.9);backdrop-filter:none;','<span style="color:#ffb454">●</span> '+t); chaos.push(e); });
+  chaos.forEach(function(e,i){ set(e,{opacity:0}); tl.fromTo(e,{opacity:0,y:60},{opacity:1,y:0,duration:.7,ease:'power3.out'},9.9+i*.07); tl.to(e,{x:'+='+R(-14,14),y:'+='+R(-12,12),rotation:'+='+R(-3,3),duration:R(.7,1.1),yoyo:true,repeat:2,ease:'sine.inOut'},10.7+i*.04); });
+  // AI core + unified dashboard
+  var core2=aiCore(cam2,CC[0],CC[1],86,'c2'); set(core2,{scale:.2,opacity:0});
+  tl.to(core2,{scale:1,opacity:1,duration:.9,ease:'back.out(1.6)'},11.5);
+  var dash=box(cam2,'win','left:1020px;top:330px;width:800px;height:520px;background:linear-gradient(160deg,#0a2347,#06182f);color:#fff;border:1.5px solid rgba(120,200,255,.45);');
+  box(dash,'','left:0;top:0;width:800px;height:56px;background:#0c2547;border-bottom:1px solid #16345e;'); box(dash,'tag','left:26px;top:20px;','Connected workflows');
+  [['Documents','128'],['Approvals','42'],['Reports','17']].forEach(function(k,i){ var t=box(dash,'','left:'+(26+i*250)+'px;top:78px;width:230px;height:92px;border-radius:14px;background:rgba(255,255,255,.09);border:1px solid rgba(120,200,255,.3);','<div style="position:absolute;left:16px;top:12px;font-size:16px;color:#9cc2f2;font-weight:600">'+k[0]+' processed</div><div class="kn" style="position:absolute;left:16px;top:38px;font-size:40px;font-weight:800">0</div>'); t.setAttribute('data-n',k[1]); });
+  var steps=['Collect documents','Route for approval','Update business records','Notify the team'], stEl=[];
+  steps.forEach(function(t,i){ var r=box(dash,'','left:26px;top:'+(196+i*78)+'px;width:748px;height:62px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(120,200,255,.25);','<div class="dt" style="position:absolute;left:16px;top:15px;width:32px;height:32px;border-radius:50%;border:3px solid #4a6a90"></div><div style="position:absolute;left:66px;top:16px;font-size:24px;font-weight:600">'+t+'</div><div class="pb" style="position:absolute;right:26px;top:26px;width:200px;height:10px;border-radius:6px;background:rgba(255,255,255,.15)"></div><div class="pf" style="position:absolute;right:26px;top:26px;width:200px;height:10px;border-radius:6px;background:linear-gradient(90deg,#147BFF,#36C5FF)"></div>'); set(r.querySelector('.pf'),{scaleX:0,transformOrigin:'100% 50%'}); stEl.push(r); });
+  var illus2=box(cam2,'foot','left:1020px;top:860px;','Illustrative dashboard · fictional data'); set(illus2,{opacity:0});
+  set(dash,{opacity:0,scale:.85,transformOrigin:'0% 50%'}); tl.to(illus2,{opacity:1,duration:.5},14.0);
+  // transformation on "smarter, more connected workflows"
+  var absorb=chaos.slice();
+  absorb.forEach(function(e,i){ tl.to(e,{x:'+='+(CC[0]-(parseFloat(e.style.left)+105)),y:'+='+(CC[1]-(parseFloat(e.style.top)+80)),scale:.12,opacity:0,duration:1.0,ease:'power3.in'},12.1+i*.07); });
+  for(var sp=0;sp<14;sp++){ var spk=box(cam2,'','left:'+(CC[0]-6)+'px;top:'+(CC[1]-6)+'px;width:12px;height:12px;border-radius:50%;background:#9fe9ff;box-shadow:0 0 18px #36C5FF;opacity:0;'); tl.fromTo(spk,{x:0,y:0,opacity:1,scale:1},{x:Math.cos(sp/14*6.283)*150,y:Math.sin(sp/14*6.283)*150,opacity:0,scale:.2,duration:.9,ease:'power2.out'},12.4+sp*.03); }
+  var link2=svgPath(cam2,'M 910 600 C 960 600, 980 560, 1020 560','#36C5FF',4,.9); draw(link2,13.1,.6); stream(link2,10,13.2,1.0,dotMk(cam2,'#9fe9ff'));
+  tl.to(dash,{opacity:1,scale:1,duration:.9,ease:'power3.out'},13.4);
+  dash.querySelectorAll('[data-n]').forEach(function(t,i){ var o={v:0},n=+t.getAttribute('data-n'),el=t.querySelector('.kn'); tl.to(o,{v:n,duration:1.4,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(o.v)}},14.0+i*.15); });
+  stEl.forEach(function(r,i){ var at=14.4+i*.6; tl.to(r.querySelector('.pf'),{scaleX:1,duration:.5,ease:'power2.out'},at); tl.to(r.querySelector('.dt'),{backgroundColor:'#1fbf75',borderColor:'#7dffc0',duration:.3},at+.4); tl.to(r,{borderColor:'#36C5FF',boxShadow:'0 0 30px rgba(54,197,255,.6)',duration:.3},at+.4); });
+  tl.fromTo(cam2,{scale:1},{scale:1.05,duration:8,ease:'sine.inOut'},9.6);
+  tl.to(core2.querySelector('svg'),{scale:1.1,duration:.6,yoyo:true,repeat:5,ease:'sine.inOut',transformOrigin:'50% 50%'},13.2);
+  // exit: the AI core becomes a luminous business network
+  tl.to([hl2,sup2,dash,illus2],{opacity:0,duration:.6},17.0);
+  tl.to(core2,{scale:2.4,duration:1.0,ease:'power2.in'},17.2);
+
+  /* ================= SCENE 3 — AI Agents for Every Department (18.0–27.4) ================= */
+  scenery(S3,{cx:'50%',cy:'55%'});
+  reveal(S3,'circle(0px at 820px 600px)','circle(2400px at 820px 600px)',17.3,1.1);
+  var cam3=box(S3,'','left:0;top:0;width:1920px;height:1080px;'); set(cam3,{transformOrigin:'960px 575px'});
+  var hl3=words(S3,'<div class="mask" style="text-align:center"><span class="h2" style="display:block;font-size:64px">AI Agents for <span class="cy">Every Department</span></span></div>','left:160px;top:60px;width:1600px;z-index:4;',17.9,.3,.9);
+  var sup3=box(S3,'sub','left:160px;top:160px;width:1600px;text-align:center;font-size:32px;z-index:4;','Specialised AI. Connected Teams.'); set(sup3,{opacity:0}); tl.fromTo(sup3,{opacity:0,y:18},{opacity:1,y:0,duration:.7},18.4);
+  logoW(S3,18.2);
+  var HUB=[960,575]; var hub=aiCore(cam3,HUB[0],HUB[1],100,'c3'); set(hub,{scale:2.2,opacity:0}); tl.to(hub,{scale:1,opacity:1,duration:1.0,ease:'power3.out'},17.7);
+  var hlab=box(cam3,'','left:760px;top:715px;width:400px;text-align:center;font-size:26px;font-weight:800;letter-spacing:2px;color:#9fe9ff;','MPS AI AGENTS'); set(hlab,{opacity:0}); tl.to(hlab,{opacity:1,duration:.6},18.6);
+  var depts=[
+   {k:'A',t:'Management',x:130,y:250,at:19.6,b:['Task follow-ups','Escalations','Management reports'],ax:550,ay:350,col:'#36C5FF'},
+   {k:'B',t:'Marketing',x:1370,y:250,at:20.4,b:['Campaign performance summaries','Marketing assistance'],ax:1370,ay:350,col:'#5aa7ff'},
+   {k:'C',t:'Finance',x:130,y:700,at:20.9,b:['Document workflows','SAP B1 integration, where applicable'],ax:550,ay:800,col:'#7ee0c3'},
+   {k:'D',t:'Sales & Operations',x:1370,y:700,at:21.8,b:['SAP Business One guidance','Marketplace order workflows'],ax:1370,ay:800,col:'#ffd24f'}];
+  var dnodes=depts.map(function(d,i){
+    var c=box(cam3,'glass','left:'+d.x+'px;top:'+d.y+'px;width:420px;height:210px;'); set(c,{opacity:.35,scale:.92});
+    photo(c,d.k,22,22,86,d.col); box(c,'','left:126px;top:24px;font-size:30px;font-weight:800;',d.t); box(c,'tag','left:126px;top:66px;','AI agent');
+    var bl=d.b.map(function(t,j){ var e=box(c,'','left:24px;top:'+(124+j*28)+'px;font-size:17px;font-weight:600;color:#cfe6ff;white-space:nowrap;','<span style="color:'+d.col+'">●</span>&nbsp; '+t); set(e,{opacity:0}); tl.fromTo(e,{opacity:0,x:-16},{opacity:1,x:0,duration:.5},d.at+.2+j*.18); return e; });
+    var p=svgPath(cam3,'M '+HUB[0]+' '+HUB[1]+' C '+((HUB[0]+d.ax)/2)+' '+(HUB[1]+(i<2?-40:40))+', '+((HUB[0]+d.ax)/2)+' '+d.ay+', '+d.ax+' '+d.ay,d.col,3,.75); draw(p,d.at-.2,.8);
+    stream(p,8,d.at,2.0,dotMk(cam3,d.col)); stream(p,5,d.at+.5,2.0,dotMk(cam3,'#fff'),true);
+    tl.to(c,{opacity:1,scale:1,boxShadow:'0 0 60px '+d.col+'66',borderColor:d.col,duration:.6,ease:'back.out(1.5)'},d.at);
+    return c; });
+  box(cam3,'foot','left:160px;top:990px;','Illustrative visuals');
+  // network-wide pulse, then push toward the recruitment function through a ring tunnel
+  var netRing=box(cam3,'','left:'+(HUB[0]-720)+'px;top:'+(HUB[1]-380)+'px;width:1440px;height:760px;border-radius:50%;border:3px solid rgba(54,197,255,.8);box-shadow:0 0 60px rgba(54,197,255,.6);opacity:0;');
+  tl.fromTo(netRing,{opacity:0,scale:.85},{opacity:1,scale:1,duration:.7,ease:'power2.out'},23.4); tl.to(netRing,{opacity:.4,duration:.5},24.1);
+  tl.fromTo(cam3,{scale:1},{scale:1.1,duration:5,ease:'sine.inOut'},18.0);
+  tl.to(cam3,{scale:1.5,duration:1.8,ease:'power2.in'},25.4);
+  tl.to([hl3,sup3],{opacity:0,duration:.5},24.9);
+  for(var tr=0;tr<7;tr++){ var rg=box(FX,'','left:'+(960-300)+'px;top:'+(575-300)+'px;width:600px;height:600px;border-radius:50%;border:'+(4+tr%2*2)+'px solid '+(tr%2?'#36C5FF':'#9fe9ff')+';box-shadow:0 0 40px rgba(54,197,255,.7);opacity:0;'); tl.fromTo(rg,{scale:.1,opacity:0},{scale:5.5,opacity:.9,duration:1.5,ease:'power2.in'},25.4+tr*.15); tl.to(rg,{opacity:0,duration:.3},26.8+tr*.15); }
+
+  /* ================= SCENE 4 — Meet Your AI HR Recruiter (27.4–38.8) ================= */
+  scenery(S4,{cx:'65%',cy:'45%'});
+  reveal(S4,'circle(0px at 960px 575px)','circle(2400px at 960px 575px)',26.2,1.2);
+  var cam4=box(S4,'','left:0;top:0;width:1920px;height:1080px;'); set(cam4,{transformOrigin:'1260px 560px'});
+  var logo4=logoW(S4,27.2);
+  var hl4=words(S4,'<div class="mask"><span class="h2" style="display:block;font-size:60px">Meet Your</span></div><div class="mask"><span class="h2 cy" style="display:block;font-size:60px">AI HR Recruiter</span></div>','left:100px;top:150px;width:640px;z-index:4;',27.1,.4,.9);
+  var sup4=box(S4,'sub','left:104px;top:340px;width:560px;font-size:32px;z-index:4;','From Applications to Smarter Hiring'); set(sup4,{opacity:0}); tl.fromTo(sup4,{opacity:0,y:18},{opacity:1,y:0,duration:.7},27.8);
+  var stp=['Candidate applications','AI resume screening','AI voice interview','HR review'], stpEl=[];
+  stp.forEach(function(t,i){ var r=box(S4,'','left:100px;top:'+(530+i*92)+'px;width:560px;height:70px;z-index:4;','<div class="sd" style="position:absolute;left:0;top:14px;width:42px;height:42px;border-radius:50%;border:3px solid #4a6a90;text-align:center;line-height:36px;font-weight:800;font-size:20px;color:#9cc2f2">'+(i+1)+'</div><div class="st" style="position:absolute;left:62px;top:16px;font-size:29px;font-weight:600;color:#9cc2f2">'+t+'</div>'); stpEl.push(r); });
+  var stimes=[27.5,30.4,33.0,35.7];
+  stpEl.forEach(function(r,i){ tl.to(r.querySelector('.st'),{color:'#ffffff',duration:.3},stimes[i]); tl.to(r.querySelector('.sd'),{backgroundColor:'#147BFF',borderColor:'#9fe9ff',color:'#fff',duration:.3},stimes[i]); if(i<3){ tl.to(r.querySelector('.st'),{color:'#7fa6d6',duration:.3},stimes[i+1]); } });
+  // SMILE portal window (illustrative, fictional data)
+  var WX=700,WY=210,WW=1120,WH=700;
+  var win=box(cam4,'win','left:'+WX+'px;top:'+WY+'px;width:'+WW+'px;height:'+WH+'px;'); set(win,{transformOrigin:'50% 50%'});
+  box(win,'','left:0;top:0;width:'+WW+'px;height:64px;background:#fff;border-bottom:1px solid #e1e8f0;'); img(win,'assets/logo.png','left:22px;top:12px;width:56px;height:auto;'); box(win,'','left:92px;top:18px;font-size:23px;font-weight:800;','SMILE <span style="font-weight:600;color:#4b6580">AI Recruitment Portal</span>'); box(win,'chip','right:24px;top:16px;background:#e3edf9;color:#0b63c4;font-size:15px;','Illustrative · fictional data');
+  var L=[]; for(var s=0;s<4;s++){ L.push(box(win,'','left:0;top:64px;width:'+WW+'px;height:'+(WH-64)+'px;')); }
+  // stage 1 — applications pipeline
+  var cols=['Applied','In review','Interview'];
+  cols.forEach(function(c,i){ box(L[0],'','left:'+(28+i*360)+'px;top:22px;width:340px;height:590px;border-radius:16px;background:#e9eff7;'); box(L[0],'','left:'+(48+i*360)+'px;top:38px;font-size:19px;font-weight:800;color:#27496d;',c); });
+  var cands=[['A','Alexa Chen','Marketing Executive'],['B','Daniel Park','Finance Executive'],['C','Maya Tan','Operations Coordinator'],['D','Jason Lim','Sales Associate']], candEl=[];
+  cands.forEach(function(c,i){ var e=box(L[0],'','left:44px;top:'+(76+i*128)+'px;width:308px;height:112px;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(13,59,102,.12);'); photo(e,c[0],14,16,80,'#9fd0ff'); box(e,'','left:108px;top:22px;font-size:22px;font-weight:800;',c[1]); box(e,'','left:108px;top:54px;font-size:16px;color:#4b6580;font-weight:600;',c[2]); box(e,'chip','left:108px;top:78px;background:#e3edf9;color:#0b63c4;font-size:13px;padding:2px 10px;','New application'); set(e,{opacity:0}); tl.fromTo(e,{opacity:0,x:-120,y:-20},{opacity:1,x:0,y:0,duration:.6,ease:'power3.out'},27.9+i*.4); candEl.push(e); });
+  tl.to([candEl[0],candEl[1]],{x:360,duration:.7,ease:'power3.inOut',stagger:.2},29.3); tl.to(candEl[0],{x:720,duration:.7,ease:'power3.inOut'},30.0);
+  // stage 2 — AI-assisted resume screening
+  box(L[1],'','left:28px;top:20px;font-size:26px;font-weight:800;','AI-assisted resume screening'); box(L[1],'','left:28px;top:56px;font-size:16px;color:#4b6580;font-weight:600;','Summaries to support HR review · AI assists, HR decides');
+  var scr=[['A','Alexa Chen',['Skills aligned','Relevant experience'],'Check: certifications'],['B','Daniel Park',['Good skill alignment','Solid experience'],'Check: leadership scope'],['C','Maya Tan',['Partial skill match','Growing experience'],'Check: domain depth']], scrEl=[];
+  scr.forEach(function(c,i){ var e=box(L[1],'','left:28px;top:'+(96+i*166)+'px;width:1064px;height:148px;border-radius:16px;background:#fff;box-shadow:0 6px 16px rgba(13,59,102,.12);'); photo(e,c[0],20,22,100,'#9fd0ff'); box(e,'','left:144px;top:24px;font-size:26px;font-weight:800;',c[1]); c[2].forEach(function(t,j){ box(e,'chip','left:'+(144+j*250)+'px;top:68px;background:#e3edf9;color:#0b63c4;','+ '+t); }); box(e,'','left:144px;top:106px;font-size:17px;color:#9a6b00;font-weight:700;','△ '+c[3]); box(e,'chip','right:24px;top:22px;background:#fff1d6;color:#7a4a00;font-size:15px;','For HR review'); [0,1,2].forEach(function(j){ box(e,'bar dk','right:'+(24)+'px;top:'+(66+j*18)+'px;width:'+(300-j*60)+'px;height:8px;'); }); set(e,{opacity:0}); scrEl.push(e); });
+  var beam=box(L[1],'','left:0;top:96px;width:1120px;height:6px;background:#1e8fff;box-shadow:0 0 24px 6px rgba(30,143,255,.7);opacity:0;');
+  // stage 3 — AI voice interview
+  box(L[2],'','left:28px;top:20px;font-size:26px;font-weight:800;','AI voice interview'); box(L[2],'chip','left:28px;top:62px;background:#e1f7ea;color:#0c7a43;','● Live');
+  var call=box(L[2],'','left:28px;top:110px;width:430px;height:480px;border-radius:20px;background:linear-gradient(170deg,#0e4471,#04162a);color:#fff;overflow:hidden;');
+  photo(call,'C',125,60,180,'#36C5FF'); for(var rp=0;rp<3;rp++){ var rip=box(call,'','left:125px;top:60px;width:180px;height:180px;border-radius:50%;border:3px solid #36C5FF;opacity:0;'); tl.fromTo(rip,{scale:1,opacity:.8},{scale:1.9,opacity:0,duration:1.4,repeat:2,ease:'power2.out'},33.2+rp*.45); }
+  box(call,'','left:0;top:262px;width:430px;text-align:center;font-size:26px;font-weight:700;','Maya Tan'); box(call,'','left:0;top:300px;width:430px;text-align:center;font-size:17px;color:#9fe9ff;font-weight:700;letter-spacing:2px;','CANDIDATE · VOICE CALL');
+  var wv=box(call,'','left:30px;top:370px;width:370px;height:80px;'); for(var w=0;w<30;w++){ var wb=box(wv,'','left:'+(w*12.4)+'px;bottom:0;width:8px;height:74px;border-radius:5px;background:linear-gradient(#36C5FF,#147BFF);'); set(wb,{scaleY:.1,transformOrigin:'50% 100%'}); tl.fromTo(wb,{scaleY:.12},{scaleY:.25+((w*37)%10)/12,duration:.28+(w%4)*.07,yoyo:true,repeat:11,ease:'sine.inOut'},33.1+(w%6)*.05); }
+  box(L[2],'tag','left:490px;top:116px;','Live transcript'); var tr=[['AI','Tell me about a recent project you are proud of.',46],['Candidate','',0],['AI','What did you learn from working with the team?',40],['Candidate','',0]], trEl=[];
+  tr.forEach(function(t,i){ var e=box(L[2],'','left:490px;top:'+(150+i*108)+'px;width:600px;height:96px;border-radius:14px;background:'+(t[0]=='AI'?'#e3edf9':'#fff')+';box-shadow:0 4px 12px rgba(13,59,102,.1);'); box(e,'chip','left:14px;top:12px;background:'+(t[0]=='AI'?'#0b63c4':'#7e8fa6')+';color:#fff;font-size:13px;padding:2px 12px;',t[0]); if(t[1]) box(e,'','left:14px;top:44px;width:572px;font-size:17px;font-weight:600;color:#27496d;',t[1]); else { box(e,'bar dk','left:14px;top:50px;width:480px;'); box(e,'bar dk','left:14px;top:70px;width:340px;'); } set(e,{opacity:0}); trEl.push(e); });
+  // stage 4 — HR review (human decision)
+  box(L[3],'','left:28px;top:20px;font-size:26px;font-weight:800;','HR review');
+  var tx=box(L[3],'','left:28px;top:70px;width:560px;height:520px;border-radius:18px;background:#fff;box-shadow:0 6px 16px rgba(13,59,102,.12);'); box(tx,'tag','left:24px;top:20px;color:#0b63c4;','Interview transcript'); [0,1,2,3,4].forEach(function(j){ box(tx,'bar dk','left:24px;top:'+(60+j*34)+'px;width:'+(500-(j%3)*90)+'px;'); }); box(tx,'tag','left:24px;top:250px;color:#0b63c4;','AI-generated summary'); [0,1,2,3].forEach(function(j){ box(tx,'bar dk','left:24px;top:'+(290+j*30)+'px;width:'+(480-(j%2)*110)+'px;'); }); ['Clear communication','Relevant examples'].forEach(function(t,j){ box(tx,'chip','left:'+(24+j*230)+'px;top:430px;background:#e3edf9;color:#0b63c4;','✓ '+t); }); box(tx,'','left:24px;top:478px;font-size:15px;color:#4b6580;font-weight:600;','Summary supports, not replaces, HR judgement');
+  var hrp=box(L[3],'','left:620px;top:70px;width:470px;height:520px;border-radius:18px;background:#fff;box-shadow:0 6px 16px rgba(13,59,102,.12);'); photo(hrp,'H',24,24,110,'#147BFF'); box(hrp,'','left:152px;top:34px;font-size:25px;font-weight:800;','HR Reviewer'); box(hrp,'','left:152px;top:70px;font-size:16px;color:#4b6580;font-weight:600;','Reviews the AI summary and decides');
+  var dec=['Shortlist','Hold','Request review'], decEl=dec.map(function(t,j){ return box(hrp,'','left:24px;top:'+(170+j*82)+'px;width:422px;height:62px;border-radius:12px;background:'+(j==0?'#0b63c4':'#e9eff7')+';color:'+(j==0?'#fff':'#27496d')+';font-size:23px;font-weight:800;text-align:center;line-height:62px;',t); });
+  var fin=box(hrp,'','left:24px;top:432px;width:422px;height:60px;border-radius:12px;background:#e1f7ea;color:#0c7a43;font-size:19px;font-weight:800;text-align:center;line-height:60px;','Final decision: HR team'); set(fin,{opacity:0});
+  L.forEach(function(l,i){ if(i>0) set(l,{opacity:0}); });
+  function swap(a,b,at){ tl.to(L[a],{opacity:0,x:-40,duration:.4},at); tl.fromTo(L[b],{opacity:0,x:60},{opacity:1,x:0,duration:.5,ease:'power3.out'},at+.15); }
+  swap(0,1,30.2); swap(1,2,32.8); swap(2,3,35.4);
+  scrEl.forEach(function(e,i){ tl.fromTo(e,{opacity:0,y:30},{opacity:1,y:0,duration:.5,ease:'power3.out'},30.6+i*.5); });
+  tl.fromTo(beam,{y:0,opacity:1},{y:480,duration:1.5,ease:'sine.inOut'},30.5); tl.to(beam,{opacity:0,duration:.3},32.1);
+  trEl.forEach(function(e,i){ tl.fromTo(e,{opacity:0,y:20},{opacity:1,y:0,duration:.5},33.6+i*.6); });
+  tl.to(decEl[0],{boxShadow:'0 0 0 4px rgba(54,197,255,.7)',duration:.4,yoyo:true,repeat:3},36.4); tl.to(fin,{opacity:1,duration:.5},37.0);
+  tl.fromTo(win,{scale:.88,opacity:0,y:40},{scale:1,opacity:1,y:0,duration:1.0,ease:'power3.out'},27.0);
+  tl.fromTo(cam4,{scale:1},{scale:1.04,duration:10,ease:'sine.inOut'},27.4);
+  // exit: the interface zooms outward and becomes the central customised AI platform
+  tl.to(win,{scale:.08,x:(960-(WX+WW/2)),y:(540-(WY+WH/2)),opacity:.0,duration:1.0,ease:'power3.in'},37.5);
+  tl.to([hl4,sup4,logo4].concat(stpEl),{opacity:0,duration:.5},37.4);
+
+  /* ================= SCENE 5 — AI Built Around Your Business (38.8–49.0) ================= */
+  scenery(S5,{cx:'50%',cy:'50%'});
+  reveal(S5,'circle(0px at 960px 540px)','circle(2400px at 960px 540px)',37.9,1.0);
+  var cam5=box(S5,'','left:0;top:0;width:1920px;height:1080px;'); set(cam5,{transformOrigin:'960px 540px'});
+  logoW(S5,38.4);
+  var hl5=words(S5,'<div class="mask" style="text-align:center"><span class="h2" style="display:block;font-size:62px">AI Built Around <span class="cy">Your Business</span></span></div>','left:160px;top:58px;width:1600px;z-index:4;',38.6,.3,.9);
+  var sup5=box(S5,'sub','left:160px;top:148px;width:1600px;text-align:center;font-size:30px;z-index:4;','Customised Solutions. Real Business Applications.'); set(sup5,{opacity:0}); tl.fromTo(sup5,{opacity:0,y:18},{opacity:1,y:0,duration:.7},39.1);
+  var H5=[960,560]; var hub5=aiCore(cam5,H5[0],H5[1],118,'c5'); set(hub5,{scale:.1,opacity:0}); tl.to(hub5,{scale:1,opacity:1,duration:1.0,ease:'back.out(1.4)'},38.4);
+  var hl=box(cam5,'','left:760px;top:712px;width:400px;text-align:center;font-size:24px;font-weight:800;letter-spacing:2px;color:#9fe9ff;','CUSTOMISED AI PLATFORM'); set(hl,{opacity:0}); tl.to(hl,{opacity:1,duration:.6},39.2);
+  function cap(x,y,title,sub,col){ var c=box(cam5,'glass','left:'+x+'px;top:'+y+'px;width:540px;height:300px;'); set(c,{opacity:.3,scale:.92}); box(c,'','left:26px;top:20px;font-size:28px;font-weight:800;',title); box(c,'','left:26px;top:58px;font-size:16px;color:'+col+';font-weight:700;letter-spacing:1px;',sub); return c; }
+  var c1=cap(110,220,'Document Automation','INVOICES · FORMS · PURCHASE ORDERS · RECEIPTS','#8fe3ff');
+  var c2=cap(1270,220,'Business Knowledge Assistants','ANSWERS FROM APPROVED COMPANY INFORMATION','#b4d6ff');
+  var c3=cap(110,640,'Operations Workflow Automation','CONNECTED TASKS · DOCUMENT & WORKFLOW ROUTING','#a5f0d8');
+  var c4=cap(1270,640,'SAP Business One AI Assistant','SAP BUSINESS ONE WORKFLOW GUIDANCE','#ffe28a');
+  box(cam5,'foot','left:160px;top:1020px;','Illustrative visuals · fictional examples');
+  // c1: a document is processed and becomes structured data
+  var dc=box(c1,'','left:34px;top:106px;width:120px;height:160px;background:#fff;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.4);overflow:hidden;'); box(dc,'','left:12px;top:10px;font-size:12px;font-weight:800;color:#0E4471;','INVOICE'); [0,1,2,3,4,5].forEach(function(i){ box(dc,'bar dk','left:12px;top:'+(34+i*18)+'px;width:'+(i%3==2?60:96)+'px;height:6px;'); });
+  var scn=box(dc,'','left:0;top:0;width:120px;height:4px;background:#36C5FF;box-shadow:0 0 14px #36C5FF;opacity:0;');
+  var fields=['Supplier','Amount','Due date','PO no.'], fEl=fields.map(function(f,i){ var e=box(c1,'','left:210px;top:'+(106+i*40)+'px;width:290px;height:32px;border-radius:8px;background:rgba(54,197,255,.16);border:1px solid rgba(54,197,255,.5);padding:5px 12px;font-size:17px;font-weight:700;','<span style="color:#7fdcff">✓</span>&nbsp; '+f+' extracted'); set(e,{opacity:0}); return e; });
+  // c2: business question → answer
+  var q=box(c2,'','left:30px;top:106px;width:380px;border-radius:14px 14px 14px 4px;background:rgba(255,255,255,.14);padding:12px 16px;font-size:19px;font-weight:600;','Where is the onboarding checklist?'); set(q,{opacity:0});
+  var an=box(c2,'','left:100px;top:178px;width:410px;border-radius:14px 14px 4px 14px;background:linear-gradient(135deg,#0b63c4,#08468c);padding:12px 16px;font-size:19px;font-weight:600;line-height:1.35;','It is in the approved HR handbook, section 2.<div style="font-size:14px;color:#ffffff;font-weight:700;margin-top:6px">Source: approved company information</div>'); set(an,{opacity:0});
+  // c3: workflow routing
+  var wn=['Receive','Route','Approve','Update'], wnEl=wn.map(function(t,i){ var e=box(c3,'','left:'+(34+i*124)+'px;top:130px;width:100px;height:70px;border-radius:14px;background:rgba(255,255,255,.1);border:2px solid #4a6a90;text-align:center;line-height:66px;font-size:18px;font-weight:700;',t); if(i<3) box(c3,'','left:'+(136+i*124)+'px;top:164px;width:20px;height:3px;background:#4a6a90;'); return e; });
+  var wdot=box(c3,'','left:44px;top:158px;width:14px;height:14px;border-radius:50%;background:#7ee0c3;box-shadow:0 0 16px #7ee0c3;opacity:0;');
+  box(c3,'','left:34px;top:232px;font-size:16px;color:#9cc2f2;font-weight:600;','Connected business tasks, routed automatically');
+  // c4: SAP B1 assistant (illustrative)
+  var sapH=box(c4,'','left:26px;top:96px;width:488px;height:176px;border-radius:12px;background:#0a2347;border:1px solid #16345e;overflow:hidden;'); box(sapH,'','left:0;top:0;width:488px;height:36px;background:#fff;'); img(sapH,'assets/sap-b1.png','left:10px;top:6px;height:24px;width:auto;');
+  var sq=box(sapH,'','left:14px;top:46px;width:330px;border-radius:10px;background:rgba(255,255,255,.14);padding:7px 12px;font-size:16px;font-weight:600;','How do I create a sales quotation?'); var sa=box(sapH,'','left:100px;top:92px;width:374px;border-radius:10px;background:linear-gradient(135deg,#0b63c4,#08468c);padding:9px 12px;font-size:15px;font-weight:600;','Here is the guided path in SAP Business One:<div class="bar" style="margin-top:6px;width:300px"></div><div class="bar" style="margin-top:6px;width:220px"></div>'); set([sq,sa],{opacity:0});
+  // choreography on the narration: Automate documents → connect business systems → customised AI solutions
+  function act(c,at){ tl.to(c,{opacity:1,scale:1,borderColor:'#9fe9ff',boxShadow:'0 0 60px rgba(54,197,255,.55)',duration:.6,ease:'back.out(1.4)'},at); }
+  var hubs=[[c1,[650,370]],[c2,[1270,370]],[c3,[650,790]],[c4,[1270,790]]];
+  var ln5=[[110+540,220+150],[1270,220+150],[110+540,640+150],[1270,640+150]].map(function(a,i){ var p=svgPath(cam5,'M '+H5[0]+' '+H5[1]+' C '+((H5[0]+a[0])/2)+' '+(H5[1]+(i<2?-30:30))+', '+((H5[0]+a[0])/2)+' '+a[1]+', '+a[0]+' '+a[1],['#36C5FF','#5aa7ff','#7ee0c3','#ffd24f'][i],3,.7); return p; });
+  act(c1,39.8); draw(ln5[0],39.7,.8); tl.to(scn,{opacity:1,duration:.1},40.1); tl.fromTo(scn,{y:0},{y:156,duration:1.1,ease:'sine.inOut'},40.1); tl.to(scn,{opacity:0,duration:.2},41.2); fEl.forEach(function(e,i){ tl.fromTo(e,{opacity:0,x:30},{opacity:1,x:0,duration:.4},40.9+i*.3); }); stream(ln5[0],8,40.0,1.8,dotMk(cam5,'#9fe9ff'),true);
+  act(c2,41.0); draw(ln5[1],40.9,.8); tl.to(q,{opacity:1,duration:.5},41.4); tl.to(an,{opacity:1,duration:.5},42.4); stream(ln5[1],8,41.2,1.8,dotMk(cam5,'#a9d3ff'),true);
+  act(c3,42.2); draw(ln5[2],42.1,.8); wnEl.forEach(function(e,i){ tl.to(e,{borderColor:'#7ee0c3',backgroundColor:'rgba(126,224,195,.22)',duration:.3},42.8+i*.5); }); tl.to(wdot,{opacity:1,duration:.1},42.6); tl.fromTo(wdot,{x:0},{x:372,duration:1.6,ease:'none'},42.7); stream(ln5[2],8,42.4,1.8,dotMk(cam5,'#9dffe0'),true);
+  act(c4,43.0); draw(ln5[3],42.9,.8); tl.to(sq,{opacity:1,duration:.5},43.4); tl.to(sa,{opacity:1,duration:.5},44.2); stream(ln5[3],8,43.2,1.8,dotMk(cam5,'#ffe08a'),true);
+  // "customised AI solutions": the whole network connects
+  for(var pr=0;pr<3;pr++){ var pg=box(cam5,'','left:'+(H5[0]-210)+'px;top:'+(H5[1]-210)+'px;width:420px;height:420px;border-radius:50%;border:3px solid #36C5FF;opacity:0;'); tl.fromTo(pg,{scale:.8,opacity:.8},{scale:3.6,opacity:0,duration:1.4,ease:'power2.out'},43.7+pr*.35); }
+  var net5=box(cam5,'','left:130px;top:190px;width:1660px;height:700px;border-radius:50%;border:3px solid rgba(54,197,255,.7);box-shadow:0 0 70px rgba(54,197,255,.5);opacity:0;'); tl.fromTo(net5,{opacity:0,scale:.9},{opacity:.9,scale:1,duration:.8},43.7); tl.to(net5,{opacity:.35,duration:.6},45.0);
+  tl.fromTo(cam5,{scale:1},{scale:1.05,duration:9,ease:'sine.inOut'},38.9);
+  // exit: all connections converge into the luminous ring
+  tl.to([hl5,sup5,hl].concat([c1,c2,c3,c4]),{opacity:0,duration:.6},47.5);
+  ln5.forEach(function(p){ tl.to(p,{opacity:0,duration:.5},47.5); });
+
+  /* ================= SCENE 6 — Your Business. Smarter with AI. (49.0–57.6) ================= */
+  scenery(S6,{cx:'62%',cy:'45%'});
+  reveal(S6,'circle(0px at 960px 540px)','circle(2400px at 960px 540px)',47.8,1.3);
+  var cam6=box(S6,'','left:0;top:0;width:1920px;height:1080px;'); set(cam6,{transformOrigin:'1340px 480px'});
+  var sk6=skyline(cam6,0,420,1920,660,.7);
+  var rg6=box(cam6,'','left:'+(1340-600)+'px;top:'+(470-600)+'px;width:1200px;height:1200px;');
+  rg6.innerHTML='<svg width="1200" height="1200" viewBox="0 0 1200 1200"><defs><linearGradient id="g6" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#36C5FF"/><stop offset="1" stop-color="#147BFF"/></linearGradient><filter id="f6" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16"/></filter></defs><circle class="a6g" cx="600" cy="600" r="430" fill="none" stroke="url(#g6)" stroke-width="30" filter="url(#f6)" opacity=".85" stroke-dasharray="2700 2800" transform="rotate(-200 600 600)"/><circle class="a6" cx="600" cy="600" r="430" fill="none" stroke="url(#g6)" stroke-width="12" stroke-linecap="round" stroke-dasharray="2700 2800" transform="rotate(-200 600 600)"/><circle cx="600" cy="600" r="466" fill="none" stroke="#36C5FF" stroke-width="3" stroke-dasharray="30 22" opacity=".55"/></svg>';
+  var mps6=img(S6,'assets/mps-white.png','left:70px;top:48px;width:210px;height:auto;opacity:0;');
+  var hl6=words(S6,'<div class="mask"><span class="h1" style="display:block;font-size:98px">Your Business.</span></div>','left:100px;top:180px;width:900px;',50.2,.3,.9);
+  var hl6b=words(S6,'<div class="mask"><span class="h1 cy" style="display:block;font-size:98px;text-shadow:0 0 40px rgba(54,197,255,.5)">Smarter with AI.</span></div>','left:100px;top:300px;width:1000px;',51.25,.3,1.0);
+  var sup6=box(S6,'sub','left:104px;top:450px;width:1000px;font-size:38px;'); sup6.innerHTML='Discover What’s Possible with MPS Solutions'; set(sup6,{opacity:0}); tl.fromTo(sup6,{opacity:0,y:22},{opacity:1,y:0,duration:.8,ease:'power3.out'},52.5);
+  var bar6=box(S6,'glass','left:90px;top:790px;width:1740px;height:190px;border-radius:24px;background:linear-gradient(145deg,rgba(3,21,47,.86),rgba(3,21,47,.7));'); set(bar6,{opacity:0});
+  var co=box(S6,'','left:130px;top:812px;font-size:32px;font-weight:800;letter-spacing:.5px;','MPS Solutions Pte Ltd'); set(co,{opacity:0});
+  var ic={phone:'<path d="M12 6 L20 6 L24 16 L18 20 C20 26 26 32 32 34 L36 28 L46 32 L46 40 C46 44 42 46 38 46 C22 44 8 30 6 14 C6 10 8 6 12 6 Z" fill="#fff"/>',mail:'<rect x="6" y="12" width="40" height="30" rx="4" fill="none" stroke="#fff" stroke-width="4"/><path d="M8 16 L26 30 L44 16" fill="none" stroke="#fff" stroke-width="4"/>',globe:'<circle cx="26" cy="26" r="20" fill="none" stroke="#fff" stroke-width="4"/><ellipse cx="26" cy="26" rx="9" ry="20" fill="none" stroke="#fff" stroke-width="3"/><path d="M6 26 H46 M10 14 H42 M10 38 H42" stroke="#fff" stroke-width="3"/>'};
+  var ct=[['phone','+65 6846 9109',130],['mail','salesmps@mpssolutions.com.sg',590],['globe','www.mpssolutions.com.sg',1290]];
+  var cEls=ct.map(function(c){ var e=box(S6,'','left:'+c[2]+'px;top:882px;height:68px;display:flex;align-items:center;gap:18px;font-size:33px;font-weight:600;white-space:nowrap;','<span style="display:block;width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#147BFF,#36C5FF);box-shadow:0 0 24px rgba(54,197,255,.7);flex:none"><svg width="64" height="64" viewBox="0 0 52 52" style="padding:10px">'+ic[c[0]]+'</svg></span>'+c[1]); set(e,{opacity:0}); return e; });
+  tl.fromTo(rg6.querySelectorAll('.a6,.a6g'),{strokeDasharray:'0 5400'},{strokeDasharray:'2700 2800',duration:2.6,ease:'power2.inOut'},47.9);
+  tl.fromTo(cam6,{scale:1.22},{scale:1.0,duration:6,ease:'power2.out'},47.9);
+  tl.fromTo(sk6,{y:90,opacity:.3},{y:0,opacity:1,duration:2.2,ease:'power3.out'},48.2);
+  tl.fromTo(mps6,{opacity:0,y:-12},{opacity:1,y:0,duration:.8},54.0);
+  tl.fromTo(bar6,{opacity:0,y:40},{opacity:1,y:0,duration:.8,ease:'power3.out'},53.0); tl.to(co,{opacity:1,duration:.6},53.2);
+  cEls.forEach(function(e,i){ tl.fromTo(e,{opacity:0,x:-40},{opacity:1,x:0,duration:.7,ease:'power3.out'},53.5+i*.5); });
+  tl.to(rg6.querySelector('svg'),{rotation:6,duration:6,ease:'sine.inOut',transformOrigin:'600px 600px'},49.5);
+  // loop-friendly ending: the ring contracts into the same concentrated light used in scene 1
+  tl.to(rg6,{x:(960-1340),y:(540-470),scale:.012,duration:1.3,ease:'power3.inOut'},55.9);
+  tl.to([hl6,hl6b,sup6,bar6,co,mps6,sk6].concat(cEls),{opacity:0,duration:.8},55.9);
+  tl.fromTo('#endfade',{opacity:0},{opacity:1,duration:1.0,ease:'power1.inOut'},56.4);
+
+  /* ---------- opening/closing light source (seamless restart) ---------- */
+  var d0=box($('#dot'),'','left:930px;top:510px;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#fff 0%,#9fe9ff 22%,rgba(54,197,255,.65) 42%,transparent 70%);');
+  tl.fromTo(d0,{scale:.5,opacity:1},{scale:.7,opacity:1,duration:.4,ease:'sine.inOut'},0);
+  tl.to(d0,{scale:3.5,opacity:0,duration:.8,ease:'power2.out'},.4);
+  tl.fromTo(d0,{opacity:0,scale:2.5},{opacity:1,scale:.5,duration:1.0,ease:'power2.in'},56.6);
+
+  window.__timelines=window.__timelines||{}; window.__timelines['mps-ai-solutions']=tl;
+})();
+</script>
+</body>
+</html>

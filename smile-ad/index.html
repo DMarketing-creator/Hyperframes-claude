@@ -112,7 +112,7 @@
   <audio id="a-vo1" data-start="0.4"  data-duration="3.91" data-track-index="11" data-volume="1" src="assets/vo/s1.mp3"></audio>
   <audio id="a-vo2" data-start="6.3"  data-duration="4.72" data-track-index="12" data-volume="1" src="assets/vo/s2.mp3"></audio>
   <audio id="a-vo3" data-start="12.4" data-duration="5.49" data-track-index="11" data-volume="1" src="assets/vo/s3.mp3"></audio>
-  <audio id="a-vo4" data-start="19.3" data-duration="6.7"  data-track-index="12" data-volume="1" src="assets/vo/s4.mp3"></audio>
+  <audio id="a-vo4" data-start="19.3" data-duration="6.72"  data-track-index="12" data-volume="1" src="assets/vo/s4.mp3"></audio>
   <audio id="a-vo5" data-start="28.4" data-duration="8.54" data-track-index="11" data-volume="1" src="assets/vo/s5.mp3"></audio>
   <audio id="a-vo6" data-start="39.3" data-duration="7.15" data-track-index="12" data-volume="1" src="assets/vo/s6.mp3"></audio>
   <audio id="a-vo7" data-start="47.3" data-duration="5.74" data-track-index="11" data-volume="1" src="assets/vo/s7.mp3"></audio>
@@ -171,9 +171,11 @@
   function av(parent,k,x,y,w,extra){
     var h=w*1.25; var d=box(parent,'av','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;'+(extra||''),person(P[k])); return d;
   }
+  var PH={c1:'pC',c2:'pB',c3:'pA',c4:'pD'};
+  function phImg(k){ return '<img src="assets/'+PH[k]+'.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block">'; }
   function badge(parent,k,x,y,w,ring){ // circular headshot
     var d=box(parent,'bd','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+w+'px;border-radius:50%;overflow:hidden;background:linear-gradient(160deg,#9fd0ff,#2a6fb5);border:3px solid '+(ring||'#4fe3ff')+';');
-    box(d,'', 'left:'+(-w*0.0)+'px;top:'+(w*0.06)+'px;width:'+w+'px;height:'+(w*1.25)+'px;',person(P[k])); return d;
+    box(d,'','left:0;top:0;width:'+w+'px;height:'+w+'px;',phImg(k)); return d;
   }
   // Smile mascot (placeholder illustration; replace with official artwork)
   function mascot(parent,x,y,w){
@@ -194,7 +196,7 @@
     var h=w*1.3;
     var d=box(parent,'paper rs','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;transform:rotate('+rot+'deg);');
     var s=w/180;
-    box(d,'','left:'+14*s+'px;top:'+14*s+'px;width:'+44*s+'px;height:'+44*s+'px;border-radius:6px;background:#bcd3ea;overflow:hidden;',person(P[k||'c1']));
+    box(d,'','left:'+14*s+'px;top:'+14*s+'px;width:'+44*s+'px;height:'+44*s+'px;border-radius:6px;background:#bcd3ea;overflow:hidden;',phImg(k||'c1'));
     box(d,'bar','left:'+68*s+'px;top:'+20*s+'px;width:'+90*s+'px;height:'+9*s+'px;background:#0e4471');
     box(d,'bar','left:'+68*s+'px;top:'+38*s+'px;width:'+60*s+'px;height:'+7*s+'px');
     for(var i=0;i<6;i++) box(d,'bar','left:'+14*s+'px;top:'+(76+i*17)*s+'px;width:'+(i%3==2?100:152)*s+'px;height:'+7*s+'px');
@@ -253,51 +255,37 @@
   // SCENE 1 — THE HIRING CHALLENGE  (0–6)
   // =====================================================
   var S1=$('#s1 .sc');
-  // desk
-  box(S1,'','left:0;top:790px;width:1920px;height:290px;background:linear-gradient(#0b2f52,#05182c);border-top:3px solid rgba(79,227,255,.3);');
-  var hr=av(S1,'hr',330,430,300);
-  tl.fromTo(hr,{y:60,opacity:0},{y:0,opacity:1,duration:.8,ease:'power3.out'},0.1);
-  tl.to(hr,{y:-8,duration:.35,yoyo:true,repeat:9,ease:'sine.inOut'},1);
-  // stress marks
-  var ex=box(S1,'','left:650px;top:430px;font-size:90px;font-weight:900;color:#ffd24f;','!?');
-  tl.fromTo(ex,{opacity:0,scale:.2},{opacity:1,scale:1,duration:.4,ease:'back.out(3)'},1.3);
-  // resumes avalanche
-  var rpos=[[90,640,-14],[220,690,8],[470,720,-6],[620,650,12],[760,700,-10],[40,500,10],[160,330,-8],[740,520,6],[60,220,12],[280,150,-6],[560,170,9],[790,300,-12],[420,640,4],[880,600,-4]];
-  var rs1=rpos.map(function(p,i){
-    var r=resume(S1,p[0],p[1],130+ (i%3)*14,p[2],['c1','c2','c3','c4'][i%4]);
-    tl.fromTo(r,{y:-700,opacity:0,rotation:p[2]-30},{y:0,opacity:1,rotation:p[2],duration:.55,ease:'bounce.out'},0.3+i*0.18);
-    return r;
-  });
-  // emails
-  var emails=['New message','Re: Application','Interview?','Reschedule…','Follow up'];
-  emails.forEach(function(t,i){
-    var e=box(S1,'glass','left:'+(920+(i%2)*60)+'px;top:'+(560+i*0)+'px;width:360px;height:70px;border-radius:16px;padding:18px 22px;font-size:26px;font-weight:700;','✉ '+t);
-    tl.fromTo(e,{x:500,opacity:0},{x:0,y:-i*0-0,opacity:1,duration:.4,ease:'power3.out'},1.0+i*.3);
-    e.style.top=(470+i*84)+'px'; e.style.left=(1020+(i%2)*80)+'px';
-  });
-  // spreadsheet
-  var sp=box(S1,'paper','left:1500px;top:560px;width:330px;height:240px;border-radius:12px;');
+  var bg1=box(S1,'','left:-40px;top:-30px;width:2000px;height:1125px;overflow:hidden;');
+  var im1=document.createElement('img'); im1.src='assets/s1-hr.jpg'; im1.style.cssText='position:absolute;left:0;top:0;width:2000px;height:1125px;'; bg1.appendChild(im1);
+  tl.fromTo(bg1,{opacity:0},{opacity:1,duration:.6,ease:'power2.out'},0);
+  tl.fromTo(im1,{scale:1.14},{scale:1.0,duration:6,ease:'power1.out'},0);
+  box(S1,'','left:1020px;top:0;width:900px;height:520px;background:radial-gradient(ellipse at 70% 40%,rgba(4,22,42,.82),rgba(4,22,42,0) 70%);');
+  // spreadsheet + calendar (left), emails (right)
+  var sp=box(S1,'paper','left:40px;top:540px;width:330px;height:240px;border-radius:12px;');
   for(var r=0;r<7;r++)for(var c=0;c<4;c++) box(sp,'','left:'+(c*82)+'px;top:'+(r*34)+'px;width:80px;height:32px;border:1px solid #cfd8e3;background:'+(r==0?'#0e4471':(c==0?'#eef3f9':'#fff'))+';');
-  tl.fromTo(sp,{scale:.2,opacity:0},{scale:1,opacity:1,duration:.4,ease:'back.out(2)'},2.0);
-  // calendar
-  var cal=box(S1,'paper','left:1500px;top:830px;width:330px;height:120px;border-radius:12px;background:#fff;');
+  tl.fromTo(sp,{scale:.2,opacity:0},{scale:1,opacity:1,duration:.4,ease:'back.out(2)'},1.6);
+  var cal=box(S1,'paper','left:40px;top:810px;width:330px;height:120px;border-radius:12px;background:#fff;');
   for(var c2=0;c2<5;c2++){ box(cal,'','left:'+(c2*66)+'px;top:0;width:66px;height:120px;border-right:1px solid #dde5ee;');
     for(var q=0;q<3;q++) box(cal,'','left:'+(c2*66+6)+'px;top:'+(10+q*36)+'px;width:54px;height:28px;border-radius:6px;background:'+['#ff7a7a','#ffd24f','#1e8fff'][(c2+q)%3]+';'); }
-  tl.fromTo(cal,{scale:.2,opacity:0},{scale:1,opacity:1,duration:.4,ease:'back.out(2)'},2.5);
+  tl.fromTo(cal,{scale:.2,opacity:0},{scale:1,opacity:1,duration:.4,ease:'back.out(2)'},2.3);
+  var emails=['New message','Re: Application','Interview?','Reschedule…','Follow up'];
+  var emEls=emails.map(function(t,i){
+    var e=box(S1,'glass','left:'+(1480+(i%2)*40)+'px;top:'+(500+i*78)+'px;width:340px;height:62px;border-radius:14px;padding:15px 20px;font-size:25px;font-weight:700;background:rgba(6,34,59,.94);backdrop-filter:none;','✉ '+t);
+    tl.fromTo(e,{x:500,opacity:0},{x:0,opacity:1,duration:.4,ease:'power3.out'},1.2+i*.3);
+    return e;
+  });
   // headline
-  var t1=box(S1,'h2','left:1010px;top:150px;width:800px;','Hiring shouldn’t be<br>this <span style="color:#4fe3ff">complicated.</span>');
+  var t1=box(S1,'h2','left:1130px;top:110px;width:720px;','Hiring shouldn’t be<br>this <span style="color:#4fe3ff">complicated.</span>');
   tl.fromTo(t1,{opacity:0,y:40},{opacity:1,y:0,duration:.8,ease:'power3.out'},0.6);
   // particle morph into portal (4.4 → 6.0)
-  var parts=[];
   for(var k=0;k<60;k++){
-    var px=R(80,1000), py=R(150,800);
+    var px=(k%2)?R(160,520):R(1300,1700), py=R(120,760);
     var pe=box(S1,'','left:'+px+'px;top:'+py+'px;width:14px;height:14px;border-radius:3px;background:'+(k%2?'#4fe3ff':'#ffffff')+';opacity:0;box-shadow:0 0 14px #4fe3ff;');
     tl.fromTo(pe,{opacity:0,scale:.4},{opacity:1,scale:1,duration:.2},4.3+k*0.004);
-    tl.to(pe,{x:1500-px+R(-200,200)-(1500-960),y:540-py+R(-140,140),duration:1.2,ease:'power3.inOut'},4.5+(k%10)*.03);
+    tl.to(pe,{x:1260-px+R(-160,160)-300,y:540-py+R(-140,140),duration:1.2,ease:'power3.inOut'},4.5+(k%10)*.03);
     tl.to(pe,{opacity:0,scale:.2,duration:.3},5.6+(k%5)*.04);
   }
-  tl.to(rs1.concat([hr,ex,sp,cal,t1]),{opacity:0,scale:.6,duration:.9,ease:'power2.in',stagger:{each:.03,from:'random'}},4.5);
-  $$('#s1 .glass').forEach(function(e){tl.to(e,{opacity:0,duration:.6},4.6)});
+  tl.to([bg1,sp,cal,t1].concat(emEls),{opacity:0,duration:.9,ease:'power2.in'},4.7);
 
   // =====================================================
   // SCENE 2 — MEET SMILE (6–12)
@@ -341,29 +329,23 @@
   var h3=box(S3,'','left:140px;top:110px;width:1100px;');
   h3.innerHTML='<div class="h1">Create Roles <span style="color:#4fe3ff">Smarter.</span></div><div class="sub" style="margin-top:12px">AI-Assisted Job Setup</div>';
   tl.fromTo(h3,{opacity:0,y:40},{opacity:1,y:0,duration:.8,ease:'power3.out'},12.4);
-  // job description doc
-  var jd=box(S3,'paper','left:170px;top:450px;width:360px;height:470px;border-radius:14px;');
-  box(jd,'','left:0;top:0;width:360px;height:64px;background:#0e4471;');
-  box(jd,'','left:24px;top:18px;font-size:24px;font-weight:800;color:#fff;','Job Description');
-  for(var i3=0;i3<11;i3++) box(jd,'bar','left:28px;top:'+(96+i3*32)+'px;width:'+(i3%4==3?190:300)+'px;');
-  tl.fromTo(jd,{x:-300,opacity:0,rotation:-8},{x:0,opacity:1,rotation:0,duration:.8,ease:'power3.out'},12.9);
-  var hrw=av(S3,'hrM',40,660,230);
-  tl.fromTo(hrw,{opacity:0,y:60},{opacity:1,y:0,duration:.7,ease:'power3.out'},12.7);
-  // upload progress + scan
-  var up=box(S3,'','left:170px;top:940px;width:360px;height:14px;border-radius:8px;background:rgba(255,255,255,.2);');
-  var upf=box(up,'','left:0;top:0;width:360px;height:14px;border-radius:8px;background:linear-gradient(90deg,#1e8fff,#4fe3ff);');
+  // job description (real photo) + upload scan
+  var jd=box(S3,'','left:130px;top:430px;width:780px;height:439px;border-radius:22px;overflow:hidden;border:2px solid rgba(79,227,255,.55);box-shadow:0 0 60px rgba(30,143,255,.55);');
+  var ji=document.createElement('img'); ji.src='assets/s3-jd.jpg'; ji.style.cssText='position:absolute;left:0;top:0;width:780px;height:439px;'; jd.appendChild(ji);
+  tl.fromTo(jd,{x:-300,opacity:0},{x:0,opacity:1,duration:.8,ease:'power3.out'},12.9);
+  tl.fromTo(ji,{scale:1.1},{scale:1,duration:2.4,ease:'power1.out'},12.9);
+  var up=box(S3,'','left:130px;top:902px;width:780px;height:14px;border-radius:8px;background:rgba(255,255,255,.2);');
+  var upf=box(up,'','left:0;top:0;width:780px;height:14px;border-radius:8px;background:linear-gradient(90deg,#1e8fff,#4fe3ff);');
   tl.fromTo(upf,{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:1.6,ease:'power1.inOut'},13.4);
-  var scan3=box(jd,'','left:0;top:0;width:360px;height:6px;background:#4fe3ff;box-shadow:0 0 24px #4fe3ff;');
-  tl.fromTo(scan3,{y:60},{y:470,duration:1.4,ease:'none'},13.6);
-  // morph streams
-  var arrows=[];
-  for(var a=0;a<10;a++){
-    var d=box(S3,'','left:560px;top:'+(640+(a%5)*20)+'px;width:20px;height:6px;border-radius:4px;background:#4fe3ff;box-shadow:0 0 12px #4fe3ff;');
-    tl.fromTo(d,{x:0,opacity:0},{x:300,opacity:1,duration:.7,ease:'power2.inOut'},14.6+a*.1);
-    tl.to(d,{opacity:0,duration:.2},15.4+a*.1);
+  var scan3=box(jd,'','left:0;top:0;width:780px;height:6px;background:#4fe3ff;box-shadow:0 0 24px #4fe3ff;');
+  tl.fromTo(scan3,{y:10},{y:430,duration:1.4,ease:'none'},13.6);
+  for(var a3=0;a3<10;a3++){
+    var d=box(S3,'','left:700px;top:'+(600+(a3%5)*24)+'px;width:20px;height:6px;border-radius:4px;background:#4fe3ff;box-shadow:0 0 12px #4fe3ff;');
+    tl.fromTo(d,{x:0,opacity:0},{x:330,opacity:1,duration:.7,ease:'power2.inOut'},14.6+a3*.1);
+    tl.to(d,{opacity:0,duration:.2},15.4+a3*.1);
   }
   // structured role card
-  var rc=box(S3,'glass glow','left:920px;top:300px;width:860px;height:640px;');
+  var rc=box(S3,'glass glow','left:950px;top:300px;width:860px;height:640px;');
   tl.fromTo(rc,{opacity:0,scale:.85,x:80},{opacity:1,scale:1,x:0,duration:.8,ease:'power3.out'},15.0);
   box(rc,'','left:40px;top:30px;font-size:34px;font-weight:800;','Job Role');
   box(rc,'pill','right:40px;top:30px;background:rgba(79,227,255,.2);color:#4fe3ff;border:1.5px solid #4fe3ff;font-size:20px;','AI-assisted');
@@ -422,9 +404,9 @@
   }
   // candidate cards
   var cards=[
-    {k:'c3',name:'Candidate A',score:92,col:'#4fe3ff',tags:['Strong skill match','Relevant experience'],gap:'Minor gap: certifications'},
-    {k:'c2',name:'Candidate B',score:86,col:'#5aa7ff',tags:['Good skill alignment','Solid experience'],gap:'Potential gap: leadership'},
-    {k:'c1',name:'Candidate C',score:74,col:'#ffd24f',tags:['Partial skill match','Growing experience'],gap:'Potential gap: domain depth'}
+    {k:'c3',name:'Alexa Chen',score:92,col:'#4fe3ff',tags:['Strong skill match','Relevant experience'],gap:'Minor gap: certifications'},
+    {k:'c2',name:'Daniel Park',score:86,col:'#5aa7ff',tags:['Good skill alignment','Solid experience'],gap:'Potential gap: leadership'},
+    {k:'c1',name:'Maya Tan',score:74,col:'#ffd24f',tags:['Partial skill match','Growing experience'],gap:'Potential gap: domain depth'}
   ];
   var cardEls=[];
   cards.forEach(function(c,i){
@@ -446,8 +428,10 @@
     cardEls.push(cd);
   });
   // HR reviewer + selection
-  var hr4=av(S4,'hrM',1560,780,200);
-  tl.fromTo(hr4,{opacity:0,y:60},{opacity:1,y:0,duration:.7,ease:'power3.out'},24.4);
+  var hr4=box(S4,'','left:1590px;top:70px;width:190px;height:190px;border-radius:50%;overflow:hidden;border:4px solid #4fe3ff;box-shadow:0 0 40px rgba(79,227,255,.6);');
+  var hi4=document.createElement('img'); hi4.src='assets/hr.jpg'; hi4.style.cssText='position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;'; hr4.appendChild(hi4);
+  var hl4=box(S4,'pill','left:1590px;top:262px;width:190px;text-align:center;background:#0b63c4;font-size:19px;padding:5px 0;','HR review');
+  tl.fromTo([hr4,hl4],{opacity:0,y:30},{opacity:1,y:0,duration:.7,ease:'power3.out'},24.4);
   [0,1].forEach(function(i){
     var sel=box(cardEls[i],'pill','right:210px;top:130px;background:#0b63c4;font-size:21px;padding:6px 18px;','Selected for interview ✓');
     tl.fromTo(sel,{opacity:0,scale:.5},{opacity:1,scale:1,duration:.5,ease:'back.out(3)'},25.2+i*.6);
@@ -457,57 +441,24 @@
   box(S4,'foot','left:140px;top:1000px;','Illustrative match scores · AI supports, HR decides');
 
   // =====================================================
-  // SCENE 5 — AI INTERVIEWS  (28–39) split screen
+  // SCENE 5 — AI INTERVIEWS  (28–39) split screen (real visual)
   // =====================================================
   var S5=$('#s5 .sc');
-  box(S5,'','left:958px;top:80px;width:4px;height:920px;background:linear-gradient(transparent,#4fe3ff,transparent);box-shadow:0 0 30px #4fe3ff;');
-  var split=S5.lastChild; tl.fromTo(split,{scaleY:0},{scaleY:1,duration:.7,ease:'power3.out'},28.4);
-  // LEFT phone
-  var ph=box(S5,'phone','left:270px;top:80px;');
-  tl.fromTo(ph,{opacity:0,y:100,rotation:-6},{opacity:1,y:0,rotation:0,duration:.9,ease:'power3.out'},28.7);
-  var ps=box(ph,'pscr','');
-  box(ps,'','left:0;top:70px;width:100%;text-align:center;font-size:26px;font-weight:700;color:#4fe3ff;letter-spacing:3px;','INCOMING CALL');
-  box(ps,'','left:0;top:112px;width:100%;text-align:center;font-size:31px;font-weight:800;white-space:nowrap;','Smile AI Voice Interview');
-  var pav=badge(ps,'c1',116,210,160,'#4fe3ff'); pav.style.left='110px';
-  // ripple
-  for(var rp=0;rp<3;rp++){ var rip=box(ps,'','left:105px;top:205px;width:170px;height:170px;border-radius:50%;border:3px solid #4fe3ff;');
-    tl.fromTo(rip,{scale:1,opacity:.8},{scale:2.2,opacity:0,duration:1.4,repeat:4,ease:'power2.out'},29.3+rp*.45); }
-  var accept=box(ps,'','left:150px;top:560px;width:80px;height:80px;border-radius:50%;background:#157a40;font-size:38px;text-align:center;line-height:80px;','✆');
-  tl.fromTo(accept,{scale:1},{scale:1.18,duration:.4,yoyo:true,repeat:5,ease:'sine.inOut'},29.4);
-  // waveform in phone
-  var wv=box(ps,'','left:40px;top:660px;width:300px;height:70px;');
-  for(var w=0;w<26;w++){ var b=box(wv,'wave','left:'+(w*11.6)+'px;height:64px;');
-    tl.fromTo(b,{scaleY:.1,transformOrigin:'50% 100%'},{scaleY:.25+((w*37)%10)/12,duration:.3+(w%4)*.07,yoyo:true,repeat:18,ease:'sine.inOut'},31+(w%6)*.05); }
-  box(ps,'','left:0;top:640px;width:100%;text-align:center;font-size:22px;color:rgba(255,255,255,.7);','Candidate answering…');
-  // RIGHT laptop with live avatar
-  var L5=box(S5,'lap','left:820px;top:120px;transform-origin:50% 50%;');
-  L5.innerHTML='<div class="lid"><div class="scr"><div style="position:absolute;inset:0;background:linear-gradient(160deg,#0c3b66,#04162a)"></div></div></div><div class="base"></div>';
-  L5.style.transform='scale(.68)';
-  tl.fromTo(L5,{opacity:0,x:200,scale:.5},{opacity:1,x:0,scale:.68,duration:.9,ease:'power3.out'},29.0);
-  var scr5=L5.querySelector('.scr');
-  box(scr5,'tag','left:40px;top:28px;font-size:30px;','Live Avatar Interview');
-  var ai=box(scr5,'','left:70px;top:90px;width:560px;height:560px;border-radius:30px;background:radial-gradient(circle at 50% 40%,#1b5f9c,#07243f);border:2px solid rgba(79,227,255,.5);overflow:hidden;');
-  mascot(ai,150,60,260);
-  var aiPulse=box(ai,'','left:0;bottom:30px;width:100%;text-align:center;font-size:26px;font-weight:700;color:#4fe3ff;','Smile · AI Interviewer');
-  var cand=box(scr5,'','left:680px;top:90px;width:430px;height:300px;border-radius:24px;background:linear-gradient(160deg,#9fd0ff,#2a6fb5);overflow:hidden;border:2px solid rgba(255,255,255,.4);');
-  box(cand,'','left:100px;top:30px;width:240px;height:300px;',person(P.c4));
-  box(scr5,'','left:680px;top:410px;width:430px;font-size:26px;font-weight:700;','● Candidate');
-  var wv2=box(scr5,'','left:70px;top:650px;width:1040px;height:50px;');
-  for(var w2=0;w2<70;w2++){ var b2=box(wv2,'wave','left:'+(w2*15)+'px;height:50px;width:8px;');
-    tl.fromTo(b2,{scaleY:.1,transformOrigin:'50% 100%'},{scaleY:.2+((w2*53)%10)/11,duration:.3+(w2%5)*.06,yoyo:true,repeat:16,ease:'sine.inOut'},31.4+(w2%8)*.04); }
-  // glowing comm lines
-  for(var cl=0;cl<4;cl++){ var ln=box(S5,'','left:700px;top:'+(250+cl*140)+'px;width:260px;height:3px;background:linear-gradient(90deg,transparent,#4fe3ff,transparent);');
-    tl.fromTo(ln,{x:-80,opacity:0},{x:80,opacity:1,duration:1.1,repeat:5,ease:'sine.inOut'},30+cl*.25); }
-  // texts
-  var t5a=box(S5,'','left:140px;top:960px;width:760px;text-align:center;');
-  t5a.innerHTML='<div style="font-size:50px;font-weight:800">AI Voice <span style="color:#4fe3ff">Interviews.</span></div>';
-  var t5b=box(S5,'','left:1010px;top:960px;width:760px;text-align:center;');
-  t5b.innerHTML='<div style="font-size:50px;font-weight:800">Interactive <span style="color:#4fe3ff">Live Avatar</span> Interviews.</div>';
+  var pl=box(S5,'','left:96px;top:0;width:1728px;height:972px;-webkit-mask-image:radial-gradient(ellipse 74% 80% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 74% 80% at 50% 50%,#000 60%,transparent 100%);');
+  var pli=document.createElement('img'); pli.src='assets/s5-interview.jpg'; pli.style.cssText='position:absolute;left:0;top:0;width:1728px;height:972px;'; pl.appendChild(pli);
+  tl.fromTo(pl,{opacity:0,scale:1.1},{opacity:1,scale:1,duration:1.0,ease:'power3.out'},28.4);
+  tl.to(pl,{scale:1.04,duration:10,ease:'sine.inOut'},29.4);
+  // pulsing call ripples around the phone avatar + glowing comm lines
+  for(var rp=0;rp<3;rp++){ var rip=box(S5,'','left:340px;top:355px;width:180px;height:180px;border-radius:50%;border:3px solid #4fe3ff;');
+    tl.fromTo(rip,{scale:1,opacity:.8},{scale:2.3,opacity:0,duration:1.5,repeat:5,ease:'power2.out'},29.4+rp*.5); }
+  for(var cl=0;cl<4;cl++){ var ln=box(S5,'','left:700px;top:'+(240+cl*120)+'px;width:260px;height:3px;background:linear-gradient(90deg,transparent,#4fe3ff,transparent);');
+    tl.fromTo(ln,{x:-80,opacity:0},{x:80,opacity:1,duration:1.1,repeat:6,ease:'sine.inOut'},30+cl*.25); }
+  var t5a=box(S5,'','left:96px;top:985px;width:830px;text-align:center;');
+  t5a.innerHTML='<div style="font-size:48px;font-weight:800">AI Voice <span style="color:#4fe3ff">Interviews.</span></div>';
+  var t5b=box(S5,'','left:994px;top:985px;width:830px;text-align:center;');
+  t5b.innerHTML='<div style="font-size:48px;font-weight:800">Interactive <span style="color:#4fe3ff">Live Avatar</span> Interviews.</div>';
   tl.fromTo(t5a,{opacity:0,y:30},{opacity:1,y:0,duration:.7,ease:'power3.out'},30.6);
   tl.fromTo(t5b,{opacity:0,y:30},{opacity:1,y:0,duration:.7,ease:'power3.out'},33.2);
-  // fix: place texts safely within margins — tweak heights
-  t5a.style.top='950px'; t5b.style.top='950px'; t5b.style.left='1020px'; t5b.style.width='740px';
-  
 
   // =====================================================
   // SCENE 6 — INTERVIEW INSIGHTS (39–47)

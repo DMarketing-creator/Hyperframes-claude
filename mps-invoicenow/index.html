@@ -20,6 +20,13 @@
   .glass { background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.05)); border:1.5px solid rgba(160,215,255,.4); border-radius:26px; backdrop-filter:blur(8px); box-shadow:0 24px 60px rgba(0,8,30,.5), inset 0 0 40px rgba(54,197,255,.08); }
   .foot { font-size:17px; color:rgba(255,255,255,.6); letter-spacing:.3px; }
   svg { display:block; overflow:visible; }
+  /* subtitles */
+  .subpill { position:absolute; left:0; top:984px; width:1920px; display:flex; justify-content:center; }
+  .subbox { display:inline-flex; align-items:center; gap:18px; padding:13px 36px 13px 22px; border-radius:46px; white-space:nowrap;
+    background:linear-gradient(135deg,rgba(3,21,47,.9),rgba(14,68,113,.86)); border:1.5px solid rgba(54,197,255,.6);
+    box-shadow:0 10px 40px rgba(0,8,30,.55), 0 0 36px rgba(20,123,255,.35), inset 0 0 22px rgba(54,197,255,.08); }
+  .subbox i { display:block; width:8px; height:40px; border-radius:6px; background:linear-gradient(180deg,#36C5FF,#147BFF); box-shadow:0 0 16px #36C5FF; }
+  .subbox span { font-size:42px; font-weight:700; letter-spacing:-.2px; color:rgba(255,255,255,.58); }
 
   /* invoices */
   .inv { position:absolute; width:300px; height:390px; border-radius:18px; background:linear-gradient(160deg,rgba(255,255,255,.97),rgba(205,226,255,.92)); box-shadow:0 0 56px rgba(54,197,255,.6), 0 30px 60px rgba(0,8,30,.5); border:1.5px solid rgba(255,255,255,.8); overflow:hidden; color:#0E4471; }
@@ -64,6 +71,7 @@
   <div id="s4" class="fill clip" data-start="21.4" data-duration="9.2"  data-track-index="4"><div class="sc"></div></div>
   <div id="s5" class="fill clip" data-start="29.4" data-duration="9.1"  data-track-index="5"><div class="sc"></div></div>
   <div id="s6" class="fill clip" data-start="37.2" data-duration="7.8"  data-track-index="6"><div class="sc"></div></div>
+  <div id="subs" class="fill clip" data-start="0.2" data-duration="42.5" data-track-index="7" style="pointer-events:none"></div>
   <div id="endfade" class="fill clip" data-start="43.2" data-duration="1.8" data-track-index="8" style="background:#03152F;opacity:0"></div>
   <div id="dot" class="fill clip" data-start="0" data-duration="45" data-track-index="9" style="pointer-events:none"></div>
   <audio id="a-music" data-start="0" data-duration="45" data-track-index="10" data-volume="0.34" src="assets/music.mp3"></audio>
@@ -318,7 +326,7 @@
   tl.to(sph,{opacity:1,scale:1,duration:1.0,ease:'back.out(1.4)'},15.0); tl.to(spl,{opacity:1,scale:1,duration:.8,ease:'power3.out'},15.4);
   tl.to(sph.querySelector('.mer'),{rotation:180,duration:7,ease:'none'},15.0);
   // labels
-  var lab=function(x,w,a,b,at){ var l=box(S3,'','left:'+x+'px;top:916px;width:'+w+'px;text-align:center;line-height:1.3;','<div style="font-size:30px;font-weight:700">'+a+'</div><div style="font-size:21px;color:#bfe0ff">'+b+'</div>'); set(l,{opacity:0}); tl.fromTo(l,{opacity:0,y:20},{opacity:1,y:0,duration:.6},at); return l; };
+  var lab=function(x,w,a,b,at){ var l=box(S3,'','left:'+x+'px;top:892px;width:'+w+'px;text-align:center;line-height:1.3;','<div style="font-size:30px;font-weight:700">'+a+'</div><div style="font-size:21px;color:#bfe0ff">'+b+'</div>'); set(l,{opacity:0}); tl.fromTo(l,{opacity:0,y:20},{opacity:1,y:0,duration:.6},at); return l; };
   lab(60,350,'Seller','Your Business (SAP Business One)',15.4); lab(770,380,'Peppol Network','Secure. Standardised.',15.6); lab(1510,350,'Buyer','Your Customer',15.8);
   // invoices at each end + streams
   var sInv=inv(S3,560,690,.45,{}), bInv=inv(S3,1360,690,.45,{}); set(sInv,{opacity:0}); set(bInv,{opacity:0});
@@ -458,6 +466,32 @@
   tl.fromTo(d0,{scale:.5,opacity:1},{scale:.7,opacity:1,duration:.6,ease:'sine.inOut'},0);
   tl.to(d0,{scale:3.5,opacity:0,duration:.9,ease:'power2.out'},.6);
   tl.fromTo(d0,{opacity:0,scale:2.5},{opacity:1,scale:.5,duration:1.1,ease:'power2.in'},43.9);
+
+
+  /* ---------- subtitles: phrase captions with karaoke-style word highlight ---------- */
+  (function(){
+    var SUBS=[{"scene": 1, "start": 0.3, "end": 6.86, "chunks": [["InvoiceNow-ready, with confidence.", 0.3], ["MPS Solutions is accredited", 2.11], ["for InvoiceNow on SAP Business One.", 4.2]]}, {"scene": 2, "start": 7.7, "end": 13.24, "chunks": [["Still processing invoices manually?", 7.7], ["It's time-consuming, error-prone,", 9.66], ["and harder to track.", 11.78]]}, {"scene": 3, "start": 14.2, "end": 21.57, "chunks": [["InvoiceNow is Singapore's national", 14.2], ["e-invoicing initiative, built on Peppol.", 16.09], ["Structured invoices flow", 18.5], ["from seller to buyer.", 19.92]]}, {"scene": 4, "start": 22.3, "end": 29.54, "chunks": [["Make SAP Business One InvoiceNow-ready.", 22.3], ["A familiar system, now connected,", 24.7], ["with less re-entry and clearer tracking.", 27.04]]}, {"scene": 5, "start": 30.0, "end": 37.86, "chunks": [["Faster. Smarter. Connected.", 30.0], ["Structured e-invoicing, SAP integration,", 31.52], ["efficient processing, better visibility,", 34.1], ["and implementation support.", 36.24]]}, {"scene": 6, "start": 38.6, "end": 42.44, "chunks": [["Let's start your InvoiceNow journey.", 38.6], ["Speak with MPS Solutions.", 40.37]]}], GOLD=/^(InvoiceNow|InvoiceNow-ready|Peppol|SAP|MPS|Singapore's)/i;
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.25;
+        var words=ch[0].split(' '), total=words.join('').length, acc=0;
+        var wrap=document.createElement('div'); wrap.className='subpill'; wrap.style.opacity=0;
+        var bx=document.createElement('div'); bx.className='subbox'; var bar=document.createElement('i'); bx.appendChild(bar);
+        var spans=words.map(function(w){ var sp=document.createElement('span'); sp.textContent=w; bx.appendChild(sp); return sp; });
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:18,scale:.97},{opacity:1,y:0,scale:1,duration:.22,ease:'power3.out'},t0-0.04);
+        tl.to(wrap,{opacity:0,y:-8,duration:.18,ease:'power2.in'},t1-0.18);
+        var span=Math.max(.5,(t1-t0)-0.3);
+        words.forEach(function(w,i){
+          var ws=t0+span*(acc/total), we=t0+span*((acc+w.replace(/[^A-Za-z0-9]/g,'').length)/total); acc+=w.length;
+          var key=GOLD.test(w);
+          tl.to(spans[i],{color:key?'#FFD24F':'#36C5FF',textShadow:'0 0 18px '+(key?'rgba(255,210,79,.7)':'rgba(54,197,255,.8)'),duration:.12},ws);
+          tl.to(spans[i],{color:key?'#FFE28A':'#FFFFFF',textShadow:'0 0 0px rgba(0,0,0,0)',duration:.25},Math.max(we,ws+.2));
+        });
+      });
+    });
+  })();
 
   window.__timelines=window.__timelines||{}; window.__timelines['mps-invoicenow']=tl;
 })();

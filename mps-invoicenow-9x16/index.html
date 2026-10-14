@@ -54,6 +54,13 @@
   .ui .btn { position:absolute; bottom:34px; height:50px; border-radius:6px; font-size:19px; font-weight:700; text-align:center; line-height:50px; }
   .hot { position:absolute; border:3px solid #36C5FF; border-radius:10px; background:rgba(54,197,255,.16); box-shadow:0 0 30px rgba(54,197,255,.9); opacity:0; }
   .disc { position:absolute; width:170px; height:170px; border-radius:50%; background:radial-gradient(circle at 35% 30%,rgba(80,170,255,.55),rgba(14,68,113,.75)); border:3px solid rgba(120,200,255,.7); box-shadow:0 0 40px rgba(20,123,255,.6), inset 0 0 40px rgba(54,197,255,.3); }
+
+  /* subtitles */
+  .subpill { position:absolute; left:0; top:1745px; width:1080px; display:flex; justify-content:center; }
+  .subbox { display:inline-flex; align-items:center; gap:11px; padding:14px 34px; border-radius:44px; white-space:nowrap;
+    background:linear-gradient(135deg,#FFE75E,#FFC21A); border:3px solid #FFFFFF;
+    box-shadow:0 10px 34px rgba(0,0,0,.6), 0 0 34px rgba(255,214,58,.5); }
+  .subbox span { font-size:40px; font-weight:800; letter-spacing:-.2px; color:rgba(4,21,47,.55); }
 </style>
 </head>
 <body>
@@ -64,6 +71,7 @@
   <div id="s4" class="fill clip" data-start="21.4" data-duration="9.2"  data-track-index="4"><div class="sc"></div></div>
   <div id="s5" class="fill clip" data-start="29.4" data-duration="9.1"  data-track-index="5"><div class="sc"></div></div>
   <div id="s6" class="fill clip" data-start="37.2" data-duration="7.8"  data-track-index="6"><div class="sc"></div></div>
+  <div id="subs" data-layout-allow-overlap class="fill clip" data-start="0" data-duration="45" data-track-index="7" style="pointer-events:none"></div>
   <div id="endfade" class="fill clip" data-start="43.2" data-duration="1.8" data-track-index="8" style="background:#03152F;opacity:0"></div>
   <div id="dot" class="fill clip" data-start="0" data-duration="45" data-track-index="9" style="pointer-events:none"></div>
   <audio id="a-music" data-start="0" data-duration="45" data-track-index="10" data-volume="0.34" src="assets/music.mp3"></audio>
@@ -428,6 +436,32 @@
   tl.fromTo(d0,{scale:.5,opacity:1},{scale:.7,opacity:1,duration:.6,ease:'sine.inOut'},0);
   tl.to(d0,{scale:3.5,opacity:0,duration:.9,ease:'power2.out'},.6);
   tl.fromTo(d0,{opacity:0,scale:2.5},{opacity:1,scale:.5,duration:1.1,ease:'power2.in'},43.9);
+
+
+  /* ---------- subtitles: bright phrase captions with karaoke-style word highlight ---------- */
+  (function(){
+    var SUBS=[{"scene": 1, "y": 1745, "start": 0.3, "end": 6.86, "chunks": [["InvoiceNow-ready,", 0.3], ["with confidence.", 1.31], ["MPS Solutions is accredited", 2.11], ["for InvoiceNow on SAP Business One.", 4.2]]}, {"scene": 2, "y": 1745, "start": 7.7, "end": 13.24, "chunks": [["Still processing invoices", 7.7], ["manually? It's time-consuming,", 9.21], ["error-prone, and harder to track.", 11.08]]}, {"scene": 3, "y": 1745, "start": 14.2, "end": 21.57, "chunks": [["InvoiceNow is Singapore's", 14.2], ["national e-invoicing", 15.57], ["initiative, built on Peppol.", 16.78], ["Structured invoices flow from", 18.5], ["seller to buyer.", 20.35]]}, {"scene": 4, "y": 1745, "start": 22.3, "end": 29.54, "chunks": [["Make SAP Business One", 22.3], ["InvoiceNow-ready.", 23.75], ["A familiar system,", 24.7], ["now connected,", 25.96], ["with less re-entry and clearer tracking.", 27.04]]}, {"scene": 5, "y": 1745, "start": 30.0, "end": 37.86, "chunks": [["Faster. Smarter.", 30.0], ["Connected. Structured", 31.09], ["e-invoicing, SAP integration,", 32.02], ["efficient processing,", 34.1], ["better visibility,", 35.25], ["and implementation support.", 36.24]]}, {"scene": 6, "y": 1380, "start": 38.6, "end": 42.44, "chunks": [["Let's start your InvoiceNow", 38.6], ["journey. Speak with MPS Solutions.", 40.03]]}], GOLD=/^(InvoiceNow|InvoiceNow-ready|Peppol|SAP|MPS|Singapore's|Smile|SMILE)/i;
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.25;
+        var words=ch[0].split(' '), total=words.join('').length, acc=0;
+        var wrap=document.createElement('div'); wrap.className='subpill'; wrap.setAttribute('data-layout-allow-overlap',''); wrap.style.opacity=0; if(sc.y) wrap.style.top=sc.y+'px';
+        var bx=document.createElement('div'); bx.className='subbox';
+        var spans=words.map(function(w){ var sp=document.createElement('span'); sp.textContent=w; bx.appendChild(sp); return sp; });
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:18,scale:.97},{opacity:1,y:0,scale:1,duration:.22,ease:'power3.out'},t0-0.04);
+        tl.to(wrap,{opacity:0,y:-8,duration:.18,ease:'power2.in'},t1-0.18);
+        var span=Math.max(.5,(t1-t0)-0.3);
+        words.forEach(function(w,i){
+          var ws=t0+span*(acc/total), we=t0+span*((acc+w.replace(/[^A-Za-z0-9]/g,'').length)/total); acc+=w.length;
+          var key=GOLD.test(w);
+          tl.to(spans[i],{color:'#0A3FD8',duration:.12},ws);
+          tl.to(spans[i],{color:key?'#0A3FD8':'#04152F',duration:.25},Math.max(we,ws+.2));
+        });
+      });
+    });
+  })();
 
   window.__timelines=window.__timelines||{}; window.__timelines['mps-invoicenow']=tl;
 })();

@@ -87,6 +87,13 @@
   .pt .pn .it a { position:absolute; right:22px; top:26px; font-size:15px; font-weight:800; color:#0d3b66; }
   .stagecard { position:absolute; width:300px; height:150px; border-radius:22px; }
   svg { display:block; }
+
+  /* subtitles */
+  .subpill { position:absolute; left:0; top:940px; width:1920px; display:flex; justify-content:center; }
+  .subbox { display:inline-flex; align-items:center; gap:14px; padding:14px 40px; border-radius:50px; white-space:nowrap;
+    background:linear-gradient(135deg,#FFE75E,#FFC21A); border:3px solid #FFFFFF;
+    box-shadow:0 10px 34px rgba(0,0,0,.6), 0 0 34px rgba(255,214,58,.5); }
+  .subbox span { font-size:46px; font-weight:800; letter-spacing:-.2px; color:rgba(4,21,47,.55); }
 </style>
 </head>
 <body>
@@ -105,6 +112,7 @@
   <div id="s7" class="fill clip" data-start="47" data-duration="7.4"  data-track-index="1"><div class="sc"></div></div>
   <div id="s8" class="fill clip" data-start="54" data-duration="6"    data-track-index="2"><div class="sc"></div></div>
 
+  <div id="subs" data-layout-allow-overlap class="fill clip" data-start="0" data-duration="60" data-track-index="7" style="pointer-events:none"></div>
   <div id="fadeout" class="fill clip" data-start="58.2" data-duration="1.8" data-track-index="5" style="background:#02101e;opacity:0"></div>
 
   <!-- audio -->
@@ -503,7 +511,7 @@
     tl.fromTo(bt,{opacity:0,y:20},{opacity:1,y:0,duration:.4},43.6+i*.2);
   });
   tl.to(zoom,{scale:1.1,duration:3.4,ease:'sine.inOut'},43.4);       // smooth zoom on insights
-  var hum=box(S6,'pill glass','left:140px;top:972px;font-size:24px;color:#bff6ff;','Every hiring decision stays in human hands');
+  var hum=box(S6,'pill glass','left:140px;top:206px;font-size:24px;color:#bff6ff;','Every hiring decision stays in human hands');
   tl.fromTo(hum,{opacity:0,y:20},{opacity:1,y:0,duration:.6},44.6);
   box(S6,'foot','right:140px;top:1000px;','Illustrative visuals');
 
@@ -598,6 +606,31 @@
   box(S8,'foot','left:140px;top:1010px;','by MPS Solutions');
 
   window.__timelines = window.__timelines || {};
+  /* ---------- subtitles: bright phrase captions with karaoke-style word highlight ---------- */
+  (function(){
+    var SUBS=[{"scene": 1, "y": 940, "start": 0.4, "end": 4.36, "chunks": [["Hiring the right people takes time.", 0.4], ["But managing the process shouldn't.", 2.34]]}, {"scene": 2, "y": 940, "start": 6.3, "end": 11.08, "chunks": [["Meet Smile. Your intelligent recruitment", 6.3], ["assistant, designed to simplify hiring.", 8.57]]}, {"scene": 3, "y": 940, "start": 12.4, "end": 17.94, "chunks": [["Create job roles effortlessly with", 12.4], ["AI-assisted screening criteria and interview questions.", 14.26]]}, {"scene": 4, "y": 940, "start": 19.3, "end": 26.02, "chunks": [["Let Smile analyze r\u00e9sum\u00e9s, identify relevant", 19.3], ["qualifications, and deliver meaningful", 22.44], ["candidate insights.", 24.75]]}, {"scene": 5, "y": 905, "start": 28.4, "end": 36.99, "chunks": [["Take recruitment further with AI-powered", 28.4], ["voice and live avatar interviews, designed", 30.49], ["to engage candidates and collect structured", 32.85], ["interview evidence.", 35.89]]}, {"scene": 6, "y": 940, "start": 39.3, "end": 46.5, "chunks": [["Review interview transcripts, results, and", 39.3], ["AI-generated insights, while keeping every", 41.49], ["hiring decision in human hands.", 44.37]]}, {"scene": 7, "y": 940, "start": 47.3, "end": 53.11, "chunks": [["From the first application to the final", 47.3], ["interview, manage your recruitment journey", 49.27], ["in one connected platform.", 51.39]]}, {"scene": 8, "y": 940, "start": 54.4, "end": 59.56, "chunks": [["Smile AI Recruitment.", 54.4], ["Screen smarter.", 55.92], ["Interview faster.", 56.86], ["Hire with confidence.", 58.03]]}], GOLD=/^(InvoiceNow|InvoiceNow-ready|Peppol|SAP|MPS|Singapore's|Smile|SMILE)/i;
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.25;
+        var words=ch[0].split(' '), total=words.join('').length, acc=0;
+        var wrap=document.createElement('div'); wrap.className='subpill'; wrap.setAttribute('data-layout-allow-overlap',''); wrap.style.opacity=0; if(sc.y) wrap.style.top=sc.y+'px';
+        var bx=document.createElement('div'); bx.className='subbox';
+        var spans=words.map(function(w){ var sp=document.createElement('span'); sp.textContent=w; bx.appendChild(sp); return sp; });
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:18,scale:.97},{opacity:1,y:0,scale:1,duration:.22,ease:'power3.out'},t0-0.04);
+        tl.to(wrap,{opacity:0,y:-8,duration:.18,ease:'power2.in'},t1-0.18);
+        var span=Math.max(.5,(t1-t0)-0.3);
+        words.forEach(function(w,i){
+          var ws=t0+span*(acc/total), we=t0+span*((acc+w.replace(/[^A-Za-z0-9]/g,'').length)/total); acc+=w.length;
+          var key=GOLD.test(w);
+          tl.to(spans[i],{color:'#0A3FD8',duration:.12},ws);
+          tl.to(spans[i],{color:key?'#0A3FD8':'#04152F',duration:.25},Math.max(we,ws+.2));
+        });
+      });
+    });
+  })();
+
   window.__timelines['smile-ad'] = tl;
 })();
 </script>

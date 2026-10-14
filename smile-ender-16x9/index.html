@@ -87,6 +87,13 @@
   .pt .pn .it a { position:absolute; right:22px; top:26px; font-size:15px; font-weight:800; color:#0d3b66; }
   .stagecard { position:absolute; width:300px; height:150px; border-radius:22px; }
   svg { display:block; }
+
+  /* subtitles */
+  .subpill { position:absolute; left:0; top:940px; width:1920px; display:flex; justify-content:center; }
+  .subbox { display:inline-flex; align-items:center; gap:14px; padding:14px 40px; border-radius:50px; white-space:nowrap;
+    background:linear-gradient(135deg,#FFE75E,#FFC21A); border:3px solid #FFFFFF;
+    box-shadow:0 10px 34px rgba(0,0,0,.6), 0 0 34px rgba(255,214,58,.5); }
+  .subbox span { font-size:46px; font-weight:800; letter-spacing:-.2px; color:rgba(4,21,47,.55); }
 </style>
 <title>SMILE Ender 16:9</title>
 </head>
@@ -94,6 +101,7 @@
 <div id="root" data-composition-id="smile-ender-16x9" data-start="0" data-duration="8.6" data-width="1920" data-height="1080">
   <div id="bgwrap" class="fill clip" data-start="0" data-duration="8.6" data-track-index="0"></div>
   <div id="e1" class="fill clip" data-start="0" data-duration="8.6" data-track-index="1"><div class="sc"></div></div>
+  <div id="subs" data-layout-allow-overlap class="fill clip" data-start="0" data-duration="8.6" data-track-index="7" style="pointer-events:none"></div>
   <div id="fadeout" class="fill clip" data-start="7.6" data-duration="1" data-track-index="5" style="background:#02101e;opacity:0"></div>
   <audio id="a-music" data-start="0" data-duration="8.6" data-track-index="10" data-volume="0.34" src="assets/music.mp3"></audio>
   <audio id="a-vo" data-start="0.9" data-duration="5.38" data-track-index="11" data-volume="1" src="assets/vo/ender.mp3"></audio>
@@ -194,6 +202,31 @@
   tl.fromTo('#fadeout',{opacity:0},{opacity:1,duration:.9,ease:'power1.inOut'},7.65);
 
   window.__timelines = window.__timelines || {};
+  /* ---------- subtitles: bright phrase captions with karaoke-style word highlight ---------- */
+  (function(){
+    var SUBS=[{"scene": 1, "y": 965, "start": 0.9, "end": 6.28, "chunks": [["Ready to try it?", 0.9], ["Register on the SMILE portal,", 1.94], ["and get 25 free credits", 3.6], ["for your demo.", 5.53]]}], GOLD=/^(InvoiceNow|InvoiceNow-ready|Peppol|SAP|MPS|Singapore's|Smile|SMILE)/i;
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.25;
+        var words=ch[0].split(' '), total=words.join('').length, acc=0;
+        var wrap=document.createElement('div'); wrap.className='subpill'; wrap.setAttribute('data-layout-allow-overlap',''); wrap.style.opacity=0; if(sc.y) wrap.style.top=sc.y+'px';
+        var bx=document.createElement('div'); bx.className='subbox';
+        var spans=words.map(function(w){ var sp=document.createElement('span'); sp.textContent=w; bx.appendChild(sp); return sp; });
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:18,scale:.97},{opacity:1,y:0,scale:1,duration:.22,ease:'power3.out'},t0-0.04);
+        tl.to(wrap,{opacity:0,y:-8,duration:.18,ease:'power2.in'},t1-0.18);
+        var span=Math.max(.5,(t1-t0)-0.3);
+        words.forEach(function(w,i){
+          var ws=t0+span*(acc/total), we=t0+span*((acc+w.replace(/[^A-Za-z0-9]/g,'').length)/total); acc+=w.length;
+          var key=GOLD.test(w);
+          tl.to(spans[i],{color:'#0A3FD8',duration:.12},ws);
+          tl.to(spans[i],{color:key?'#0A3FD8':'#04152F',duration:.25},Math.max(we,ws+.2));
+        });
+      });
+    });
+  })();
+
   window.__timelines['smile-ender-16x9'] = tl;
 })();
 </script>

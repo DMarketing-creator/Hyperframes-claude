@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Copier Rental Master 9:16</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0E2A4A; --navyD:#07213C; --blue:#1E6FB8; --bblue:#2F97E0; --cyan:#7FD4FF;
+    --light:#EAF3FB; --ink:#223040;
+  }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#EDF4FB; }
+  body { font-family: Inter, sans-serif; color:var(--navy); }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; background:#EDF4FB; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .sc { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; }
+  svg { display:block; }
+
+  .hl   { font-size:66px; font-weight:800; letter-spacing:-1.4px; line-height:1.08; }
+  .main { font-size:92px; font-weight:900; letter-spacing:-2.4px; line-height:1; }
+  .sec  { font-size:40px; font-weight:600; color:var(--blue); letter-spacing:.2px; }
+  .kick { font-size:42px; font-weight:800; letter-spacing:3.4px; text-transform:uppercase; }
+  .small{ font-size:32px; font-weight:600; color:var(--blue); letter-spacing:2.2px; text-transform:uppercase; }
+  .chip { display:inline-flex; align-items:center; gap:18px; padding:16px 34px; border-radius:46px;
+          background:rgba(255,255,255,.94); border:1.5px solid rgba(30,111,184,.26);
+          box-shadow:0 14px 34px rgba(12,45,80,.16); font-size:38px; font-weight:700; color:var(--navy); white-space:nowrap; }
+  .chip b { display:block; width:16px; height:16px; border-radius:50%; background:var(--bblue); flex:none; }
+  .av { -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 76%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(180deg,#000 0%,#000 76%,rgba(0,0,0,0) 100%); }
+  .band { position:absolute; border-radius:22px; background:rgba(255,255,255,.90);
+          border:1.5px solid rgba(255,255,255,.95); box-shadow:0 18px 50px rgba(12,45,80,.16); }
+  .scrim{ position:absolute; }
+
+  /* subtitles — white on dark translucent, inside TikTok safe zone */
+  .subpill { position:absolute; left:0; top:1452px; width:1080px; display:flex; justify-content:center; }
+  .subbox  { display:inline-block; max-width:900px; padding:16px 36px; border-radius:20px; text-align:center;
+             background:rgba(8,28,50,.82); box-shadow:0 10px 30px rgba(4,16,30,.34); }
+  .subbox span { font-size:42px; font-weight:700; line-height:1.18; color:#FFFFFF;
+             text-shadow:0 2px 6px rgba(0,0,0,.45); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="copier-rental-master" data-start="0" data-duration="27" data-width="1080" data-height="1920">
+
+  <div id="s1" data-layout-allow-overlap class="fill clip" data-start="0"     data-duration="2.75" data-track-index="1"><div class="sc"></div></div>
+  <div id="s2" data-layout-allow-overlap class="fill clip" data-start="2.30"  data-duration="5.30" data-track-index="2"><div class="sc"></div></div>
+  <div id="s3" data-layout-allow-overlap class="fill clip" data-start="7.15"  data-duration="7.30" data-track-index="1"><div class="sc"></div></div>
+  <div id="s4" data-layout-allow-overlap class="fill clip" data-start="14.00" data-duration="6.25" data-track-index="2"><div class="sc"></div></div>
+  <div id="s5" data-layout-allow-overlap class="fill clip" data-start="19.80" data-duration="4.10" data-track-index="1"><div class="sc"></div></div>
+  <div id="s6" data-layout-allow-overlap class="fill clip" data-start="23.45" data-duration="3.55" data-track-index="2"><div class="sc"></div></div>
+
+  <div id="subs" data-layout-allow-overlap class="fill clip" data-start="0" data-duration="27" data-track-index="7" style="pointer-events:none"></div>
+  <div id="endfade" class="fill clip" data-start="26.45" data-duration="0.55" data-track-index="8" style="background:#EDF4FB;opacity:0"></div>
+
+  <audio id="a-music" data-start="0" data-duration="27" data-track-index="10" data-volume="0.26" src="assets/music.mp3"></audio>
+  <audio id="a-vo1" data-start="0.35"  data-duration="1.80" data-track-index="11" data-volume="1" src="assets/vo/s1.mp3"></audio>
+  <audio id="a-vo2" data-start="2.42"  data-duration="4.70" data-track-index="12" data-volume="1" src="assets/vo/s2.mp3"></audio>
+  <audio id="a-vo3" data-start="7.30"  data-duration="6.69" data-track-index="11" data-volume="1" src="assets/vo/s3.mp3"></audio>
+  <audio id="a-vo4" data-start="14.15" data-duration="5.59" data-track-index="12" data-volume="1" src="assets/vo/s4.mp3"></audio>
+  <audio id="a-vo5" data-start="19.95" data-duration="3.47" data-track-index="11" data-volume="1" src="assets/vo/s5.mp3"></audio>
+  <audio id="a-vo6" data-start="23.60" data-duration="3.00" data-track-index="12" data-volume="1" src="assets/vo/s6.mp3"></audio>
+  <audio id="a-fx1" data-start="2.20" data-duration="0.55" data-track-index="13" data-volume="0.17" src="assets/sfx_whoosh.mp3"></audio>
+  <audio id="a-fx2" data-start="7.05" data-duration="0.55" data-track-index="13" data-volume="0.17" src="assets/sfx_whoosh.mp3"></audio>
+  <audio id="a-fx3" data-start="13.90" data-duration="0.55" data-track-index="13" data-volume="0.17" src="assets/sfx_whoosh.mp3"></audio>
+  <audio id="a-fx4" data-start="19.70" data-duration="0.55" data-track-index="13" data-volume="0.17" src="assets/sfx_whoosh.mp3"></audio>
+  <audio id="a-fx5" data-start="23.35" data-duration="0.55" data-track-index="13" data-volume="0.17" src="assets/sfx_whoosh.mp3"></audio>
+</div>
+
+<script>
+(function(){
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  var rnd=mulberry(51807), R=function(a,b){return a+(b-a)*rnd();};
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,cls,style,inner){var d=document.createElement('div');d.className=cls||'';d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+  function set(el,o){gsap.set(el,o);return el;}
+
+  // Asian professional vector avatar
+  function person(o){
+    var skin=o.skin||'#f0c8a0', sd=o.skinD||'#dba67f', hair=o.hair||'#15151c', shirt=o.shirt||'#1d3b66', fem=!!o.fem, gl=!!o.glasses, tie=o.tie;
+    var back = fem ? '<path d="M56 112 C44 48 156 48 144 112 L152 196 L48 196Z" fill="'+hair+'"/>' : '';
+    var front = fem
+      ? '<path d="M62 108 C60 62 84 52 102 52 C128 52 142 70 138 108 C128 84 112 74 98 76 C82 76 68 88 62 108Z" fill="'+hair+'"/>'
+      : '<path d="M60 106 C54 56 82 46 102 46 C130 46 148 62 140 106 C136 86 124 76 104 74 C86 74 68 82 60 106Z" fill="'+hair+'"/>';
+    var glasses = gl ? '<g fill="none" stroke="#222a38" stroke-width="3"><rect x="70" y="102" width="26" height="20" rx="8"/><rect x="104" y="102" width="26" height="20" rx="8"/><path d="M96 111h8"/></g>' : '';
+    var tieSvg = tie ? '<path d="M100 182l-7 12 7 30 7-30z" fill="'+tie+'"/>' : '';
+    return '<svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">'
+      + back
+      + '<path d="M14 250 C14 196 56 178 100 178 C144 178 186 196 186 250Z" fill="'+shirt+'"/>'
+      + '<path d="M84 178 L100 206 L116 178Z" fill="#f4f7fb"/>' + tieSvg
+      + '<rect x="87" y="148" width="26" height="34" rx="10" fill="'+sd+'"/>'
+      + '<ellipse cx="100" cy="112" rx="38" ry="46" fill="'+skin+'"/>'
+      + '<ellipse cx="62" cy="116" rx="5" ry="9" fill="'+skin+'"/><ellipse cx="138" cy="116" rx="5" ry="9" fill="'+skin+'"/>'
+      + front
+      + '<path d="M76 100 q8 -5 17 -1 M107 99 q9 -4 17 1" stroke="#15151c" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+      + '<ellipse cx="84" cy="113" rx="6.4" ry="2.8" fill="#1a1a22"/><ellipse cx="116" cy="113" rx="6.4" ry="2.8" fill="#1a1a22"/>'
+      + glasses
+      + '<path d="M100 118 q-3 9 2 11" stroke="'+sd+'" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+      + '<path d="M86 136 Q100 148 114 136" stroke="#b4574c" stroke-width="3.6" fill="none" stroke-linecap="round"/>'
+      + '<ellipse cx="74" cy="132" rx="8" ry="4" fill="#ff8f8f" opacity=".28"/><ellipse cx="126" cy="132" rx="8" ry="4" fill="#ff8f8f" opacity=".28"/>'
+      + '</svg>';
+  }
+  var P = {
+    hr:     {fem:true,  shirt:'#0e4471', skin:'#f1cba6', skinD:'#dcab85'},
+    hrM:    {fem:false, shirt:'#16365c', skin:'#eebf95', skinD:'#d6a077', tie:'#1e8fff', glasses:true},
+    c1:     {fem:true,  shirt:'#2a6fb5', skin:'#f3d0ac', skinD:'#deb089'},
+    c2:     {fem:false, shirt:'#3b4f73', skin:'#ecc196', skinD:'#d4a278'},
+    c3:     {fem:true,  shirt:'#1f5f8b', skin:'#efc59d', skinD:'#d9a77f', hair:'#241a1a'},
+    c4:     {fem:false, shirt:'#244e7a', skin:'#f0c9a2', skinD:'#d9a981', glasses:true},
+    m1:     {fem:true,  shirt:'#0e4471', skin:'#f2cda8', skinD:'#ddb08a'},
+    m2:     {fem:false, shirt:'#1a3a60', skin:'#edc29a', skinD:'#d5a47c', tie:'#4fe3ff'}
+  };
+  function av(parent,k,x,y,w,extra){
+    var h=w*1.25; var d=box(parent,'av','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;'+(extra||''),person(P[k])); return d;
+  }
+
+
+  /* ---------------- shared vector art ---------------- */
+  var HORIZON=1180;
+
+  // Bright contemporary office: daylight window wall, glass partitions, greenery.
+  function roomSVG(){
+    var o=['<svg width="1080" height="1920" viewBox="0 0 1080 1920">','<defs>',
+      '<linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#E9F3FC"/><stop offset="1" stop-color="#D8E7F5"/></linearGradient>',
+      '<linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E4EBF3"/><stop offset="1" stop-color="#C6D2E0"/></linearGradient>',
+      '<linearGradient id="ceil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBFDFF"/><stop offset="1" stop-color="#EDF4FB"/></linearGradient>',
+      '<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".46"/><stop offset=".5" stop-color="#CFE4F7" stop-opacity=".28"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".40"/></linearGradient>',
+      '<radialGradient id="day" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".96"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>',
+      '</defs>'];
+    o.push('<rect x="0" y="0" width="1080" height="300" fill="url(#ceil)"/>');
+    o.push('<rect x="150" y="120" width="340" height="14" rx="7" fill="#FFFFFF"/><ellipse cx="320" cy="128" rx="240" ry="52" fill="url(#day)" opacity=".7"/>');
+    o.push('<rect x="640" y="176" width="300" height="14" rx="7" fill="#FFFFFF"/><ellipse cx="790" cy="184" rx="228" ry="48" fill="url(#day)" opacity=".6"/>');
+    // window wall
+    o.push('<rect x="0" y="300" width="1080" height="'+(HORIZON-300)+'" fill="url(#wall)"/>');
+    for(var mx=0;mx<=864;mx+=216) o.push('<rect x="'+mx+'" y="300" width="8" height="'+(HORIZON-300)+'" fill="#BFD2E4" opacity=".8"/>');
+    o.push('<rect x="0" y="690" width="1080" height="8" fill="#BFD2E4" opacity=".75"/>');
+    o.push('<ellipse cx="700" cy="640" rx="378" ry="340" fill="url(#day)" opacity=".92"/>');
+    o.push('<ellipse cx="300" cy="820" rx="298" ry="270" fill="url(#day)" opacity=".5"/>');
+    // glass partitions (clean framed panels)
+    [[36,320],[792,352]].forEach(function(g){
+      o.push('<rect x="'+g[0]+'" y="'+g[1]+'" width="252" height="'+(HORIZON-g[1])+'" fill="url(#glass)"/>');
+      o.push('<rect x="'+g[0]+'" y="'+g[1]+'" width="252" height="'+(HORIZON-g[1])+'" fill="none" stroke="#AFC8DE" stroke-width="7"/>');
+      o.push('<rect x="'+(g[0]+122)+'" y="'+g[1]+'" width="7" height="'+(HORIZON-g[1])+'" fill="#AFC8DE"/>');
+      o.push('<path d="M'+(g[0]+18)+' '+(HORIZON-20)+' L'+(g[0]+118)+' '+(g[1]+24)+' L'+(g[0]+150)+' '+(g[1]+24)+' L'+(g[0]+50)+' '+(HORIZON-20)+' Z" fill="#FFFFFF" opacity=".30"/>');
+    });
+    // floor
+    o.push('<rect x="0" y="'+HORIZON+'" width="1080" height="'+(1920-HORIZON)+'" fill="url(#floor)"/>');
+    o.push('<rect x="0" y="'+(HORIZON-6)+'" width="1080" height="10" fill="#B6C6D6" opacity=".75"/>');
+    for(var r=0;r<8;r++) o.push('<rect x="'+R(20,600).toFixed(0)+'" y="'+(HORIZON+54+r*86)+'" width="'+R(150,370).toFixed(0)+'" height="11" rx="6" fill="#FFFFFF" opacity="'+R(.2,.46).toFixed(2)+'"/>');
+    o.push('</svg>');
+    return o.join('');
+  }
+  function room(parent){ return box(parent,'','left:0;top:0;width:1080px;height:1920px;',roomSVG()); }
+
+  // Subtle greenery
+  function plant(parent,x,y,sc){
+    var o=['<svg width="240" height="340" viewBox="0 0 240 340">'];
+    o.push('<path d="M72 230 L168 230 L156 336 L84 336 Z" fill="#C3CFDC"/><rect x="66" y="216" width="108" height="22" rx="8" fill="#AEBCCB"/>');
+    for(var i=0;i<7;i++){ var a=-74+i*25, L=120+((i*47)%52);
+      o.push('<path d="M120 226 Q'+(120+Math.sin(a*Math.PI/180)*L*0.55)+' '+(226-L*0.78)+' '+(120+Math.sin(a*Math.PI/180)*L)+' '+(226-L)+'" stroke="#3E7A52" stroke-width="19" fill="none" stroke-linecap="round" opacity=".93"/>'); }
+    o.push('</svg>');
+    return box(parent,'','left:'+x+'px;top:'+y+'px;width:240px;height:340px;transform:scale('+sc+');transform-origin:50% 100%;',o.join(''));
+  }
+
+  // Office desk (props sit behind it, people read as standing behind)
+  function deskUnit(parent,x,y,w,sc){
+    var o=['<svg width="'+w+'" height="260" viewBox="0 0 '+w+' 260">'];
+    o.push('<rect x="0" y="40" width="'+w+'" height="22" rx="9" fill="#FFFFFF"/><rect x="0" y="62" width="'+w+'" height="9" fill="#D6E0EB"/>');
+    o.push('<rect x="26" y="71" width="16" height="168" fill="#C8D4E1"/><rect x="'+(w-42)+'" y="71" width="16" height="168" fill="#C8D4E1"/>');
+    o.push('<rect x="'+(w*0.56)+'" y="-86" width="188" height="118" rx="10" fill="#2C3A4A"/><rect x="'+(w*0.56+8)+'" y="-78" width="172" height="102" rx="6" fill="#55708A"/>');
+    o.push('<rect x="'+(w*0.56+84)+'" y="32" width="22" height="12" fill="#2C3A4A"/>');
+    o.push('</svg>');
+    return box(parent,'','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:260px;transform:scale('+sc+');transform-origin:50% 100%;',o.join(''));
+  }
+
+  /* ---- THE copier: one definition, reused in every shot ---- */
+  function copierSVG(active){
+    var o=['<svg width="300" height="700" viewBox="0 0 300 700">','<defs>',
+      '<linearGradient id="cb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5A6675"/><stop offset=".42" stop-color="#48535F"/><stop offset="1" stop-color="#333C47"/></linearGradient>',
+      '<linearGradient id="ct" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6C7A89"/><stop offset="1" stop-color="#46525F"/></linearGradient>',
+      '</defs>'];
+    o.push('<ellipse cx="150" cy="686" rx="150" ry="22" fill="#9BAABA" opacity=".55"/>');
+    // lower cabinet with three paper drawers
+    o.push('<rect x="8" y="320" width="284" height="356" rx="12" fill="url(#cb)"/>');
+    for(var d=0;d<3;d++){ var dy=348+d*108;
+      o.push('<rect x="22" y="'+dy+'" width="256" height="92" rx="8" fill="#39434E"/>');
+      o.push('<rect x="104" y="'+(dy+38)+'" width="92" height="11" rx="5" fill="#7E8C9B"/>'); }
+    // mid body + output recess with stacked sheets
+    o.push('<rect x="8" y="176" width="284" height="150" rx="10" fill="url(#cb)"/>');
+    o.push('<rect x="34" y="206" width="232" height="66" rx="7" fill="#20272F"/>');
+    o.push('<rect x="50" y="252" width="200" height="13" rx="4" fill="#FFFFFF" opacity=".94"/>');
+    o.push('<rect x="56" y="240" width="188" height="11" rx="4" fill="#F0F4F8" opacity=".8"/>');
+    // scanner head + document feeder
+    o.push('<rect x="0" y="58" width="300" height="130" rx="12" fill="url(#ct)"/>');
+    o.push('<rect x="40" y="22" width="220" height="40" rx="9" fill="#55626F"/>');
+    o.push('<rect x="70" y="8" width="160" height="16" rx="6" fill="#E9EFF5" opacity=".9"/>');
+    // angled control panel
+    o.push('<g transform="translate(236,166) rotate(-14)"><rect x="0" y="0" width="128" height="80" rx="9" fill="#1F2730"/>'
+          +'<rect x="11" y="11" width="106" height="58" rx="5" fill="'+(active?'#2F97E0':'#24577E')+'"/></g>');
+    o.push('<rect x="8" y="312" width="284" height="8" fill="#2F97E0" opacity=".85"/>');
+    o.push('</svg>');
+    return o.join('');
+  }
+  function copier(parent,x,y,sc,active){
+    return box(parent,'','left:'+x+'px;top:'+y+'px;width:300px;height:700px;transform:scale('+sc+');transform-origin:50% 100%;',copierSVG(active));
+  }
+
+  // Small desktop printer (the "before" device)
+  function deskPrinter(parent,x,y,sc){
+    var o=['<svg width="240" height="190" viewBox="0 0 240 190">'];
+    o.push('<ellipse cx="120" cy="182" rx="112" ry="13" fill="#9BAABA" opacity=".45"/>');
+    o.push('<rect x="12" y="62" width="216" height="110" rx="12" fill="#5B6774"/>');
+    o.push('<rect x="12" y="40" width="216" height="34" rx="10" fill="#6E7C8A"/>');
+    o.push('<rect x="40" y="96" width="160" height="30" rx="6" fill="#222A33"/>');
+    o.push('<rect x="178" y="52" width="40" height="14" rx="5" fill="#2F97E0"/>');
+    o.push('</svg>');
+    return box(parent,'','left:'+x+'px;top:'+y+'px;width:240px;height:190px;transform:scale('+sc+');transform-origin:50% 100%;',o.join(''));
+  }
+
+  // A single sheet / document pack
+  function sheet(parent,x,y,w,rot,cls){
+    var h=Math.round(w*1.32);
+    var d=box(parent,cls||'','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+h+'px;transform:rotate('+rot+'deg);background:#FFFFFF;border-radius:4px;box-shadow:0 10px 22px rgba(16,44,76,.22);');
+    var s=w/150;
+    for(var i=0;i<5;i++) box(d,'','left:'+(16*s)+'px;top:'+((20+i*18)*s)+'px;width:'+((i%3===2?78:118)*s)+'px;height:'+(7*s)+'px;border-radius:4px;background:rgba(40,70,110,.22);');
+    return d;
+  }
+  function pack(parent,x,y,w,rot){
+    var g=box(parent,'','left:'+x+'px;top:'+y+'px;width:'+w+'px;height:'+Math.round(w*1.32)+'px;transform:rotate('+rot+'deg);');
+    sheet(g,-8,10,w,-3); sheet(g,-3,5,w,1.5); sheet(g,0,0,w,0);
+    return g;
+  }
+
+  /* ---------------- scene scaffolding ---------------- */
+  var SC={s1:[0,2.75],s2:[2.30,5.30],s3:[7.15,7.30],s4:[14.00,6.25],s5:[19.80,4.10],s6:[23.45,3.55]};
+  var FADE=0.45;
+  Object.keys(SC).forEach(function(k){
+    var el=$('#'+k+' .sc'), st=SC[k][0], du=SC[k][1];
+    if(k!=='s1') tl.fromTo(el,{opacity:0},{opacity:1,duration:FADE,ease:'power2.out'},st);
+    if(k!=='s6') tl.to(el,{opacity:0,duration:FADE,ease:'power2.in'},st+du-FADE);
+  });
+  // gentle camera push-in per scene (no excessive movement)
+  function pushIn(k,from,to){
+    var el=$('#'+k+' .sc');
+    set(el,{transformOrigin:'50% 56%'});
+    tl.fromTo(el,{scale:from},{scale:to,duration:SC[k][1],ease:'none'},SC[k][0]);
+  }
+
+  /* ================= SCENE 1 — HOOK (0 – 2.75) ================= */
+  (function(){
+    var S=$('#s1 .sc'), T=SC.s1[0];
+    room(S); plant(S,-20,900,1.0); plant(S,900,930,.86);
+    deskUnit(S,120,1010,520,1.0);
+    var dp=deskPrinter(S,620,1012,1.18);
+    // queue of documents waiting
+    var q=[];
+    for(var i=0;i<4;i++){ var sh=sheet(S,690+i*8,900-i*26,128,-4+i*2.5); set(sh,{opacity:0}); q.push(sh); }
+    // employee already waiting, and one arriving with a stack
+    var pA=av(S,'c1',250,700,210); set(pA,{opacity:0});
+    var pB=av(S,'c4',760,676,224); set(pB,{opacity:0});
+    var carry=pack(S,300,980,150,-4); set(carry,{opacity:0});
+
+    pushIn('s1',1.0,1.05);
+    tl.fromTo(pB,{opacity:0,x:120},{opacity:1,x:0,duration:.7,ease:'power3.out'},T+0.10);
+    tl.fromTo(pA,{opacity:0,x:-130},{opacity:1,x:0,duration:.8,ease:'power3.out'},T+0.30);
+    tl.fromTo(carry,{opacity:0,x:-130,y:16},{opacity:1,x:0,y:0,duration:.8,ease:'power3.out'},T+0.34);
+    q.forEach(function(sh,i){ tl.fromTo(sh,{opacity:0,y:18},{opacity:1,y:0,duration:.26,ease:'power2.out'},T+0.70+i*0.22); });
+
+    var hl=box(S,'hl','left:70px;top:236px;width:940px;');
+    hl.innerHTML='Busy office.<br><span style="color:var(--blue)">Growing print demand?</span>';
+    box(S,'scrim','left:40px;top:200px;width:1000px;height:220px;background:radial-gradient(520px 150px at 50% 50%,rgba(255,255,255,.88),rgba(255,255,255,0));').style.zIndex=-1;
+    tl.fromTo(hl,{opacity:0,y:26},{opacity:1,y:0,duration:.6,ease:'power3.out'},T+0.20);
+  })();
+
+  /* ================= SCENE 2 — THE PROBLEM (2.30 – 7.60) ================= */
+  (function(){
+    var S=$('#s2 .sc'), T=SC.s2[0];
+    room(S); plant(S,-30,910,.94);
+    deskUnit(S,90,1010,560,1.0);
+    var dp=deskPrinter(S,700,1012,1.10);
+    // two colleagues preparing documents, one waiting at the device
+    var p1=av(S,'m1',180,690,206), p2=av(S,'c2',388,706,196), p3=av(S,'c3',800,752,200);
+    [p1,p2,p3].forEach(function(p){ set(p,{opacity:0}); });
+    var d1=pack(S,250,988,132,-3), d2=pack(S,430,1000,124,4);
+    set(d1,{opacity:0}); set(d2,{opacity:0});
+    // wall clock — a believable "checking the time" beat
+    var clock=box(S,'','left:470px;top:392px;width:124px;height:124px;border-radius:50%;background:#FFFFFF;border:7px solid #C2D3E3;box-shadow:0 10px 26px rgba(16,44,76,.14);');
+    var hand=box(clock,'','left:53px;top:16px;width:8px;height:46px;border-radius:4px;background:var(--navy);transform-origin:50% 100%;');
+    box(clock,'','left:51px;top:51px;width:12px;height:12px;border-radius:50%;background:var(--blue);');
+    set(clock,{opacity:0});
+
+    pushIn('s2',1.0,1.045);
+    tl.fromTo(p1,{opacity:0,y:26},{opacity:1,y:0,duration:.55,ease:'power3.out'},T+0.15);
+    tl.fromTo(p2,{opacity:0,y:26},{opacity:1,y:0,duration:.55,ease:'power3.out'},T+0.32);
+    tl.fromTo(p3,{opacity:0,x:60},{opacity:1,x:0,duration:.6,ease:'power3.out'},T+0.50);
+    tl.to([d1,d2],{opacity:1,duration:.4},T+0.60);
+    tl.fromTo(clock,{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:'back.out(1.7)'},T+0.95);
+    tl.fromTo(hand,{rotation:0},{rotation:330,duration:3.2,ease:'none'},T+1.1);
+
+    // micro text, appearing in sequence
+    [['Deadline jobs',0.95],['Shared printing',1.95],['Growing demand',2.95]].forEach(function(c,i){
+      var w=box(S,'','left:70px;top:'+(226+i*104)+'px;');
+      w.innerHTML='<span class="chip"><b></b>'+c[0]+'</span>';
+      set(w,{opacity:0});
+      tl.fromTo(w,{opacity:0,x:-34},{opacity:1,x:0,duration:.5,ease:'power3.out'},T+c[1]);
+    });
+  })();
+
+  /* ================= SCENE 3 — SOLUTION (7.15 – 14.45) ================= */
+  (function(){
+    var S=$('#s3 .sc'), T=SC.s3[0];
+    room(S); plant(S,880,928,.9);
+    var cop=copier(S,392,560,1.0,true);
+    set(cop,{opacity:0});
+    // technician at the panel, office manager observing
+    var tech=av(S,'hrM',690,864,212), mgr=av(S,'m1',196,880,198);
+    set(tech,{opacity:0}); set(mgr,{opacity:0});
+
+    pushIn('s3',1.06,1.0);
+    tl.fromTo(cop,{opacity:0,y:44,scale:.94},{opacity:1,y:0,scale:1,duration:.85,ease:'power3.out'},T+0.10);
+    tl.fromTo(tech,{opacity:0,x:70},{opacity:1,x:0,duration:.65,ease:'power3.out'},T+0.70);
+    tl.fromTo(mgr,{opacity:0,x:-70},{opacity:1,x:0,duration:.65,ease:'power3.out'},T+0.90);
+
+    var main=box(S,'main','left:70px;top:214px;width:940px;color:var(--navy);','COPIER RENTAL');
+    var sec =box(S,'sec','left:74px;top:322px;width:940px;','Business-ready capacity');
+    set(main,{opacity:0}); set(sec,{opacity:0});
+    tl.fromTo(main,{opacity:0,y:28,scale:.95},{opacity:1,y:0,scale:1,duration:.6,ease:'power3.out'},T+1.25);
+    tl.fromTo(sec,{opacity:0,y:20},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+1.60);
+
+    // three close-up detail cards: paper tray, touchscreen, output pages
+    function detail(i,label,draw,at){
+      var c=box(S,'band','left:'+(78+i*316)+'px;top:1142px;width:286px;height:224px;');
+      var art=box(c,'','left:18px;top:16px;width:250px;height:142px;border-radius:14px;overflow:hidden;background:#EFF5FB;');
+      draw(art);
+      box(c,'','left:18px;top:170px;width:250px;text-align:center;font-size:29px;font-weight:800;letter-spacing:1.2px;color:var(--blue);text-transform:uppercase;',label);
+      set(c,{opacity:0});
+      tl.fromTo(c,{opacity:0,y:30},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+at);
+      return c;
+    }
+    detail(0,'Paper tray',function(a){
+      box(a,'','left:26px;top:34px;width:198px;height:84px;border-radius:9px;background:#49545F;');
+      var dr=box(a,'','left:46px;top:58px;width:170px;height:54px;border-radius:7px;background:#39434E;');
+      box(dr,'','left:52px;top:22px;width:66px;height:9px;border-radius:4px;background:#8795A4;');
+      tl.fromTo(dr,{x:0},{x:34,duration:.7,ease:'power2.out'},T+3.1);
+    },2.55);
+    detail(1,'Touchscreen',function(a){
+      box(a,'','left:46px;top:22px;width:158px;height:102px;border-radius:10px;background:#1F2730;');
+      var scr=box(a,'','left:56px;top:32px;width:138px;height:82px;border-radius:7px;background:linear-gradient(150deg,#2F97E0,#1E6FB8);');
+      box(scr,'','left:14px;top:14px;width:62px;height:9px;border-radius:5px;background:rgba(255,255,255,.85);');
+      box(scr,'','left:14px;top:34px;width:96px;height:9px;border-radius:5px;background:rgba(255,255,255,.55);');
+      box(scr,'','left:14px;top:54px;width:48px;height:16px;border-radius:8px;background:rgba(255,255,255,.9);');
+      tl.fromTo(scr,{opacity:.55},{opacity:1,duration:.5,ease:'power2.out'},T+3.9);
+    },3.55);
+    detail(2,'Neat output',function(a){
+      box(a,'','left:30px;top:84px;width:190px;height:40px;border-radius:8px;background:#49545F;');
+      for(var i=0;i<3;i++){
+        var p=box(a,'','left:'+(58+i*6)+'px;top:'+(66-i*13)+'px;width:134px;height:20px;border-radius:3px;background:#FFFFFF;box-shadow:0 5px 12px rgba(16,44,76,.2);');
+        tl.fromTo(p,{opacity:0,y:16},{opacity:1,y:0,duration:.3,ease:'power2.out'},T+4.85+i*0.2);
+      }
+    },4.55);
+  })();
+
+  /* ================= SCENE 4 — BENEFITS (14.00 – 20.25) ================= */
+  (function(){
+    var S=$('#s4 .sc'), T=SC.s4[0];
+    room(S);
+    var shots=[];
+    function shot(i,at,dur,build,kick){
+      var g=box(S,'','left:0;top:0;width:1080px;height:1920px;');
+      build(g);
+      var k=box(g,'kick','left:70px;top:252px;width:940px;color:var(--navy);',kick);
+      box(g,'','left:74px;top:330px;width:120px;height:8px;border-radius:4px;background:var(--bblue);');
+      set(g,{opacity:0});
+      tl.fromTo(g,{opacity:0,scale:.985},{opacity:1,scale:1,duration:.38,ease:'power2.out'},T+at);
+      if(i<2) tl.to(g,{opacity:0,duration:.34,ease:'power2.in'},T+at+dur-0.34);
+      tl.fromTo(k,{opacity:0,y:20},{opacity:1,y:0,duration:.4,ease:'power3.out'},T+at+0.12);
+      shots.push(g); return g;
+    }
+    // A — scanning a document
+    shot(0,0.00,1.95,function(g){
+      copier(g,300,584,.94,true);
+      var p=av(g,'c3',618,900,200);
+      var doc=sheet(g,470,604,120,-6);
+      tl.fromTo(doc,{y:0,opacity:1},{y:40,opacity:.25,duration:.9,ease:'power2.in'},T+0.55);
+      var beam=box(g,'','left:388px;top:650px;width:250px;height:7px;border-radius:4px;background:linear-gradient(90deg,rgba(47,151,224,0),#7FD4FF,rgba(47,151,224,0));');
+      tl.fromTo(beam,{opacity:0,y:-12},{opacity:1,y:16,duration:.7,ease:'sine.inOut'},T+0.5);
+    },'Copy &bull; Scan &bull; Print');
+    // B — colleagues collecting organised sets
+    shot(1,1.95,1.95,function(g){
+      copier(g,112,612,.82,true);
+      deskUnit(g,420,1016,560,1.0);
+      var a=av(g,'c1',500,706,198), b=av(g,'m2',716,718,192);
+      var k1=pack(g,540,984,128,-3), k2=pack(g,724,996,120,3);
+      tl.fromTo([a,b],{opacity:0,y:24},{opacity:1,y:0,duration:.45,ease:'power3.out'},T+2.10);
+      tl.fromTo([k1,k2],{opacity:0,y:20},{opacity:1,y:0,duration:.45,ease:'power3.out'},T+2.32);
+    },'Shared office output');
+    // C — service technician inspecting
+    shot(2,3.90,2.35,function(g){
+      copier(g,330,584,.94,true);
+      var t=av(g,'hrM',648,884,206);
+      var panel=box(g,'band','left:118px;top:700px;width:250px;height:150px;');
+      box(panel,'','left:22px;top:24px;width:120px;height:14px;border-radius:7px;background:rgba(30,111,184,.5);');
+      box(panel,'','left:22px;top:54px;width:188px;height:11px;border-radius:6px;background:rgba(40,70,110,.22);');
+      box(panel,'','left:22px;top:78px;width:150px;height:11px;border-radius:6px;background:rgba(40,70,110,.22);');
+      var ok=box(panel,'','left:22px;top:104px;width:96px;height:28px;border-radius:14px;background:#2F97E0;');
+      tl.fromTo(panel,{opacity:0,x:-26},{opacity:1,x:0,duration:.45,ease:'power3.out'},T+4.15);
+      tl.fromTo(ok,{scaleX:0},{scaleX:1,duration:.4,ease:'power3.out',transformOrigin:'0% 50%'},T+4.45);
+    },'Service support');
+  })();
+
+  /* ================= SCENE 5 — OUTCOME (19.80 – 23.90) ================= */
+  (function(){
+    var S=$('#s5 .sc'), T=SC.s5[0];
+    room(S); plant(S,900,934,.86);
+    copier(S,58,700,.72,true);
+    deskUnit(S,436,1014,548,1.0);
+    var a=av(S,'m1',520,706,196), b=av(S,'c4',742,716,192);
+    var k1=pack(S,566,982,126,-3), k2=pack(S,760,992,118,3), k3=pack(S,668,1000,114,-1.5);
+    [a,b,k1,k2,k3].forEach(function(e){ set(e,{opacity:0}); });
+    // a colleague heading to the meeting room, clear of the machine
+    var walker=av(S,'c2',318,928,188); set(walker,{opacity:0});
+    var wpack=pack(S,348,1090,104,-5); set(wpack,{opacity:0});
+
+    pushIn('s5',1.0,1.05);
+    tl.fromTo([a,b],{opacity:0,y:22},{opacity:1,y:0,duration:.45,ease:'power3.out'},T+0.15);
+    tl.fromTo([k1,k2,k3],{opacity:0,y:18},{opacity:1,y:0,duration:.45,ease:'power3.out'},T+0.35);
+    tl.fromTo([walker,wpack],{opacity:0,x:80},{opacity:1,x:0,duration:.7,ease:'power2.out'},T+0.70);
+    tl.to([walker,wpack],{x:-34,duration:2.2,ease:'none'},T+1.4);
+
+    var t1=box(S,'hl','left:70px;top:252px;width:940px;','Keep your office ready.');
+    var t2=box(S,'hl','left:70px;top:252px;width:940px;color:var(--blue);','Even when demand grows.');
+    set(t1,{opacity:0}); set(t2,{opacity:0});
+    tl.fromTo(t1,{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+0.25);
+    tl.to(t1,{opacity:0,y:-20,duration:.38,ease:'power2.in'},T+1.95);
+    tl.fromTo(t2,{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+2.20);
+  })();
+
+  /* ================= SCENE 6 — PRE-CTA (23.45 – 27.00) ================= */
+  (function(){
+    var S=$('#s6 .sc'), T=SC.s6[0];
+    room(S); plant(S,-24,920,.92); plant(S,892,936,.84);
+    var cop=copier(S,392,560,1.0,true);
+    var walker=av(S,'c1',700,742,200); var wpack=pack(S,742,1002,116,-4);
+    set(walker,{opacity:0}); set(wpack,{opacity:0});
+
+    pushIn('s6',1.0,1.075);
+    tl.fromTo(cop,{opacity:0,scale:.96},{opacity:1,scale:1,duration:.6,ease:'power3.out'},T+0.05);
+    tl.fromTo([walker,wpack],{opacity:0,x:110},{opacity:1,x:0,duration:.8,ease:'power2.out'},T+0.35);
+    tl.to([walker,wpack],{x:-80,duration:2.4,ease:'none'},T+1.0);
+
+    var main=box(S,'main','left:70px;top:206px;width:940px;font-size:78px;letter-spacing:-1.8px;','READY YOUR OFFICE TO PRINT');
+    var small=box(S,'small','left:74px;top:396px;width:940px;','Copier Rental Solutions');
+    set(main,{opacity:0}); set(small,{opacity:0});
+    tl.fromTo(main,{opacity:0,y:26,scale:.96},{opacity:1,y:0,scale:1,duration:.6,ease:'power3.out'},T+0.25);
+    tl.fromTo(small,{opacity:0,y:18},{opacity:1,y:0,duration:.45,ease:'power3.out'},T+0.60);
+  })();
+
+  tl.fromTo('#endfade',{opacity:0},{opacity:1,duration:.55,ease:'power1.inOut'},26.45);
+
+  /* ---------------- burned-in subtitles ---------------- */
+  (function(){
+    var SUBS=[{"scene": 1, "start": 0.35, "end": 2.15, "chunks": [["Is your office print queue getting busier?", 0.35]]}, {"scene": 2, "start": 2.42, "end": 7.12, "chunks": [["When teams share limited printing capacity,", 2.42], ["even routine jobs can slow down.", 4.65]]}, {"scene": 3, "start": 7.3, "end": 13.99, "chunks": [["A copier rental gives your office access to", 7.3], ["business-ready capacity without relying on a", 9.62], ["basic desktop device.", 12.16]]}, {"scene": 4, "start": 14.15, "end": 19.74, "chunks": [["Print, copy and scan from one shared office", 14.15], ["system, with professional service", 16.69], ["support when you need it.", 18.63]]}, {"scene": 5, "start": 19.95, "end": 23.42, "chunks": [["So when document demand picks up, your team", 19.95], ["is ready to keep moving.", 22.09]]}, {"scene": 6, "start": 23.6, "end": 26.6, "chunks": [["Find the copier rental solution", 23.6], ["that fits your office.", 25.42]]}];
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.22;
+        var wrap=document.createElement('div'); wrap.className='subpill';
+        wrap.setAttribute('data-layout-allow-overlap',''); wrap.style.opacity=0;
+        var bx=document.createElement('div'); bx.className='subbox';
+        var sp=document.createElement('span'); sp.textContent=ch[0]; bx.appendChild(sp);
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:14},{opacity:1,y:0,duration:.17,ease:'power3.out'},t0);
+        tl.to(wrap,{opacity:0,y:-7,duration:.13,ease:'power2.in'},t1-0.19);
+      });
+    });
+  })();
+
+  window.__timelines=window.__timelines||{}; window.__timelines['copier-rental-master']=tl;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>McLink Philippines End Screen 9:16</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --navy:#0C3A63;      /* deep navy  */
+    --navyD:#07263F;
+    --blue:#1071B9;      /* bright blue (from logo) */
+    --blueM:#15619C;
+    --yellow:#FDB813;    /* logo yellow */
+    --ink:#232021;       /* logo wordmark ink */
+  }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#EDF3F9; }
+  body { font-family: Inter, sans-serif; color:var(--navy); }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; background:#EDF3F9; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .sc { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  svg { display:block; }
+
+  /* defocused office plate */
+  #office { position:absolute; left:-80px; top:-80px; width:1240px; height:2080px;
+            filter: blur(11px) saturate(1.06); transform-origin:50% 48%; }
+  .scrim { position:absolute; inset:0; }
+
+  /* type */
+  .cta { font-size:104px; font-weight:800; letter-spacing:-2px; line-height:1;
+         color:var(--navy); text-align:center; }
+  .row { position:absolute; display:flex; align-items:center; gap:26px;
+         font-size:42px; font-weight:650; color:var(--navy); white-space:nowrap; }
+  .row i { display:block; width:76px; height:76px; border-radius:50%; flex:none;
+           background:linear-gradient(145deg,var(--blue),var(--blueM));
+           box-shadow:0 8px 20px rgba(16,113,185,.32); }
+  .card { position:absolute; border-radius:30px;
+          background:linear-gradient(160deg,rgba(255,255,255,.93),rgba(255,255,255,.82));
+          border:1.5px solid rgba(255,255,255,.95);
+          box-shadow:0 26px 70px rgba(10,45,80,.20), 0 2px 0 rgba(255,255,255,.9) inset; }
+
+  /* subtitles */
+  .subpill { position:absolute; left:0; top:1640px; width:1080px; display:flex; justify-content:center; }
+  .subbox { display:inline-flex; align-items:center; gap:13px; padding:15px 38px; border-radius:46px;
+    white-space:nowrap; background:linear-gradient(135deg,#0C3A63,#07263F);
+    border:2px solid rgba(255,255,255,.86);
+    box-shadow:0 12px 34px rgba(6,26,56,.42); }
+  .subbox span { font-size:41px; font-weight:800; letter-spacing:-.2px; color:rgba(255,255,255,.62); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="mclink-ph-ender" data-start="0" data-duration="5.5" data-width="1080" data-height="1920">
+
+  <div id="bg" class="fill clip" data-start="0" data-duration="5.5" data-track-index="0"></div>
+  <div id="e1" class="fill clip" data-start="0" data-duration="5.5" data-track-index="1"><div class="sc"></div></div>
+  <div id="subs" data-layout-allow-overlap class="fill clip" data-start="0" data-duration="5.5" data-track-index="7" style="pointer-events:none"></div>
+  <div id="fadeout" class="fill clip" data-start="5.1" data-duration="0.4" data-track-index="8" style="background:#07263F;opacity:0"></div>
+
+  <audio id="a-music" data-start="0" data-duration="5.5" data-track-index="10" data-volume="0.3" src="assets/music.mp3"></audio>
+  <audio id="a-vo" data-start="0.6" data-duration="4.1" data-track-index="11" data-volume="1" src="assets/vo/vo.mp3"></audio>
+</div>
+
+<script>
+(function(){
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  var rnd=mulberry(74231), R=function(a,b){return a+(b-a)*rnd();};
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,cls,style,inner){var d=document.createElement('div');d.className=cls||'';d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+
+  /* ============================================================
+     BACKGROUND — bright modern office, floor-standing copier,
+     rendered as vector art then defocused behind a light scrim.
+     ============================================================ */
+  var bg=$('#bg');
+  var office=box(bg,'','left:-80px;top:-80px;width:1240px;height:2080px;');
+  office.id='office';
+
+  var W=1240, H=2080, FLOOR=1500, CEIL=360;
+  var s=['<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'];
+  s.push('<defs>'
+   +'<linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#E4F0FC"/><stop offset="1" stop-color="#D3E4F5"/></linearGradient>'
+   +'<linearGradient id="flr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE5EE"/><stop offset="1" stop-color="#C3CFDC"/></linearGradient>'
+   +'<linearGradient id="cei" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7FAFD"/><stop offset="1" stop-color="#E7EEF6"/></linearGradient>'
+   +'<linearGradient id="mfp" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#46525F"/><stop offset=".45" stop-color="#394451"/><stop offset="1" stop-color="#28303A"/></linearGradient>'
+   +'<linearGradient id="mfpTop" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5A6774"/><stop offset="1" stop-color="#3C4654"/></linearGradient>'
+   +'<linearGradient id="dsk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E3EAF2"/></linearGradient>'
+   +'<radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>'
+   +'</defs>');
+
+  // ceiling + linear LED strips
+  s.push('<rect x="0" y="0" width="'+W+'" height="'+CEIL+'" fill="url(#cei)"/>');
+  [[90,120],[480,96],[870,120]].forEach(function(c,i){
+    s.push('<rect x="'+c[0]+'" y="'+(120+i%2*60)+'" width="300" height="16" rx="8" fill="#FFFFFF"/>');
+    s.push('<ellipse cx="'+(c[0]+150)+'" cy="'+(128+i%2*60)+'" rx="210" ry="56" fill="url(#glow)" opacity=".75"/>');
+  });
+
+  // back wall of windows
+  s.push('<rect x="0" y="'+CEIL+'" width="'+W+'" height="'+(FLOOR-CEIL)+'" fill="url(#win)"/>');
+  for(var mx=0; mx<=W; mx+=186) s.push('<rect x="'+mx+'" y="'+CEIL+'" width="9" height="'+(FLOOR-CEIL)+'" fill="#B9CBDD" opacity=".85"/>');
+  s.push('<rect x="0" y="760" width="'+W+'" height="9" fill="#B9CBDD" opacity=".8"/>');
+  // daylight bloom through the glass
+  s.push('<ellipse cx="820" cy="700" rx="430" ry="330" fill="url(#glow)" opacity=".9"/>');
+  s.push('<ellipse cx="250" cy="880" rx="300" ry="260" fill="url(#glow)" opacity=".55"/>');
+
+  // floor + soft reflections
+  s.push('<rect x="0" y="'+FLOOR+'" width="'+W+'" height="'+(H-FLOOR)+'" fill="url(#flr)"/>');
+  for(var r=0;r<7;r++){ var rx=R(40,1120); s.push('<rect x="'+rx+'" y="'+(FLOOR+30+r*58)+'" width="'+R(120,360)+'" height="10" rx="5" fill="#FFFFFF" opacity="'+R(.18,.42).toFixed(2)+'"/>'); }
+
+  // --- desk run, right side (mid-ground) ---
+  function desk(x,y,w){
+    var o=[];
+    o.push('<rect x="'+x+'" y="'+y+'" width="'+w+'" height="18" rx="6" fill="url(#dsk)"/>');
+    o.push('<rect x="'+(x+16)+'" y="'+(y+18)+'" width="12" height="150" fill="#C7D3E0"/>');
+    o.push('<rect x="'+(x+w-28)+'" y="'+(y+18)+'" width="12" height="150" fill="#C7D3E0"/>');
+    // monitor
+    o.push('<rect x="'+(x+w*0.30)+'" y="'+(y-112)+'" width="166" height="100" rx="8" fill="#2E3843"/>');
+    o.push('<rect x="'+(x+w*0.30+7)+'" y="'+(y-105)+'" width="152" height="86" rx="4" fill="#48586A"/>');
+    o.push('<rect x="'+(x+w*0.30+74)+'" y="'+(y-12)+'" width="20" height="14" fill="#2E3843"/>');
+    return o.join('');
+  }
+  s.push(desk(690,1310,330));
+  s.push(desk(1040,1352,300));
+  // seated colleagues (soft silhouettes — heavily defocused)
+  function person(x,y,sc,shirt){
+    return '<g transform="translate('+x+','+y+') scale('+sc+')">'
+      +'<path d="M-62 150 C-62 86 -30 58 0 58 C30 58 62 86 62 150 Z" fill="'+shirt+'"/>'
+      +'<ellipse cx="0" cy="12" rx="40" ry="46" fill="#D9AE8C"/>'
+      +'<path d="M-42 6 C-42 -44 -16 -56 0 -56 C20 -56 42 -42 42 6 C34 -20 20 -30 0 -30 C-18 -30 -34 -20 -42 6 Z" fill="#20191A"/>'
+      +'</g>';
+  }
+  s.push(person(812,1180,1.0,'#2F4A6B'));
+  s.push(person(1142,1222,0.94,'#E9EDF2'));
+  // chairs
+  s.push('<rect x="742" y="1352" width="140" height="150" rx="22" fill="#4A5565" opacity=".65"/>');
+  s.push('<rect x="1078" y="1394" width="132" height="146" rx="22" fill="#4A5565" opacity=".55"/>');
+
+  // --- plants ---
+  function plant(x,y,sc){
+    var o=['<g transform="translate('+x+','+y+') scale('+sc+')">'];
+    o.push('<path d="M-52 0 L52 0 L40 128 L-40 128 Z" fill="#AEBAC7"/>');
+    for(var i=0;i<7;i++){ var a=-78+i*26, L=150+((i*53)%60);
+      o.push('<path d="M0 0 Q'+(Math.sin(a*Math.PI/180)*L*0.6)+' '+(-L*0.75)+' '+(Math.sin(a*Math.PI/180)*L)+' '+(-L)+'" stroke="#3E7A52" stroke-width="22" fill="none" stroke-linecap="round" opacity=".92"/>');
+    }
+    o.push('</g>');
+    return o.join('');
+  }
+  s.push(plant(96,1498,1.0));
+  s.push(plant(1168,1520,0.82));
+
+  // --- floor-standing multifunction copier (the subject in the background) ---
+  var cx0=190, cy0=880, cw=290, ch=620;   // body
+  s.push('<ellipse cx="'+(cx0+cw/2)+'" cy="'+(cy0+ch+16)+'" rx="'+(cw*0.62)+'" ry="26" fill="#8D9BAA" opacity=".55"/>'); // contact shadow
+  // paper drawers (lower body)
+  s.push('<rect x="'+cx0+'" y="'+(cy0+250)+'" width="'+cw+'" height="'+(ch-250)+'" rx="10" fill="url(#mfp)"/>');
+  for(var d=0; d<3; d++){
+    var dy=cy0+280+d*112;
+    s.push('<rect x="'+(cx0+12)+'" y="'+dy+'" width="'+(cw-24)+'" height="96" rx="7" fill="#323B46"/>');
+    s.push('<rect x="'+(cx0+cw*0.30)+'" y="'+(dy+40)+'" width="'+(cw*0.40)+'" height="11" rx="5" fill="#6D7A88"/>');
+  }
+  // mid body + output tray recess
+  s.push('<rect x="'+cx0+'" y="'+(cy0+120)+'" width="'+cw+'" height="140" rx="9" fill="url(#mfp)"/>');
+  s.push('<rect x="'+(cx0+26)+'" y="'+(cy0+150)+'" width="'+(cw-52)+'" height="62" rx="6" fill="#1B222A"/>');
+  s.push('<rect x="'+(cx0+40)+'" y="'+(cy0+196)+'" width="'+(cw-80)+'" height="12" rx="4" fill="#E8EDF3" opacity=".9"/>'); // output paper
+  // scanner / ADF head
+  s.push('<rect x="'+(cx0-10)+'" y="'+cy0+'" width="'+(cw+20)+'" height="126" rx="11" fill="url(#mfpTop)"/>');
+  s.push('<rect x="'+(cx0+28)+'" y="'+(cy0-30)+'" width="'+(cw-56)+'" height="36" rx="8" fill="#4E5A68"/>'); // ADF tray
+  // angled control panel with screen
+  s.push('<g transform="translate('+(cx0+cw-26)+','+(cy0+104)+') rotate(-14)">'
+        +'<rect x="0" y="0" width="128" height="78" rx="9" fill="#1C232B"/>'
+        +'<rect x="11" y="11" width="106" height="56" rx="5" fill="#1071B9" opacity=".92"/>'
+        +'</g>');
+  // subtle brand-blue accent stripe on the body
+  s.push('<rect x="'+cx0+'" y="'+(cy0+243)+'" width="'+cw+'" height="7" fill="#1071B9" opacity=".75"/>');
+
+  // defocused highlight bokeh
+  for(var b=0;b<9;b++){
+    s.push('<circle cx="'+R(60,1180)+'" cy="'+R(380,1460)+'" r="'+R(26,70).toFixed(1)+'" fill="#FFFFFF" opacity="'+R(.14,.34).toFixed(2)+'"/>');
+  }
+  s.push('</svg>');
+  office.innerHTML=s.join('');
+
+  // light scrim keeps the room bright while the CTA stays the priority
+  box(bg,'scrim','inset:0;background:linear-gradient(180deg,rgba(255,255,255,.40) 0%,rgba(236,244,251,.24) 38%,rgba(255,255,255,.34) 72%,rgba(255,255,255,.52) 100%);');
+  box(bg,'scrim','inset:0;background:radial-gradient(1150px 900px at 50% 34%,rgba(255,255,255,.20),rgba(203,219,235,.16) 70%,rgba(176,197,217,.30) 100%);');
+
+  // slow, premium push-in
+  tl.fromTo(office,{scale:1.075},{scale:1.0,duration:5.5,ease:'none'},0);
+
+  /* ============================================================
+     FOREGROUND
+     ============================================================ */
+  var S=$('#e1 .sc');
+
+  // --- logo (used exactly as supplied; aspect ratio preserved) ---
+  var lw=500, lh=Math.round(lw*96/180);
+  var logo=box(S,'','left:'+((1080-lw)/2)+'px;top:300px;width:'+lw+'px;height:'+lh+'px;opacity:0;',
+    '<img src="assets/logo@5x.png" alt="McLink Copy Services Philippines Inc." style="display:block;width:'+lw+'px;height:'+lh+'px;">');
+  tl.fromTo(logo,{opacity:0,y:26,scale:.955},{opacity:1,y:0,scale:1,duration:.65,ease:'power3.out'},0.15);
+
+  // --- clean blue light sweep introducing the end card ---
+  var sweep=box(S,'','left:-620px;top:-200px;width:300px;height:2320px;transform:rotate(16deg);opacity:0;background:linear-gradient(90deg,rgba(16,113,185,0),rgba(110,190,245,.34) 42%,rgba(255,255,255,.52) 55%,rgba(16,113,185,0));');
+  tl.fromTo(sweep,{x:0,opacity:0},{x:360,opacity:1,duration:.3,ease:'power1.out'},0.20);
+  tl.to(sweep,{x:1860,opacity:0,duration:.72,ease:'power2.inOut'},0.50);
+
+  // --- main CTA ---
+  var cta=box(S,'cta','left:70px;top:770px;width:940px;','INQUIRE TODAY!');
+  tl.fromTo(cta,{opacity:0,y:30,scale:.92},{opacity:1,y:0,scale:1,duration:.55,ease:'power3.out'},0.95);
+
+  // restrained yellow accent rule
+  var rule=box(S,'','left:460px;top:912px;width:160px;height:9px;border-radius:5px;background:var(--yellow);transform-origin:50% 50%;');
+  tl.fromTo(rule,{scaleX:0,opacity:0},{scaleX:1,opacity:1,duration:.4,ease:'power3.out'},1.35);
+
+  // --- contact card ---
+  var card=box(S,'card','left:70px;top:1010px;width:940px;height:430px;opacity:0;');
+  tl.fromTo(card,{opacity:0,y:34},{opacity:1,y:0,duration:.45,ease:'power3.out'},1.80);
+
+  var ic={phone:'<path d="M12 6 L20 6 L24 16 L18 20 C20 26 26 32 32 34 L36 28 L46 32 L46 40 C46 44 42 46 38 46 C22 44 8 30 6 14 C6 10 8 6 12 6 Z" fill="#fff"/>',
+          mail:'<rect x="6" y="12" width="40" height="30" rx="4" fill="none" stroke="#fff" stroke-width="4"/><path d="M8 16 L26 30 L44 16" fill="none" stroke="#fff" stroke-width="4"/>',
+          globe:'<circle cx="26" cy="26" r="20" fill="none" stroke="#fff" stroke-width="4"/><ellipse cx="26" cy="26" rx="9" ry="20" fill="none" stroke="#fff" stroke-width="4"/><path d="M7 19 H45 M7 33 H45" stroke="#fff" stroke-width="4"/>'};
+
+  var rows=[['phone','(02) 8801 4491',1062],
+            ['mail','csph@mclinkgroup.com',1192],
+            ['globe','www.mclinkphil.com',1322]];
+  rows.forEach(function(c,i){
+    var e=box(S,'row','left:130px;top:'+c[2]+'px;height:76px;opacity:0;',
+      '<i><svg width="76" height="76" viewBox="0 0 52 52" style="padding:13px">'+ic[c[0]]+'</svg></i><span>'+c[1]+'</span>');
+    tl.fromTo(e,{opacity:0,x:-34},{opacity:1,x:0,duration:.5,ease:'power3.out'},2.00+i*0.50);
+  });
+
+  tl.fromTo('#fadeout',{opacity:0},{opacity:1,duration:.4,ease:'power1.inOut'},5.10);
+
+  /* ---------- subtitles: timed to the voiceover ---------- */
+  (function(){
+    var SUBS=[{"scene": 1, "y": 1640, "start": 0.6, "end": 4.7, "chunks": [["Inquire today", 0.6], ["and find the right copier", 1.58], ["rental solution for your office.", 2.9]]}];
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.25;
+        var words=ch[0].split(' '), total=words.join('').length, acc=0;
+        var wrap=document.createElement('div'); wrap.className='subpill'; wrap.setAttribute('data-layout-allow-overlap','');
+        wrap.style.opacity=0; if(sc.y) wrap.style.top=sc.y+'px';
+        var bx=document.createElement('div'); bx.className='subbox';
+        var spans=words.map(function(w){ var sp=document.createElement('span'); sp.textContent=w; bx.appendChild(sp); return sp; });
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:16,scale:.975},{opacity:1,y:0,scale:1,duration:.18,ease:'power3.out'},t0);
+        tl.to(wrap,{opacity:0,y:-8,duration:.14,ease:'power2.in'},t1-0.20);
+        var span=Math.max(.5,(t1-t0)-0.28);
+        words.forEach(function(w,i){
+          var ws=t0+span*(acc/total), we=t0+span*((acc+w.replace(/[^A-Za-z0-9]/g,'').length)/total); acc+=w.length;
+          tl.to(spans[i],{color:'#FDB813',duration:.12},ws);
+          tl.to(spans[i],{color:'#FFFFFF',duration:.24},Math.max(we,ws+.2));
+        });
+      });
+    });
+  })();
+
+  window.__timelines=window.__timelines||{}; window.__timelines['mclink-ph-ender']=tl;
+})();
+</script>
+</body>
+</html>

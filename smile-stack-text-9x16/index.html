@@ -69,14 +69,58 @@
     var o=still(S,'assets/shot2.jpg',w,h,640,380), pic=o.pic, stage=o.stage;
     tl.fromTo(stage,{scale:1.04},{scale:1.12,duration:4,ease:'power1.inOut'},T);
     handheld(stage,T,4,6,5,.2);
-    // the sheet and hand on the left are already motion-blurred in the photograph: nudge them in faster and faster bursts
-    var sh=dupMask(pic,'assets/shot2.jpg',w,h,250,960,280,150); sh.style.transformOrigin='260px 1000px';
-    var TS=[.25,.95,1.5,1.9,2.2,2.45,2.65,2.82,2.97,3.10,3.20,3.30];
-    var DU=[.30,.24,.20,.17,.15,.13,.12,.11,.10,.09,.08,.08];
+    // ---- real page turns: the photograph's own sheet, bent into strips and rotated about the edge her hand holds ----
+    var FD={x:85,y:1065}, FA={x:215,y:888};
+    var hlen=Math.hypot(FA.x-FD.x,FA.y-FD.y), ex=(FA.x-FD.x)/hlen, ey=(FA.y-FD.y)/hlen, nx=-ey, ny=ex;   // hinge direction and its normal (into the page)
+    var SHEET0=[[215,885],[480,928],[845,1215],[306,1346],[80,1066]], CX=0, CY=0;
+    SHEET0.forEach(function(p){CX+=p[0]/5;CY+=p[1]/5;});
+    var SHEET=SHEET0.map(function(p){return [CX+(p[0]-CX)*0.915,CY+(p[1]-CY)*0.915];});   // pulled in a few px so no desk pixels ride along on the turning page                                      // outline of the lifted sheet in the photo
+    function Vv(p){return (p[0]-FD.x)*nx+(p[1]-FD.y)*ny;}
+    function clipPoly(poly,f){ var out=[]; for(var i=0;i<poly.length;i++){var a=poly[i],b=poly[(i+1)%poly.length],fa=f(a),fb=f(b);
+        if(fa>=0) out.push(a); if((fa>=0)!==(fb>=0)){var t=fa/(fa-fb); out.push([a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])]);} } return out; }
+    var VMAX=0; SHEET.forEach(function(p){VMAX=Math.max(VMAX,Vv(p));});
+    var NS=12, pages=[];
+    for(var pi=0;pi<4;pi++){
+      var wrap=box(pic,'left:0;top:0;width:'+w+'px;height:'+h+'px;opacity:0;'); var strips=[];
+      for(var k=0;k<NS;k++){
+        var v0=VMAX*k/NS-(k===0?4:0), v1=VMAX*(k+1)/NS+(k===NS-1?4:0);
+        var poly=clipPoly(clipPoly(SHEET,function(p){return Vv(p)-v0;}),function(p){return v1-Vv(p);});
+        if(poly.length<3) continue;
+        var pts=poly.map(function(p){return p[0].toFixed(1)+'px '+p[1].toFixed(1)+'px';}).join(',');
+        var el=box(wrap,'left:0;top:0;width:'+w+'px;height:'+h+'px;background-image:url(assets/shot2.jpg);background-size:'+w+'px '+h+'px;clip-path:polygon('+pts+');transform-origin:0 0;');
+        strips.push({el:el,v0:v0,v1:v1,g:Math.pow(k/(NS-1),1.4)});
+      }
+      pages.push({wrap:wrap,strips:strips});
+    }
+    var EDOT=ex*FD.x+ey*FD.y, NDOT=nx*FD.x+ny*FD.y, LIFT=0.9, CURL=0.75;
+    function pose(pg,th){                       // th: 0 = lying lifted (as photographed), PI = turned over to the far side
+      var lag=CURL*Math.sin(th), Hx=FD.x, Hy=FD.y;
+      pg.strips.forEach(function(st){
+        var tk=Math.max(0,th-lag*st.g), c=Math.cos(tk), sn=Math.sin(tk);
+        var dx=c*nx, dy=c*ny-sn*LIFT;           // where the page's width-direction points after turning
+        var a=ex*ex+dx*nx, bb=ey*ex+dy*nx, cc=ex*ey+dx*ny, dd=ey*ey+dy*ny;
+        var tx=Hx-ex*EDOT-dx*NDOT-dx*st.v0, ty=Hy-ey*EDOT-dy*NDOT-dy*st.v0;
+        st.el.style.transform='matrix('+a+','+bb+','+cc+','+dd+','+tx+','+ty+')';
+        var back=c<0;
+        st.el.style.backgroundImage=back?'none':'url(assets/shot2.jpg)';
+        st.el.style.backgroundColor=back?'#E6E6EF':'transparent';
+        st.el.style.filter='brightness('+(back?(0.70+0.12*(-c)):(0.80+0.20*c)).toFixed(3)+')';
+        Hx+=dx*(st.v1-st.v0); Hy+=dy*(st.v1-st.v0);
+      });
+    }
+    // pages turn one after another, faster and faster
+    var TS=[.15,.75,1.25,1.65,1.98,2.26,2.5,2.7,2.88,3.04];
+    var DU=[.62,.50,.42,.36,.31,.27,.24,.21,.19,.18];
     TS.forEach(function(t0,i){
-      tl.to(sh,{x:9,y:-7,rotation:.6,duration:DU[i],ease:'power2.out'},T+t0);
-      tl.to(sh,{x:0,y:0,rotation:0,duration:DU[i]*.8,ease:'power2.in'},T+t0+DU[i]);
+      var pg=pages[i%4], o={p:0};
+      tl.to(o,{p:1,duration:DU[i],ease:'power2.inOut',onUpdate:function(){
+        var th=o.p*Math.PI; pose(pg,th);
+        pg.wrap.style.opacity=(o.p>0.002&&o.p<0.998)?1:0;
+        pg.wrap.style.filter='blur('+(3.2*Math.sin(th)*Math.min(1.6,0.45/DU[i]+0.5)).toFixed(2)+'px)';
+      }},T+t0);
     });
+    // her left hand stays on top so the page appears held and turned by it
+    dupMask(pic,'assets/shot2.jpg',w,h,95,935,175,195);
     // the other hand presses her forehead a little harder
     var fh=dupMask(pic,'assets/shot2.jpg',w,h,760,330,200,260); fh.style.transformOrigin='700px 300px';
     tl.to(fh,{y:5,x:-2,rotation:-.4,duration:.9,ease:'sine.inOut'},T+2.4);

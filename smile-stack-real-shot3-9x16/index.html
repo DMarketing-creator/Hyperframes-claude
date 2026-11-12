@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>SMILE The Stack - Shot 3 (from still)</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#070B14; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; background:#070B14; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  /* NO on-screen text. Top-left corner stays plain (dark ceiling) for the logo. */
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="smile-stack-real-shot3" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+  <div id="s3" class="fill clip" data-start="0" data-duration="4" data-track-index="1"></div>
+  <div id="fx" class="fill clip" data-start="0" data-duration="4" data-track-index="6" style="pointer-events:none"></div>
+  <audio id="a-sound" data-start="0" data-duration="4" data-track-index="10" data-volume="1" src="assets/sound.mp3"></audio>
+</div>
+<script>
+(function(){
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,style,inner){var d=document.createElement('div');d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+  var S=$('#s3'), K=1080/940;
+  // locked-off: only a barely-perceptible push toward her (about 2%)
+  var stage=box(S,'left:0;top:0;width:1080px;height:1920px;transform-origin:'+(475*K)+'px '+(840*K)+'px;');
+  var pic=box(stage,'left:0;top:0;width:940px;height:1672px;transform-origin:0 0;transform:scale('+K+');');
+  var im=document.createElement('img'); im.src='assets/shot3.jpg'; im.style.cssText='position:absolute;left:0;top:0;width:940px;height:1672px;'; pic.appendChild(im);
+  tl.fromTo(stage,{scale:1.0},{scale:1.022,duration:4,ease:'none'},0);
+
+  // her screen light breathes very slightly on her face and the desk (the only thing that moves)
+  var glow=box(pic,'left:300px;top:700px;width:330px;height:300px;background:radial-gradient(closest-side,rgba(190,215,255,.50),rgba(190,215,255,0));mix-blend-mode:screen;opacity:.0;');
+  var lv=[.42,.58,.36,.62,.40,.55,.38,.50];
+  lv.forEach(function(o,i){ tl.to(glow,{opacity:o,duration:.5,ease:'sine.inOut'},i*.5); });
+  // faint glints on her glasses
+  var gl=box(pic,'left:462px;top:812px;width:72px;height:26px;background:radial-gradient(closest-side,rgba(210,230,255,.55),rgba(210,230,255,0));mix-blend-mode:screen;opacity:.0;');
+  [.5,.8,.55,.9,.6,.85,.5,.75].forEach(function(o,i){ tl.to(gl,{opacity:o,duration:.5,ease:'sine.inOut'},i*.5); });
+
+  // finishing: heavier grain in the dark, soft vignette, cool grade
+  var fx=$('#fx');
+  box(fx,'inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 56%,rgba(2,5,12,.38) 100%);');
+  box(fx,'inset:0;background:linear-gradient(180deg,rgba(30,60,120,.05),rgba(30,60,120,.10));mix-blend-mode:multiply;');
+  var gr=box(fx,'left:-300px;top:-300px;width:1680px;height:2520px;opacity:.13;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'240\' height=\'240\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'.9\' numOctaves=\'2\' stitchTiles=\'stitch\'/><feColorMatrix values=\'0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2\'/></filter><rect width=\'240\' height=\'240\' filter=\'url(%23n)\'/></svg>");');
+  tl.to(gr,{x:-240,y:180,duration:4,ease:'steps(24)'},0);
+
+  window.__timelines=window.__timelines||{}; window.__timelines['smile-stack-real-shot3']=tl;
+})();
+</script>
+</body>
+</html>

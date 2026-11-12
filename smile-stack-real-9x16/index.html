@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>SMILE The Stack - Shot 1 (from still)</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#10151C; }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; background:#10151C; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  /* NO on-screen text. Top-left corner (x<240, y<230) stays plain for the logo. */
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="smile-stack-real" data-start="0" data-duration="3" data-width="1080" data-height="1920">
+  <div id="s1" class="fill clip" data-start="0" data-duration="3" data-track-index="1"></div>
+  <div id="fx"  class="fill clip" data-start="0" data-duration="3" data-track-index="6" style="pointer-events:none"></div>
+  <audio id="a-sound" data-start="0" data-duration="3" data-track-index="10" data-volume="1" src="assets/sound.mp3"></audio>
+</div>
+<script>
+(function(){
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,style,inner){var d=document.createElement('div');d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+  var S=$('#s1'), K=1080/941;                    // still is 941x1672 -> fills 1080x1920
+  var FX=941*1.0, FY=520;                         // focal point (her eyes), image coords
+
+  // camera: everything lives inside the stage so push-in and drift move together
+  var stage=box(S,'left:0;top:0;width:1080px;height:1920px;transform-origin:'+(660*K)+'px '+(520*K)+'px;');
+  var pic=box(stage,'left:0;top:0;width:941px;height:1672px;transform-origin:0 0;transform:scale('+K+');');
+  var im=document.createElement('img'); im.src='assets/shot1.jpg'; im.style.cssText='position:absolute;left:0;top:0;width:941px;height:1672px;'; pic.appendChild(im);
+
+  // --- scrolling light inside the lenses (traced lens outlines, image coordinates) ---
+  var LENS=[ [[452,440],[520,433],[575,438],[598,478],[590,515],[560,550],[520,562],[480,552],[452,520],[446,480]],
+             [[655,484],[700,468],[760,464],[790,480],[790,520],[770,552],[740,580],[690,580],[660,545],[650,505]] ];
+  LENS.forEach(function(poly,li){
+    var pts=poly.map(function(p){return p[0]+'px '+p[1]+'px';}).join(',');
+    var clip=box(pic,'left:0;top:0;width:941px;height:1672px;clip-path:polygon('+pts+');');
+    var dim=box(clip,'left:0;top:0;width:941px;height:1672px;background:rgba(120,92,100,.10);mix-blend-mode:multiply;');   // slightly mute the static stripes
+    var wrap=box(clip,'left:0;top:0;width:941px;height:1672px;mix-blend-mode:screen;filter:blur(1.4px);opacity:.9;');
+    var bars=box(wrap,'left:0;top:0;width:941px;height:1672px;');
+    for(var y=360;y<700;y+=20) box(bars,'left:430px;top:'+(y+(li?3:0))+'px;width:380px;height:8px;border-radius:3px;background:rgba(244,240,250,.30);');
+    var eye=li?[700,492,48,22]:[535,470,56,24];
+    var ep=box(clip,'left:0;top:0;width:941px;height:1672px;-webkit-mask-image:radial-gradient(ellipse '+eye[2]+'px '+eye[3]+'px at '+eye[0]+'px '+eye[1]+'px,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse '+eye[2]+'px '+eye[3]+'px at '+eye[0]+'px '+eye[1]+'px,#000 45%,transparent 100%);');
+    var ei=document.createElement('img'); ei.src='assets/shot1.jpg'; ei.style.cssText='position:absolute;left:0;top:0;width:941px;height:1672px;'; ep.appendChild(ei);
+    // continuous upward scroll, one stripe pitch at a time, never stopping
+    tl.fromTo(bars,{y:0},{y:-20,duration:.21,ease:'none',repeat:14},0);
+  });
+
+  // --- camera: slow push-in + small natural handheld drift ---
+  tl.fromTo(stage,{scale:1.06},{scale:1.15,duration:3,ease:'power1.inOut'},0);
+  var D=[[ 7,-5, .22],[-6, 6,-.20],[ 8, 3, .18],[-7,-4,-.22],[ 5, 5, .16],[-4,-3,-.14]];
+  D.forEach(function(d,i){ tl.to(stage,{x:d[0],y:d[1],rotation:d[2],duration:.5,ease:'sine.inOut'},i*.5); });
+
+  // --- screen light flickering on her skin as she scrolls ---
+  var glow=box(S,'left:-200px;top:900px;width:1100px;height:1100px;background:radial-gradient(closest-side,rgba(205,225,255,.40),rgba(205,225,255,0));mix-blend-mode:screen;opacity:.0;');
+  for(var i=0;i<14;i++) tl.to(glow,{opacity:(i%3===0?.55:i%3===1?.25:.4),duration:.21,ease:'sine.inOut'},i*.21);
+
+  // --- finishing: grain, soft vignette, faint cool-shadow grade ---
+  var fx=$('#fx');
+  box(fx,'inset:0;background:radial-gradient(ellipse at 52% 42%,rgba(0,0,0,0) 58%,rgba(6,10,18,.30) 100%);');
+  box(fx,'inset:0;background:linear-gradient(180deg,rgba(30,60,110,.04),rgba(30,60,110,.09));mix-blend-mode:multiply;');
+  var gr=box(fx,'left:-300px;top:-300px;width:1680px;height:2520px;opacity:.10;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'240\' height=\'240\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'.9\' numOctaves=\'2\' stitchTiles=\'stitch\'/><feColorMatrix values=\'0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2\'/></filter><rect width=\'240\' height=\'240\' filter=\'url(%23n)\'/></svg>");');
+  tl.to(gr,{x:-240,y:180,duration:3,ease:'steps(18)'},0);
+
+  window.__timelines=window.__timelines||{}; window.__timelines['smile-stack-real']=tl;
+})();
+</script>
+</body>
+</html>

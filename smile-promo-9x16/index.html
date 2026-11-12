@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>SMILE AI Recruiter Promo 9:16</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --navy:#0E4471; --deep:#0A2F52; --blue:#1E7BE8; --sky:#4FA3F5; --ice:#EAF3FF; --ice2:#D6E8FF;
+    --ink:#10324F; --mute:#5B7691; --gold:#F5B72E; --ok:#1FA971;
+  }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#F2F8FF; }
+  body { font-family: Inter, sans-serif; color:var(--ink); }
+  #root { position:relative; width:100%; height:100%; overflow:hidden; background:#F2F8FF; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .sc { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; }
+  svg { display:block; }
+
+  /* NOTE: the top-right corner (x 700–1080, y 0–280) is reserved for the official logo — keep it empty. */
+  .h1 { font-size:80px; font-weight:800; letter-spacing:-1.6px; line-height:1.05; }
+  .h2 { font-size:66px; font-weight:800; letter-spacing:-1.2px; line-height:1.08; }
+  .chip { display:inline-flex; align-items:center; gap:14px; padding:12px 28px 12px 18px; border-radius:40px;
+          background:#fff; border:2px solid rgba(30,123,232,.28); box-shadow:0 12px 30px rgba(14,68,113,.14);
+          font-size:34px; font-weight:700; color:var(--navy); white-space:nowrap; }
+  .chip i { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%;
+            background:var(--blue); flex:none; }
+  .card { position:absolute; background:#fff; border-radius:28px; border:1.5px solid rgba(30,123,232,.16);
+          box-shadow:0 22px 60px rgba(14,68,113,.16); }
+  .pill { display:inline-block; padding:7px 18px; border-radius:30px; font-size:28px; font-weight:700; white-space:nowrap; }
+  .pill.ok  { background:#E6F4FF; color:#0B5CB5; border:1.5px solid rgba(30,123,232,.35); }
+  .bar { position:absolute; height:14px; border-radius:8px; background:#E4EDF7; overflow:hidden; }
+  .bar b { display:block; height:100%; width:0; border-radius:8px; background:linear-gradient(90deg,var(--sky),var(--blue)); }
+
+  /* subtitles — white pill, navy text, inside the platform safe zone */
+  .subpill { position:absolute; left:0; top:1470px; width:1080px; display:flex; justify-content:center; }
+  .subbox  { display:inline-flex; align-items:center; gap:12px; padding:16px 38px; border-radius:46px; white-space:nowrap;
+             background:rgba(255,255,255,.97); border:3px solid var(--blue);
+             box-shadow:0 14px 38px rgba(8,36,70,.30); }
+  .subbox span { font-size:46px; font-weight:800; letter-spacing:-.3px; color:#4A7094; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="smile-promo" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+
+  <div id="s1" data-layout-allow-overlap class="fill clip" data-start="0"    data-duration="5.50" data-track-index="1"><div class="sc"></div></div>
+  <div id="s2" data-layout-allow-overlap class="fill clip" data-start="4.70" data-duration="4.90" data-track-index="2"><div class="sc"></div></div>
+  <div id="s3" data-layout-allow-overlap class="fill clip" data-start="8.90" data-duration="6.50" data-track-index="1"><div class="sc"></div></div>
+  <div id="s4" data-layout-allow-overlap class="fill clip" data-start="14.80" data-duration="5.20" data-track-index="2"><div class="sc"></div></div>
+
+  <div id="subs" data-layout-allow-overlap class="fill clip" data-start="0" data-duration="20" data-track-index="7" style="pointer-events:none"></div>
+
+  <audio id="a-music" data-start="0" data-duration="20" data-track-index="10" data-volume="0.30" src="assets/music.mp3"></audio>
+  <audio id="a-vo1" data-start="0.40"  data-duration="2.25" data-track-index="11" data-volume="1" src="assets/vo/s1.mp3"></audio>
+  <audio id="a-vo2" data-start="5.20"  data-duration="2.61" data-track-index="12" data-volume="1" src="assets/vo/s2.mp3"></audio>
+  <audio id="a-vo3" data-start="9.20"  data-duration="4.94" data-track-index="11" data-volume="1" src="assets/vo/s3.mp3"></audio>
+  <audio id="a-vo4" data-start="15.30" data-duration="2.87" data-track-index="12" data-volume="1" src="assets/vo/s4.mp3"></audio>
+</div>
+
+<script>
+(function(){
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  var rnd=mulberry(33021), R=function(a,b){return a+(b-a)*rnd();};
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,cls,style,inner){var d=document.createElement('div');d.className=cls||'';d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+  function img(parent,src,style){var i=document.createElement('img');i.src=src;i.style.cssText='position:absolute;'+(style||'');parent.appendChild(i);return i;}
+  function set(el,o){gsap.set(el,o);return el;}
+  var CHECK='<svg width="22" height="22" viewBox="0 0 22 22"><path d="M4 11.5 L9 16.5 L18 6" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var PHOTO={alexa:'assets/pA.jpg',daniel:'assets/pB.jpg',maya:'assets/pC.jpg'};
+
+  // blue-and-white scene backdrop (light)
+  function lightBG(S,glow){
+    box(S,'','inset:0;background:linear-gradient(170deg,#FFFFFF 0%,#EEF6FF 46%,#D9EAFF 100%);');
+    box(S,'','left:-260px;top:'+(glow||980)+'px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(30,123,232,.20),rgba(30,123,232,0) 66%);');
+    box(S,'','left:560px;top:520px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(79,163,245,.20),rgba(79,163,245,0) 66%);');
+    box(S,'','left:-60px;top:-60px;width:1200px;height:2040px;opacity:.28;background-image:linear-gradient(rgba(30,123,232,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(30,123,232,.16) 1px,transparent 1px);background-size:90px 90px;');
+  }
+  var SC={s1:[0,5.5],s2:[4.7,4.9],s3:[8.9,6.5],s4:[14.8,5.2]};
+
+  /* ========== SCENE 1 — THE PROBLEM (0 – 5.5) ========== */
+  (function(){
+    var S=$('#s1 .sc'), T=SC.s1[0];
+    box(S,'','inset:0;background:radial-gradient(1200px 1000px at 55% 45%,#14518B 0%,#0A2F52 58%,#071E37 100%);');
+    box(S,'','left:-60px;top:-60px;width:1200px;height:2040px;opacity:.16;background-image:linear-gradient(rgba(79,163,245,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(79,163,245,.4) 1px,transparent 1px);background-size:90px 90px;');
+    var MK='-webkit-mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent);';
+    var wrap=box(S,'','left:0;top:470px;width:1080px;height:1130px;overflow:hidden;'+MK);
+    var im=img(wrap,'assets/s1-hr.jpg','left:-585px;top:0;width:2010px;height:1130px;');
+    tl.fromTo(wrap,{opacity:0},{opacity:1,duration:.6,ease:'power2.out'},T);
+    tl.fromTo(im,{scale:1.12},{scale:1.0,duration:5.4,ease:'power1.out',transformOrigin:'55% 45%'},T);
+
+    // headline (kept left of the reserved logo corner)
+    var hl=box(S,'h1','left:70px;top:120px;width:620px;font-size:70px;color:#fff;');
+    hl.innerHTML='Still Screening<br><span style="color:#7CC0FF">Hundreds of CVs</span><br>Manually?';
+    set(hl,{opacity:0});
+    tl.fromTo(hl,{opacity:0,y:30},{opacity:1,y:0,duration:.7,ease:'power3.out'},T+0.15);
+
+    // inbox pressure — applications, unread emails, CV attachments piling up
+    function note(x,y,txt,at,rot){
+      var n=box(S,'','left:'+x+'px;top:'+y+'px;padding:14px 26px;border-radius:18px;background:rgba(255,255,255,.96);box-shadow:0 14px 34px rgba(0,10,30,.38);font-size:30px;font-weight:700;color:#0E4471;white-space:nowrap;transform:rotate('+rot+'deg);',txt);
+      set(n,{opacity:0});
+      tl.fromTo(n,{opacity:0,y:-34,scale:.9},{opacity:1,y:0,scale:1,duration:.42,ease:'back.out(1.6)'},T+at);
+      return n;
+    }
+    note(56,1010,'<span style="color:#1E7BE8">&#9993;</span>&nbsp; 128 unread emails',1.0,-3);
+    note(540,1180,'<span style="color:#1E7BE8">&#9776;</span>&nbsp; CV_final_v3.pdf',1.5,2.5);
+    note(110,1250,'<span style="color:#F5B72E">&#9679;</span>&nbsp; New application',2.0,-2);
+    note(520,1020,'<span style="color:#1E7BE8">&#9993;</span>&nbsp; Re: Interview slot?',2.5,3);
+
+    // application counter climbing
+    var cnt=box(S,'','left:70px;top:430px;font-size:34px;font-weight:700;color:#BFDDFF;letter-spacing:.3px;');
+    cnt.innerHTML='Applications in inbox: <b id="appc" style="color:#fff;font-size:44px;">0</b>';
+    set(cnt,{opacity:0});
+    tl.fromTo(cnt,{opacity:0,y:18},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+0.55);
+    var o={v:0};
+    tl.to(o,{v:312,duration:3.6,ease:'power1.out',onUpdate:function(){var e=document.getElementById('appc'); if(e) e.textContent=String(Math.round(o.v));}},T+0.65);
+
+    // circular reveal into scene 2
+    tl.to(S,{opacity:0,duration:.5,ease:'power2.in'},T+5.0);
+  })();
+
+  /* ========== SCENE 2 — INTRODUCING SMILE (4.7 – 9.6) ========== */
+  (function(){
+    var S=$('#s2 .sc'), T=SC.s2[0];
+    lightBG(S,1000);
+    set(S,{clipPath:'circle(0px at 540px 1000px)'});
+    tl.to(S,{clipPath:'circle(2300px at 540px 1000px)',duration:.95,ease:'power2.inOut'},T);
+
+    var t1=box(S,'h1','left:70px;top:300px;width:940px;color:var(--navy);font-size:60px;font-weight:700;letter-spacing:-.8px;','Meet');
+    var t2=box(S,'h1','left:70px;top:372px;width:940px;color:var(--blue);font-size:84px;','SMILE AI Recruiter');
+    set(t1,{opacity:0}); set(t2,{opacity:0});
+    tl.fromTo(t1,{opacity:0,y:22},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+0.55);
+    tl.fromTo(t2,{opacity:0,y:30,scale:.96},{opacity:1,y:0,scale:1,duration:.6,ease:'power3.out'},T+0.72);
+
+    // dashboard window
+    var WX=70, WY=560, WW=940, WH=830;
+    var win=box(S,'card','left:'+WX+'px;top:'+WY+'px;width:'+WW+'px;height:'+WH+'px;border-radius:30px;overflow:hidden;');
+    set(win,{opacity:0});
+    tl.fromTo(win,{opacity:0,y:60,scale:.96},{opacity:1,y:0,scale:1,duration:.7,ease:'power3.out'},T+0.95);
+    box(win,'','left:0;top:0;width:940px;height:92px;background:linear-gradient(90deg,#0E4471,#1E7BE8);');
+    box(win,'','left:34px;top:24px;font-size:36px;font-weight:800;color:#fff;letter-spacing:-.2px;','Resume Screening');
+    var st1=box(win,'','right:30px;top:22px;padding:8px 22px;border-radius:30px;background:rgba(255,255,255,.2);font-size:28px;font-weight:700;color:#fff;white-space:nowrap;','Analysing 6 resumes…');
+    var st2=box(win,'','right:30px;top:22px;padding:8px 22px;border-radius:30px;background:#fff;font-size:28px;font-weight:800;color:#0B5CB5;white-space:nowrap;','Sorted by match');
+    set(st2,{opacity:0});
+
+    var ROWS=[
+      {n:'Maya Tan',       r:'Operations Executive', s:74, ph:PHOTO.maya},
+      {n:'Hui Min Lee',    r:'Marketing Executive',  s:68, ini:'HL'},
+      {n:'Alexa Chen',     r:'Marketing Executive',  s:92, ph:PHOTO.alexa},
+      {n:'Arjun Menon',    r:'Account Executive',    s:63, ini:'AM'},
+      {n:'Daniel Park',    r:'Business Analyst',     s:86, ph:PHOTO.daniel},
+      {n:'Siti Rahman',    r:'Admin Executive',      s:58, ini:'SR'}
+    ];
+    var order=ROWS.map(function(r,i){return {i:i,s:r.s};}).sort(function(a,b){return b.s-a.s;});
+    var finalPos={}; order.forEach(function(o2,rank){ finalPos[o2.i]=rank; });
+    var ROW0=112, RH=118;
+    ROWS.forEach(function(r,i){
+      var y0=ROW0+i*RH, y1=ROW0+finalPos[i]*RH;
+      var row=box(win,'','left:24px;top:'+y0+'px;width:892px;height:102px;border-radius:20px;background:#F5FAFF;border:1.5px solid rgba(30,123,232,.14);');
+      set(row,{opacity:0});
+      // avatar
+      var av=box(row,'','left:16px;top:15px;width:72px;height:72px;border-radius:50%;overflow:hidden;background:linear-gradient(145deg,#8CC2FF,#1E7BE8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:800;');
+      if(r.ph){ img(av,r.ph,'left:0;top:0;width:72px;height:72px;object-fit:cover;object-position:50% 22%;'); } else { av.textContent=r.ini; }
+      box(row,'','left:106px;top:14px;font-size:32px;font-weight:800;color:#10324F;white-space:nowrap;',r.n);
+      box(row,'','left:106px;top:56px;font-size:28px;font-weight:500;color:#5B7691;white-space:nowrap;',r.r);
+      var bar=box(row,'bar','left:470px;top:44px;width:250px;'); var fill=document.createElement('b'); bar.appendChild(fill);
+      var sc=box(row,'','right:22px;top:24px;padding:8px 18px;border-radius:26px;background:#E6F4FF;font-size:32px;font-weight:800;color:#0B5CB5;min-width:98px;text-align:center;',r.s+'%');
+      set(sc,{opacity:0});
+      tl.fromTo(row,{opacity:0,x:-40},{opacity:1,x:0,duration:.45,ease:'power3.out'},T+1.25+i*0.1);
+      tl.to(fill,{width:'100%',duration:.55,ease:'power2.inOut'},T+1.8+i*0.13);
+      tl.fromTo(sc,{opacity:0,scale:.7},{opacity:1,scale:1,duration:.32,ease:'back.out(2)'},T+2.45+i*0.13);
+      // automatic organisation: rows re-order by match score
+      tl.to(row,{y:y1-y0,duration:.7,ease:'power3.inOut'},T+3.45);
+      if(finalPos[i]===0) tl.to(row,{backgroundColor:'#E3F0FF',borderColor:'rgba(30,123,232,.55)',duration:.4},T+4.1);
+    });
+    tl.to(st1,{opacity:0,duration:.3},T+3.35);
+    tl.fromTo(st2,{opacity:0,y:8},{opacity:1,y:0,duration:.4,ease:'power2.out'},T+3.55);
+
+    tl.to(S,{opacity:0,duration:.45,ease:'power2.in'},T+4.45);
+  })();
+
+  /* ========== SCENE 3 — AI SCREENING (8.9 – 15.4) ========== */
+  (function(){
+    var S=$('#s3 .sc'), T=SC.s3[0];
+    lightBG(S,900);
+    tl.fromTo(S,{opacity:0},{opacity:1,duration:.45,ease:'power2.out'},T);
+
+    // benefit labels, one at a time, aligned to the narration
+    var LB=[['AI Resume Screening',0.55],['Candidate Match Scores',2.35],['HR Review & Approval',3.95]];
+    LB.forEach(function(l,i){
+      var w=box(S,'','left:70px;top:'+(318+i*82)+'px;');
+      w.innerHTML='<span class="chip"><i>'+CHECK+'</i>'+l[0]+'</span>';
+      set(w,{opacity:0});
+      tl.fromTo(w,{opacity:0,x:-40},{opacity:1,x:0,duration:.5,ease:'power3.out'},T+l[1]);
+    });
+
+    var CARDS=[
+      {n:'Alexa Chen', r:'Marketing Executive', s:92, ph:PHOTO.alexa, c:'#1E7BE8', t:['Strong skills','Relevant experience'], g:'HR review: certifications'},
+      {n:'Daniel Park',r:'Business Analyst',    s:86, ph:PHOTO.daniel,c:'#3A94F0', t:['Good alignment','Solid experience'],   g:'HR review: leadership'},
+      {n:'Maya Tan',   r:'Operations Executive',s:74, ph:PHOTO.maya,  c:'#F2A93B', t:['Partial match','Growing experience'],  g:'HR review: domain depth'}
+    ];
+    var C2=2*Math.PI*52;
+    CARDS.forEach(function(c,i){
+      var y=592+i*262;
+      var cd=box(S,'card','left:70px;top:'+y+'px;width:940px;height:240px;');
+      set(cd,{opacity:0});
+      var av=box(cd,'','left:28px;top:30px;width:130px;height:130px;border-radius:50%;overflow:hidden;border:4px solid '+c.c+';background:#cfe3fb;');
+      img(av,c.ph,'left:0;top:0;width:130px;height:130px;object-fit:cover;object-position:50% 22%;');
+      box(cd,'','left:184px;top:22px;font-size:38px;font-weight:800;color:#10324F;white-space:nowrap;',c.n);
+      box(cd,'','left:184px;top:70px;font-size:28px;font-weight:500;color:#5B7691;white-space:nowrap;',c.r);
+      box(cd,'','left:184px;top:114px;display:flex;gap:10px;','<span class="pill ok">'+c.t[0]+'</span><span class="pill ok">'+c.t[1]+'</span>');
+      box(cd,'','left:184px;top:176px;font-size:28px;font-weight:700;color:#B26A00;white-space:nowrap;','△ '+c.g);
+      // score ring
+      var ring=box(cd,'','left:786px;top:44px;width:140px;height:140px;');
+      ring.innerHTML='<svg width="140" height="140" viewBox="0 0 140 140"><circle cx="70" cy="70" r="52" fill="none" stroke="#E4EDF7" stroke-width="14"/>'
+        +'<circle class="rg" cx="70" cy="70" r="52" fill="none" stroke="'+c.c+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+C2+'" stroke-dashoffset="'+C2+'" transform="rotate(-90 70 70)"/></svg>';
+      var num=box(ring,'','left:0;top:50px;width:140px;text-align:center;font-size:36px;font-weight:800;color:#10324F;letter-spacing:-1px;','0');
+      var at=0.45+i*0.5;
+      tl.fromTo(cd,{opacity:0,y:50,scale:.97},{opacity:1,y:0,scale:1,duration:.55,ease:'power3.out'},T+at);
+      var rg=ring.querySelector('.rg'), o={v:0};
+      tl.to(rg,{strokeDashoffset:C2*(1-c.s/100),duration:1.0,ease:'power2.out'},T+at+0.45);
+      tl.to(o,{v:c.s,duration:1.0,ease:'power2.out',onUpdate:function(){num.textContent=Math.round(o.v)+'%';}},T+at+0.45);
+    });
+
+    // a quiet reminder that people stay in charge of the decision
+    var hr=box(S,'','left:70px;top:1388px;font-size:28px;font-weight:700;color:#0B5CB5;letter-spacing:.2px;','AI supports — HR reviews and decides');
+    set(hr,{opacity:0});
+    tl.fromTo(hr,{opacity:0,y:14},{opacity:1,y:0,duration:.5,ease:'power2.out'},T+4.3);
+
+    tl.to(S,{opacity:0,duration:.5,ease:'power2.in'},T+6.0);
+  })();
+
+  /* ========== SCENE 4 — CALL TO ACTION (14.8 – 20) ========== */
+  (function(){
+    var S=$('#s4 .sc'), T=SC.s4[0];
+    lightBG(S,820);
+    tl.fromTo(S,{opacity:0},{opacity:1,duration:.5,ease:'power2.out'},T);
+
+    var a=box(S,'h1','left:70px;top:300px;width:940px;color:var(--navy);font-size:84px;','Less Screening.');
+    var b=box(S,'h1','left:70px;top:398px;width:940px;color:var(--blue);font-size:70px;','More Time for People.');
+    set(a,{opacity:0}); set(b,{opacity:0});
+    tl.fromTo(a,{opacity:0,y:30},{opacity:1,y:0,duration:.6,ease:'power3.out'},T+0.25);
+    tl.fromTo(b,{opacity:0,y:30},{opacity:1,y:0,duration:.6,ease:'power3.out'},T+0.55);
+
+    // confident HR executive (supplied photography)
+    var pw=box(S,'','left:70px;top:566px;width:940px;height:500px;border-radius:32px;overflow:hidden;box-shadow:0 28px 70px rgba(14,68,113,.28);border:5px solid #fff;');
+    img(pw,'assets/team.jpg','left:0;top:-120px;width:930px;height:798px;');
+    set(pw,{opacity:0});
+    tl.fromTo(pw,{opacity:0,y:50,scale:.97},{opacity:1,y:0,scale:1,duration:.7,ease:'power3.out'},T+0.55);
+    tl.fromTo(pw,{scale:1},{scale:1.025,duration:4.4,ease:'none',transformOrigin:'50% 50%'},T+1.2);
+    // small dashboard cue overlapping the photo
+    var mini=box(S,'card','left:600px;top:944px;width:360px;height:132px;border-radius:24px;');
+    box(mini,'','left:26px;top:18px;font-size:28px;font-weight:700;color:#5B7691;','Best match');
+    box(mini,'','left:26px;top:54px;font-size:56px;font-weight:800;color:#1E7BE8;letter-spacing:-1.5px;','92%');
+    box(mini,'','left:190px;top:84px;width:140px;height:14px;border-radius:8px;background:#E4EDF7;');
+    box(mini,'','left:190px;top:84px;width:129px;height:14px;border-radius:8px;background:linear-gradient(90deg,#4FA3F5,#1E7BE8);');
+    set(mini,{opacity:0});
+    tl.fromTo(mini,{opacity:0,y:30,scale:.94},{opacity:1,y:0,scale:1,duration:.55,ease:'back.out(1.6)'},T+1.25);
+
+    // CTA button
+    var cta=box(S,'','left:70px;top:1100px;width:940px;height:108px;border-radius:60px;background:linear-gradient(90deg,#1E7BE8,#0E5FC9);color:#fff;font-size:54px;font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 46px rgba(30,123,232,.46);','Try SMILE Today');
+    set(cta,{opacity:0});
+    tl.fromTo(cta,{opacity:0,scale:.9},{opacity:1,scale:1,duration:.55,ease:'back.out(1.7)'},T+1.55);
+    tl.fromTo(cta,{boxShadow:'0 20px 46px rgba(30,123,232,.46)'},{boxShadow:'0 20px 70px rgba(30,123,232,.80)',duration:.9,yoyo:true,repeat:3,ease:'sine.inOut'},T+2.2);
+
+    // offer
+    var of=box(S,'','left:70px;top:1226px;width:940px;height:82px;border-radius:50px;background:#FFF4D6;border:3px solid #F5B72E;font-size:44px;font-weight:800;color:#8A5600;letter-spacing:-.3px;white-space:nowrap;display:flex;align-items:center;justify-content:center;');
+    of.innerHTML='Get&nbsp;<span style="color:#C27A00;font-size:50px;">25 FREE</span>&nbsp;SMILE Credits';
+    set(of,{opacity:0});
+    tl.fromTo(of,{opacity:0,y:24},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+2.2);
+
+    // website — exact URL
+    var url=box(S,'','left:70px;top:1334px;width:940px;text-align:center;font-size:66px;font-weight:800;color:#0E4471;letter-spacing:-1.2px;white-space:nowrap;','smile.mclinkgroup.com');
+    box(url,'','left:200px;top:80px;width:540px;height:7px;border-radius:4px;background:linear-gradient(90deg,#1E7BE8,#4FA3F5);');
+    set(url,{opacity:0});
+    tl.fromTo(url,{opacity:0,y:24},{opacity:1,y:0,duration:.55,ease:'power3.out'},T+2.85);
+  })();
+
+  /* ---------------- synchronized subtitles ---------------- */
+  (function(){
+    var SUBS=[{"scene": 1, "start": 0.4, "end": 2.65, "chunks": [["Still spending hours", 0.4], ["screening resumes?", 1.67]]}, {"scene": 2, "start": 5.2, "end": 7.81, "chunks": [["Let SMILE handle the repetitive", 5.2], ["screening work.", 6.72]]}, {"scene": 3, "start": 9.2, "end": 14.14, "chunks": [["SMILE analyses applications and", 9.2], ["helps your team identify", 11.39], ["relevant candidates.", 12.9]]}, {"scene": 4, "start": 15.3, "end": 18.17, "chunks": [["Make recruitment easier with", 15.3], ["SMILE. Try it today.", 16.85]]}];
+    var layer=document.getElementById('subs');
+    SUBS.forEach(function(sc){
+      sc.chunks.forEach(function(ch,ci){
+        var t0=ch[1], t1=(ci+1<sc.chunks.length)?sc.chunks[ci+1][1]:sc.end+0.3;
+        var words=ch[0].split(' '), total=words.join('').length, acc=0;
+        var wrap=document.createElement('div'); wrap.className='subpill';
+        wrap.setAttribute('data-layout-allow-overlap',''); wrap.style.opacity=0;
+        var bx=document.createElement('div'); bx.className='subbox';
+        var spans=words.map(function(w){ var sp=document.createElement('span'); sp.textContent=w; bx.appendChild(sp); return sp; });
+        wrap.appendChild(bx); layer.appendChild(wrap);
+        tl.fromTo(wrap,{opacity:0,y:16,scale:.975},{opacity:1,y:0,scale:1,duration:.2,ease:'power3.out'},t0-0.02);
+        tl.to(wrap,{opacity:0,y:-8,duration:.16,ease:'power2.in'},t1-0.18);
+        var span=Math.max(.5,(t1-t0)-0.3);
+        words.forEach(function(w,i){
+          var ws=t0+span*(acc/total), we=t0+span*((acc+w.replace(/[^A-Za-z0-9]/g,'').length)/total); acc+=w.length;
+          tl.to(spans[i],{color:'#1E7BE8',duration:.12},ws);
+          tl.to(spans[i],{color:'#0E4471',duration:.25},Math.max(we,ws+.2));
+        });
+      });
+    });
+  })();
+
+  window.__timelines=window.__timelines||{}; window.__timelines['smile-promo']=tl;
+})();
+</script>
+</body>
+</html>

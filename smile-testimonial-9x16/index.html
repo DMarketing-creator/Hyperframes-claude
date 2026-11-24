@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>SMILE Testimonial</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#04162a; }
+  body { font-family: Inter, sans-serif; color:#fff; }
+  #root { position:relative; width:1080px; height:1920px; overflow:hidden; background:#04162a; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  #vid { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+  .subpill { position:absolute; left:0; top:1500px; width:1080px; display:flex; justify-content:center; opacity:0; }
+  .subbox { display:inline-flex; padding:14px 34px; border-radius:44px; white-space:nowrap;
+    background:linear-gradient(135deg,#FFE75E,#FFC21A); border:3px solid #fff;
+    box-shadow:0 10px 34px rgba(0,0,0,.6), 0 0 34px rgba(255,214,58,.5); }
+  .subbox span { font-size:44px; font-weight:800; letter-spacing:-.2px; color:#04152f; }
+  .card-t { position:absolute; left:0; width:1080px; text-align:center; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="smile-testimonial" data-start="0" data-duration="20.6" data-width="1080" data-height="1920">
+  <video id="vid" class="clip" src="assets/clip.mp4" data-start="0" data-duration="15.64" data-track-index="0" playsinline></video>
+  <div id="subs" class="fill clip" data-layout-allow-overlap data-start="0" data-duration="15.64" data-track-index="3" style="pointer-events:none"></div>
+  <div id="card" class="fill clip" data-start="15.64" data-duration="4.96" data-track-index="2" style="background:radial-gradient(1000px 900px at 60% 30%,#0e4471 0%,#06223b 55%,#04162a 100%)"></div>
+  <audio id="a-note" data-start="11.3" data-duration="9.3" data-track-index="10" data-volume="0.55" src="assets/note.mp3"></audio>
+</div>
+<script>
+(function(){
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,style,inner){var d=document.createElement('div');d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+
+  // subtitles: timings from the transcript (word-level)
+  var L=[
+   [0.00,1.92,"I am going to admit something."],
+   [1.92,4.56,"We had 400 applicants for one role."],
+   [4.56,6.05,"I read about 30,"],
+   [6.05,7.82,"and I picked from those 30."],
+   [7.82,9.39,"The office is quiet,"],
+   [9.39,11.44,"but the resumes are still waiting."],
+   [11.44,13.40,"Now something reads all 400"],
+   [13.40,14.50,"before I get in."],
+   [14.50,15.60,"Book a demo today."]
+  ];
+  var S=$('#subs');
+  L.forEach(function(l){
+    var p=box(S,'',''); p.className='subpill';
+    p.innerHTML='<div class="subbox"><span>'+l[2]+'</span></div>';
+    tl.fromTo(p,{opacity:0,y:14},{opacity:1,y:0,duration:.14,ease:'power2.out'},l[0]+.02);
+    tl.to(p,{opacity:0,duration:.1},l[1]-.1);
+  });
+
+  // end card
+  var C=$('#card');
+  box(C,'left:-100px;top:-100px;width:1280px;height:2120px;opacity:.18;background-image:linear-gradient(rgba(79,227,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(79,227,255,.35) 1px,transparent 1px);background-size:80px 80px;');
+  var logo=box(C,'left:240px;top:420px;width:600px;');
+  logo.innerHTML='<img src="assets/logo.png" style="width:600px;display:block;filter:drop-shadow(0 0 40px rgba(79,227,255,.5))">';
+  var t1=box(C,'left:0;top:900px;width:1080px;text-align:center;font-size:84px;font-weight:800;letter-spacing:-1.5px;line-height:1.05;','Read every CV.<br>Hire with confidence.');
+  var t2=box(C,'left:0;top:1130px;width:1080px;text-align:center;font-size:40px;font-weight:600;color:#4fe3ff;','Register free and get 25 demo credits');
+  var url=box(C,'left:120px;top:1290px;width:840px;height:120px;border-radius:60px;background:linear-gradient(135deg,#FFE75E,#FFC21A);border:3px solid #fff;box-shadow:0 0 50px rgba(255,214,58,.55);display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:800;color:#04152f;','smile.mclinkgroup.com');
+  var T=15.64;
+  tl.fromTo(C,{opacity:0},{opacity:1,duration:.4,ease:'power1.out'},T);
+  [logo,t1,t2,url].forEach(function(e,i){ tl.fromTo(e,{opacity:0,y:36},{opacity:1,y:0,duration:.55,ease:'power3.out'},T+.25+i*.3); });
+  tl.fromTo(url,{scale:1},{scale:1.04,duration:.9,ease:'sine.inOut',yoyo:true,repeat:2},T+1.6);
+
+  window.__timelines=window.__timelines||{}; window.__timelines['smile-testimonial']=tl;
+})();
+</script>
+</body>
+</html>

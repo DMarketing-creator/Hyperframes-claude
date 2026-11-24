@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>SMILE Recruiter</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; overflow:hidden; background:#04162a; }
+  body { font-family: Inter, sans-serif; color:#fff; }
+  #root { position:relative; width:1080px; height:1920px; overflow:hidden; background:#04162a; }
+  .fill { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  svg { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  .subpill { position:absolute; left:0; top:1560px; width:1080px; display:flex; justify-content:center; opacity:0; }
+  .subbox { display:inline-flex; padding:14px 34px; border-radius:44px; white-space:nowrap;
+    background:linear-gradient(135deg,#FFE75E,#FFC21A); border:3px solid #fff; box-shadow:0 10px 34px rgba(0,0,0,.6), 0 0 34px rgba(255,214,58,.5); }
+  .subbox span { font-size:44px; font-weight:800; letter-spacing:-.2px; color:#04152f; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="smile-recruiter" data-start="0" data-duration="20.5" data-width="1080" data-height="1920">
+  <div id="sceneA" class="fill clip" data-start="0" data-duration="9" data-track-index="0"></div>
+  <div id="sceneB" class="fill clip" data-start="9" data-duration="8" data-track-index="1"></div>
+  <div id="fx" class="fill clip" data-start="0" data-duration="17" data-track-index="4" style="pointer-events:none"></div>
+  <div id="subs" class="fill clip" data-layout-allow-overlap data-start="0" data-duration="17" data-track-index="5" style="pointer-events:none"></div>
+  <div id="card" class="fill clip" data-start="17" data-duration="3.5" data-track-index="6" style="background:radial-gradient(1000px 900px at 60% 30%,#0e4471 0%,#06223b 55%,#04162a 100%)"></div>
+  <audio id="a-amb" data-start="0" data-duration="20.5" data-track-index="10" data-volume="1" src="assets/amb.mp3"></audio>
+  <audio id="a-l1" data-start="0.4" data-duration="1.46" data-track-index="11" data-volume="1" src="assets/vo/l1.mp3"></audio>
+  <audio id="a-l2" data-start="3.3" data-duration="3.87" data-track-index="12" data-volume="1" src="assets/vo/l2.mp3"></audio>
+  <audio id="a-l3" data-start="9.5" data-duration="6.0" data-track-index="13" data-volume="1" src="assets/vo/l3.mp3"></audio>
+</div>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var tl=gsap.timeline({paused:true});
+  var $=function(s){return document.querySelector(s)};
+  function box(parent,style,inner){var d=document.createElement('div');d.style.cssText='position:absolute;'+(style||'');if(inner)d.innerHTML=inner;parent.appendChild(d);return d;}
+  function S(parent,tag,attrs,html){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(html)e.innerHTML=html;parent.appendChild(e);return e;}
+  function svg(parent){var s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 1080 1920');parent.appendChild(s);return s;}
+
+  var SKIN='#d8a07a', SKINS='#c18862', HAIR='#15161a', SHIRT='#4f78a8', SHIRTD='#3f6590';
+
+  // ---------- recruiter ----------
+  function man(g,cx,cy,lanyard){
+    var o={};
+    o.root=S(g,'g',{});
+    S(o.root,'rect',{x:cx-190,y:cy+40,width:380,height:520,rx:70,fill:'#2b323b'});
+    S(o.root,'rect',{x:cx-168,y:cy+62,width:336,height:470,rx:56,fill:'#38414c'});
+    // torso
+    S(o.root,'path',{d:'M'+(cx-150)+' '+(cy+200)+' Q'+(cx-160)+' '+(cy+110)+' '+(cx-95)+' '+(cy+88)+' L'+(cx+95)+' '+(cy+88)+' Q'+(cx+160)+' '+(cy+110)+' '+(cx+150)+' '+(cy+200)+' L'+(cx+160)+' '+(cy+560)+' L'+(cx-160)+' '+(cy+560)+' Z',fill:SHIRT});
+    S(o.root,'path',{d:'M'+(cx-150)+' '+(cy+200)+' L'+(cx-160)+' '+(cy+560)+' L'+(cx-110)+' '+(cy+560)+' L'+(cx-100)+' '+(cy+210)+'Z',fill:SHIRTD,opacity:.5});
+    // neck
+    S(o.root,'rect',{x:cx-27,y:cy+58,width:54,height:46,rx:14,fill:SKINS});
+    // collar
+    S(o.root,'path',{d:'M'+(cx-52)+' '+(cy+84)+' L'+(cx)+' '+(cy+140)+' L'+(cx-8)+' '+(cy+84)+'Z',fill:'#eef2f7'});
+    S(o.root,'path',{d:'M'+(cx+52)+' '+(cy+84)+' L'+(cx)+' '+(cy+140)+' L'+(cx+8)+' '+(cy+84)+'Z',fill:'#eef2f7'});
+    // lanyard + blank card
+    if(lanyard){ S(o.root,'path',{d:'M'+(cx-34)+' '+(cy+88)+' L'+(cx-4)+' '+(cy+250)+' M'+(cx+34)+' '+(cy+88)+' L'+(cx+4)+' '+(cy+250),stroke:'#1e8fff',strokeWidth:6,'stroke-width':6,fill:'none'});
+      S(o.root,'rect',{x:cx-24,y:cy+248,width:48,height:64,rx:7,fill:'#f4f6f9'}); S(o.root,'rect',{x:cx-24,y:cy+248,width:48,height:14,rx:5,fill:'#1e8fff'}); }
+    // head group
+    o.head=S(o.root,'g',{});
+    S(o.head,'ellipse',{cx:cx-80,cy:cy-6,rx:12,ry:20,fill:SKINS}); S(o.head,'ellipse',{cx:cx+80,cy:cy-6,rx:12,ry:20,fill:SKINS});
+    S(o.head,'ellipse',{cx:cx,cy:cy-6,rx:76,ry:92,fill:SKIN});
+    S(o.head,'path',{d:'M'+(cx-80)+' '+(cy-20)+' Q'+(cx-92)+' '+(cy-98)+' '+(cx-20)+' '+(cy-110)+' Q'+(cx+60)+' '+(cy-122)+' '+(cx+84)+' '+(cy-30)+' Q'+(cx+60)+' '+(cy-62)+' '+(cx+10)+' '+(cy-58)+' Q'+(cx-40)+' '+(cy-56)+' '+(cx-80)+' '+(cy-20)+'Z',fill:HAIR});
+    o.eyes=S(o.head,'g',{});
+    [-30,30].forEach(function(dx){ S(o.eyes,'ellipse',{cx:cx+dx,cy:cy-10,rx:8,ry:9,fill:'#1a1512'}); S(o.eyes,'circle',{cx:cx+dx+2,cy:cy-13,r:2.4,fill:'#fff'}); });
+    S(o.head,'path',{d:'M'+(cx-48)+' '+(cy-32)+' Q'+(cx-30)+' '+(cy-42)+' '+(cx-12)+' '+(cy-33),stroke:HAIR,'stroke-width':6,fill:'none','stroke-linecap':'round'});
+    S(o.head,'path',{d:'M'+(cx+12)+' '+(cy-33)+' Q'+(cx+30)+' '+(cy-42)+' '+(cx+48)+' '+(cy-32),stroke:HAIR,'stroke-width':6,fill:'none','stroke-linecap':'round'});
+    S(o.head,'path',{d:'M'+cx+' '+(cy-8)+' L'+(cx-6)+' '+(cy+22)+' L'+(cx+6)+' '+(cy+22),stroke:SKINS,'stroke-width':4,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'});
+    // mouth
+    S(o.head,'ellipse',{cx:cx,cy:cy+46,rx:22,ry:12,fill:'#5b1f1f',opacity:.0});
+    o.mouth=S(o.head,'ellipse',{cx:cx,cy:cy+48,rx:19,ry:11,fill:'#5b1f1f'});
+    o.smile=S(o.head,'path',{d:'M'+(cx-24)+' '+(cy+44)+' Q'+cx+' '+(cy+58)+' '+(cx+24)+' '+(cy+44),stroke:'#8a3b33','stroke-width':5,fill:'none','stroke-linecap':'round',opacity:0});
+    gsap.set(o.mouth,{scaleY:.12,svgOrigin:cx+' '+(cy+48)});
+    o.cx=cx; o.cy=cy;
+    return o;
+  }
+  // arm: returns {up,fore}; shoulder S, elbow E, hand H (rest pose, absolute coords)
+  function arm(g,Sx,Sy,Ex,Ey,Hx,Hy,watch){
+    var a={};
+    a.up=S(g,'g',{});
+    S(a.up,'line',{x1:Sx,y1:Sy,x2:Ex,y2:Ey,stroke:SHIRT,'stroke-width':54,'stroke-linecap':'round'});
+    a.fore=S(a.up,'g',{});
+    S(a.fore,'line',{x1:Ex,y1:Ey,x2:Hx,y2:Hy,stroke:SHIRT,'stroke-width':48,'stroke-linecap':'round'});
+    S(a.fore,'circle',{cx:Hx,cy:Hy,r:27,fill:SKIN});
+    if(watch){ S(a.fore,'rect',{x:Hx-(Hx-Ex)*.28-22,y:Hy-(Hy-Ey)*.28-14,width:44,height:28,rx:8,fill:'#222a33'}); S(a.fore,'circle',{cx:Hx-(Hx-Ex)*.28,cy:Hy-(Hy-Ey)*.28,r:9,fill:'#cfe2f5'}); }
+    a.S={x:Sx,y:Sy}; a.E={x:Ex,y:Ey}; a.H={x:Hx,y:Hy};
+    return a;
+  }
+  function rotArm(a,deg,dur,at,ease){ tl.to(a.up,{rotation:deg,svgOrigin:a.S.x+' '+a.S.y,duration:dur,ease:ease||'sine.inOut'},at); }
+  function rotFore(a,deg,dur,at,ease){ tl.to(a.fore,{rotation:deg,svgOrigin:a.E.x+' '+a.E.y,duration:dur,ease:ease||'sine.inOut'},at); }
+  function talk(m,T,words){
+    words.forEach(function(w){ var s=T+w[1], d=Math.max(.08,(w[2]-w[1])); 
+      tl.to(m.mouth,{scaleY:.95,duration:d*.45,ease:'sine.out'},s);
+      tl.to(m.mouth,{scaleY:.14,duration:d*.4,ease:'sine.in'},s+d*.5); });
+  }
+  function blink(m,at){ tl.to(m.eyes,{scaleY:.08,svgOrigin:m.cx+' '+(m.cy-10),duration:.07,ease:'none'},at); tl.to(m.eyes,{scaleY:1,svgOrigin:m.cx+' '+(m.cy-10),duration:.09,ease:'none'},at+.09); }
+  function bob(m,from,to){ for(var t=from;t<to;t+=.6){ tl.to(m.head,{rotation:((t*10)%3<1.5?1.6:-1.6),svgOrigin:m.cx+' '+(m.cy+90),duration:.3,ease:'sine.inOut'},t); } tl.to(m.head,{rotation:0,svgOrigin:m.cx+' '+(m.cy+90),duration:.3},to); }
+
+  // =============== SCENE A: meeting room ===============
+  var A=$('#sceneA'); box(A,'inset:0;background:linear-gradient(180deg,#e9ecf1,#cdd4de 62%);');
+  var sa=svg(A);
+  var stage=S(sa,'g',{});
+  // wall details (top-left kept plain)
+  S(stage,'rect',{x:0,y:0,width:1080,height:1260,fill:'url(#wallg)'});
+  S(stage,'defs',{},'<linearGradient id="wallg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eceff4"/><stop offset="1" stop-color="#cbd2dc"/></linearGradient><linearGradient id="flg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c6b5a"/><stop offset="1" stop-color="#5f5043"/></linearGradient><linearGradient id="tbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7c7ad"/><stop offset="1" stop-color="#b8a587"/></linearGradient>');
+  S(stage,'rect',{x:0,y:1240,width:1080,height:700,fill:'url(#flg)'});
+  S(stage,'rect',{x:0,y:1228,width:1080,height:14,fill:'#aab3bf'});
+  // whiteboard (blank)
+  S(stage,'rect',{x:650,y:200,width:340,height:260,rx:10,fill:'#f7f9fb',stroke:'#aeb7c3','stroke-width':8});
+  // glass partition strip right
+  S(stage,'rect',{x:1000,y:120,width:80,height:1100,fill:'#bfd3e3',opacity:.45});
+  // plant
+  S(stage,'rect',{x:900,y:1050,width:70,height:120,rx:10,fill:'#8c9097'});
+  [[935,1050,-35],[935,1050,0],[935,1050,32],[935,1050,-60],[935,1050,60]].forEach(function(p,i){ S(stage,'ellipse',{cx:p[0],cy:p[1]-62,rx:20,ry:62,fill:i%2?'#4f8a58':'#3f7a4c',transform:'rotate('+p[2]+' '+p[0]+' '+p[1]+')'}); });
+  // man
+  var mA=man(stage,610,620,true);
+  var armR=arm(mA.root,505,815,462,985,545,1135,false);   // gesture arm (viewer left)
+  var armL=arm(mA.root,715,815,760,985,712,1138,true);    // watch / pour arm (viewer right)
+  // table
+  S(stage,'path',{d:'M40 1160 L1040 1160 L1090 1290 L-10 1290 Z',fill:'url(#tbg)'});
+  S(stage,'rect',{x:-10,y:1290,width:1100,height:34,fill:'#a39070'});
+  // glass + jug
+  var glass=S(stage,'g',{});
+  S(glass,'path',{d:'M735 1128 L785 1128 L779 1196 L741 1196 Z',fill:'#dcecf7',opacity:.55,stroke:'#b8d2e6','stroke-width':3});
+  var water=S(glass,'rect',{x:742,y:1196,width:36,height:0,fill:'#8fc4ea',opacity:.85});
+  var jug=S(stage,'g',{});
+  S(jug,'path',{d:'M862 1080 L942 1080 L952 1190 L852 1190 Z',fill:'#dbeaf5',opacity:.7,stroke:'#b8d2e6','stroke-width':3});
+  S(jug,'path',{d:'M862 1080 L842 1070 L866 1090Z',fill:'#dbeaf5',opacity:.7});
+  S(jug,'rect',{x:858,y:1140,width:90,height:46,fill:'#8fc4ea',opacity:.75});
+  S(jug,'path',{d:'M950 1100 Q990 1105 984 1150 Q980 1175 950 1172',stroke:'#b8d2e6','stroke-width':9,fill:'none','stroke-linecap':'round'});
+  var stream=S(stage,'rect',{x:756,y:1070,width:8,height:0,fill:'#8fc4ea',opacity:.9});
+  // pour hand
+  var pHand=S(stage,'circle',{cx:975,cy:1130,r:27,fill:SKIN,opacity:0});
+  // foreground chairs (empty, seen from behind)
+  function chair(x,y,w,sc){ var c=S(stage,'g',{});
+    S(c,'rect',{x:x,y:y,width:w,height:w*1.05,rx:w*.22,fill:'#2b323b'});
+    S(c,'rect',{x:x+w*.1,y:y+w*.08,width:w*.8,height:w*.8,rx:w*.16,fill:'#38414c'});
+    S(c,'rect',{x:x+w*.38,y:y+w*1.04,width:w*.24,height:260,fill:'#1e242b'});
+    return c; }
+  chair(450,1330,330); chair(40,1390,360);
+  S(stage,'rect',{x:0,y:1700,width:1080,height:240,fill:'#463a30',opacity:.0});
+  // camera: S1 close (0-3), S2 wide (3-9)
+  gsap.set(stage,{svgOrigin:'620 1000'});
+  gsap.set(stage,{scale:1.55});
+  tl.set(stage,{scale:1.18},3.0);
+  // handheld drift
+  [[0,0,1.55,0],[0.5,1.6,1.55,-.2],[1.0,-1.8,1.55,.25],[1.6,1.2,1.55,-.15],[2.2,-1.4,1.55,.2],[2.7,0,1.55,0]].forEach(function(d,i,arr){ if(i<arr.length-1){ tl.to(stage,{x:d[1],y:(i%2?-2:2),rotation:d[3],duration:arr[i+1][0]-d[0],ease:'sine.inOut'},d[0]); } });
+  [[3.0,0],[4.5,2],[6,-2],[7.5,1.5],[9.0,0]].forEach(function(d,i,arr){ if(i<arr.length-1){ tl.to(stage,{x:d[1],y:(i%2?-3:3),rotation:(i%2?.25:-.25),duration:arr[i+1][0]-d[0],ease:'sine.inOut'},d[0]); } });
+
+  var W1=[["He", 0, 0.17], ["confirmed", 0.17, 0.91], ["twice.", 0.91, 1.4]], W2=[["40", 0, 0.14], ["minutes", 0.14, 0.62], ["blocked", 0.62, 1.1], ["room", 1.1, 1.37], ["booked", 1.37, 1.78], ["panel", 1.78, 2.13], ["waiting,", 2.13, 2.67], ["third", 2.67, 3.02], ["one", 3.02, 3.22], ["this", 3.22, 3.5], ["week.", 3.5, 3.84]], W3=[["Now", 0, 0.21], ["Smile", 0.21, 0.56], ["calls", 0.56, 0.91], ["them", 0.91, 1.19], ["first,", 1.19, 1.61], ["at", 1.61, 1.75], ["a", 1.75, 1.82], ["time", 1.82, 2.1], ["they", 2.1, 2.38], ["picked,", 2.38, 2.88], ["and", 2.88, 3.09], ["I", 3.09, 3.16], ["read", 3.16, 3.44], ["what", 3.44, 3.72], ["they", 3.72, 4.0], ["actually", 4.0, 4.56], ["said", 4.56, 4.84], ["before", 4.84, 5.24], ["I", 5.24, 5.3], ["book", 5.3, 5.57], ["a", 5.57, 5.63], ["room.", 5.63, 5.96]];
+  // S1: gesture at the empty chair, beat, watch
+  talk(mA,0.4,W1);
+  rotArm(armR,32,.45,0.35); rotFore(armR,-18,.3,0.4);
+  rotArm(armR,24,.2,0.95); rotArm(armR,36,.2,1.15);   // emphasis on "Twice"
+  rotArm(armR,0,.6,1.9); rotFore(armR,0,.5,1.9);
+  tl.to(mA.head,{rotation:-3,svgOrigin:'610 700',duration:.5,ease:'sine.inOut'},.3);
+  tl.to(mA.head,{rotation:0,svgOrigin:'610 700',duration:.5,ease:'sine.inOut'},1.8);
+  // check watch (2.1 -> 2.95)
+  rotArm(armL,-8,.4,2.05); rotFore(armL,118,.5,2.05);
+  tl.to(mA.head,{rotation:4,svgOrigin:'610 700',y:6,duration:.35,ease:'sine.inOut'},2.35);
+  tl.to(mA.eyes,{y:6,duration:.2},2.35);
+  tl.to(mA.head,{rotation:0,y:0,svgOrigin:'610 700',duration:.35},2.85);
+  tl.to(mA.eyes,{y:0,duration:.2},2.85);
+  rotFore(armL,0,.45,2.95); rotArm(armL,0,.45,2.95);
+  // S2: speaking (3.3)
+  talk(mA,3.3,W2); bob(mA,3.3,7.2);
+  rotArm(armR,14,.4,3.9); rotArm(armR,0,.5,4.6); rotArm(armR,18,.3,5.4); rotArm(armR,0,.5,6.1);
+  // pour water he doesn't want (7.3 -> 8.9)
+  rotArm(armL,-34,.4,7.2); rotFore(armL,-6,.3,7.2);
+  tl.set(pHand,{opacity:1},7.55);
+  tl.to(jug,{x:-60,y:-85,rotation:-72,svgOrigin:'900 1135',duration:.5,ease:'sine.inOut'},7.55);
+  tl.to(pHand,{x:-85,y:-100,duration:.5,ease:'sine.inOut'},7.55);
+  tl.to(stream,{height:66,duration:.15,ease:'none'},8.0);
+  tl.to(water,{height:58,y:-58,duration:.8,ease:'none'},8.0);
+  tl.to(stream,{height:0,y:66,duration:.2,ease:'none'},8.75);
+  tl.to(jug,{x:0,y:0,rotation:0,svgOrigin:'900 1135',duration:.4,ease:'sine.inOut'},8.7);
+  tl.to(pHand,{x:0,y:0,duration:.4,ease:'sine.inOut'},8.7);
+  tl.set(pHand,{opacity:0},9.1);
+  rotArm(armL,0,.4,8.8);
+  // blinks
+  [1.3,3.9,6.2,8.2].forEach(function(t){ blink(mA,t); });
+
+  // =============== SCENE B: his desk ===============
+  var B=$('#sceneB'); box(B,'inset:0;background:linear-gradient(180deg,#eef1f5,#d6dce5 65%);');
+  var sb=svg(B); var g2=S(sb,'g',{});
+  S(g2,'defs',{},'<linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b7b6a"/><stop offset="1" stop-color="#65584b"/></linearGradient><linearGradient id="dk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4d8c3"/><stop offset="1" stop-color="#c9b896"/></linearGradient>');
+  S(g2,'rect',{x:0,y:1280,width:1080,height:700,fill:'url(#fl2)'});
+  // glass partition + soft colleague silhouettes
+  S(g2,'rect',{x:470,y:260,width:610,height:980,fill:'#c3d6e6',opacity:.5});
+  S(g2,'rect',{x:470,y:260,width:610,height:980,fill:'none',stroke:'#9db4c9','stroke-width':6,opacity:.8});
+  S(g2,'line',{x1:775,y1:260,x2:775,y2:1240,stroke:'#9db4c9','stroke-width':5,opacity:.8});
+  var cA=S(g2,'g',{opacity:.35}); S(cA,'circle',{cx:570,cy:640,r:42,fill:'#5b6573'}); S(cA,'rect',{x:520,y:690,width:100,height:260,rx:34,fill:'#5b6573'});
+  var cB=S(g2,'g',{opacity:.3}); S(cB,'circle',{cx:930,cy:600,r:40,fill:'#6b7480'}); S(cB,'rect',{x:882,y:648,width:96,height:260,rx:34,fill:'#6b7480'});
+  tl.fromTo(cA,{x:0},{x:40,duration:8,ease:'none'},9); tl.fromTo(cB,{x:30},{x:-60,duration:8,ease:'none'},9);
+  // plant
+  S(g2,'rect',{x:900,y:1080,width:80,height:130,rx:10,fill:'#8c9097'});
+  [-40,-15,12,36,-62,60].forEach(function(r,i){ S(g2,'ellipse',{cx:940,cy:1020,rx:22,ry:72,fill:i%2?'#4f8a58':'#3f7a4c',transform:'rotate('+r+' 940 1085)'}); });
+  // man at desk
+  var mB=man(g2,745,650,true);
+  var armB1=arm(mB.root,640,850,600,1010,540,1150,false);
+  var armB2=arm(mB.root,850,850,880,1020,820,1170,true);
+  // desk + laptop
+  S(g2,'path',{d:'M-20 1230 L1100 1230 L1100 1350 L-20 1350 Z',fill:'url(#dk)'});
+  S(g2,'rect',{x:-20,y:1350,width:1120,height:30,fill:'#a79670'});
+  // laptop screen (3/4 view, UI inside) -- built as HTML overlay for crisp UI
+  var lap=box(B,'left:70px;top:860px;width:520px;height:370px;transform:perspective(1200px) rotateY(-14deg);transform-origin:right center;');
+  box(lap,'inset:0;border-radius:18px;background:#1e252d;box-shadow:0 20px 50px rgba(0,0,0,.35);');
+  var scr=box(lap,'left:14px;top:14px;right:14px;bottom:14px;border-radius:8px;background:#f4f7fb;overflow:hidden;');
+  box(scr,'left:0;top:0;width:78px;bottom:0;background:#fff;border-right:1px solid #e3eaf2;');
+  for(var i=0;i<5;i++) box(scr,'left:18px;top:'+(24+i*40)+'px;width:42px;height:26px;border-radius:8px;background:'+(i==1?'#cfe0f7':'#e8eef6')+';');
+  box(scr,'left:92px;top:12px;right:12px;height:30px;border-radius:9px;background:#fff;border:1px solid #e1e8f0;');
+  var list=box(scr,'left:92px;top:54px;right:12px;height:560px;');
+  for(var r=0;r<14;r++){
+    var row=box(list,'left:0;top:'+(r*58)+'px;right:0;height:50px;border-radius:10px;background:#fff;border:1px solid #e1e8f0;');
+    box(row,'left:10px;top:9px;width:30px;height:30px;border-radius:50%;background:'+(r%2?'#1e8fff':'#7ab4f5')+';');
+    box(row,'left:52px;top:11px;width:'+(70+(r*17)%40)+'px;height:8px;border-radius:5px;background:#cdd8e4;');
+    box(row,'left:52px;top:27px;width:'+(150+(r*29)%60)+'px;height:7px;border-radius:5px;background:#e2e9f1;');
+    box(row,'right:10px;top:8px;width:34px;height:34px;border-radius:50%;border:4px solid #1e8fff;border-left-color:#d9e6f6;');
+  }
+  tl.fromTo(list,{y:0},{y:-120,duration:.7,ease:'none'},9.0);
+  tl.to(list,{y:-190,duration:1.0,ease:'sine.inOut'},12.7);
+  box(B,'left:60px;top:1230px;width:560px;height:20px;border-radius:0 0 18px 18px;background:#b9c1cb;');
+  // camera drift B
+  gsap.set(g2,{svgOrigin:'700 900'});
+  [[9.0,0,0],[11,2,.15],[13,-2,-.15],[15,1,.1],[17,0,0]].forEach(function(d,i,arr){ if(i<arr.length-1) tl.to(g2,{x:arr[i+1][1],y:(i%2?-2:2),rotation:arr[i+1][2],scale:1.01+i*.004,duration:arr[i+1][0]-d[0],ease:'sine.inOut'},d[0]); });
+  // B performance: scrolling look-down -> look up (9.6) -> speak
+  tl.set(mB.head,{rotation:5},9.0); tl.set(mB.eyes,{y:7},9.0);
+  tl.to(mB.head,{rotation:0,duration:.4,ease:'sine.inOut',svgOrigin:'745 740'},9.45);
+  tl.to(mB.eyes,{y:0,duration:.3},9.45);
+  talk(mB,9.5,W3); bob(mB,9.9,15.4);
+  // glance back at the screen on "I read what they actually said"
+  tl.to(mB.head,{rotation:4,svgOrigin:'745 740',duration:.4,ease:'sine.inOut'},12.55); tl.to(mB.eyes,{y:7,duration:.3},12.55);
+  tl.to(mB.head,{rotation:0,svgOrigin:'745 740',duration:.4,ease:'sine.inOut'},14.1); tl.to(mB.eyes,{y:0,duration:.3},14.1);
+  rotArm(armB1,12,.5,9.1); rotArm(armB1,0,.5,9.8); rotArm(armB2,-10,.4,11.0); rotArm(armB2,0,.4,11.9);
+  tl.to(mB.smile,{opacity:1,duration:.3},15.6); tl.to(mB.mouth,{scaleY:.05,duration:.2},15.6);
+  [10.4,12.0,14.5,16.2].forEach(function(t){ blink(mB,t); });
+
+  // ---------- finishing fx ----------
+  var fx=$('#fx');
+  box(fx,'inset:0;background:radial-gradient(ellipse at 55% 45%,rgba(0,0,0,0) 55%,rgba(6,10,18,.32) 100%);');
+  box(fx,'inset:0;background:linear-gradient(180deg,rgba(30,60,110,.04),rgba(30,60,110,.10));mix-blend-mode:multiply;');
+  var gr=box(fx,'left:-300px;top:-300px;width:1680px;height:2520px;opacity:.10;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'240\' height=\'240\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'.9\' numOctaves=\'2\' stitchTiles=\'stitch\'/><feColorMatrix values=\'0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.2\'/></filter><rect width=\'240\' height=\'240\' filter=\'url(%23n)\'/></svg>");');
+  tl.to(gr,{x:-240,y:180,duration:17,ease:'steps(100)'},0);
+
+  // ---------- subtitles ----------
+  var L=[[0.40,1.95,"He confirmed. Twice."],[3.30,5.05,"Forty minutes blocked, room booked,"],[5.05,7.25,"panel waiting. Third one this week."],
+         [9.50,11.05,"Now Smile calls them first."],[11.10,12.40,"At a time they picked."],[12.40,14.35,"And I read what they actually said"],[14.35,15.7,"before I book a room."]];
+  var SB=$('#subs');
+  L.forEach(function(l){ var p=box(SB,''); p.className='subpill'; p.innerHTML='<div class="subbox"><span>'+l[2]+'</span></div>';
+    tl.fromTo(p,{opacity:0,y:14},{opacity:1,y:0,duration:.14,ease:'power2.out'},l[0]);
+    tl.to(p,{opacity:0,duration:.1},l[1]-.1); });
+
+  // ---------- ender ----------
+  var C=$('#card');
+  box(C,'left:-100px;top:-100px;width:1280px;height:2120px;opacity:.18;background-image:linear-gradient(rgba(79,227,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(79,227,255,.35) 1px,transparent 1px);background-size:80px 80px;');
+  var logo=box(C,'left:240px;top:420px;width:600px;','<img src="assets/logo.png" style="width:600px;display:block;filter:drop-shadow(0 0 40px rgba(79,227,255,.5))">');
+  var t1=box(C,'left:0;top:900px;width:1080px;text-align:center;font-size:84px;font-weight:800;letter-spacing:-1.5px;line-height:1.05;','Smile calls them first.');
+  var t2=box(C,'left:0;top:1060px;width:1080px;text-align:center;font-size:40px;font-weight:600;color:#4fe3ff;','Register free and get 25 demo credits');
+  var url=box(C,'left:120px;top:1220px;width:840px;height:120px;border-radius:60px;background:linear-gradient(135deg,#FFE75E,#FFC21A);border:3px solid #fff;box-shadow:0 0 50px rgba(255,214,58,.55);display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:800;color:#04152f;','smile.mclinkgroup.com');
+  var T=17;
+  tl.fromTo(C,{opacity:0},{opacity:1,duration:.35},T);
+  [logo,t1,t2,url].forEach(function(e,i){ tl.fromTo(e,{opacity:0,y:36},{opacity:1,y:0,duration:.5,ease:'power3.out'},T+.2+i*.25); });
+
+  window.__timelines=window.__timelines||{}; window.__timelines['smile-recruiter']=tl;
+})();
+</script>
+</body>
+</html>
